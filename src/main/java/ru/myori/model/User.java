@@ -14,7 +14,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "users_unique_email_idx")})
-public class User extends AbstractBaseEntity{
+public class User extends AbstractNamedEntity{
 
     @Column(name = "email", nullable = false, unique = true)
     @Email
@@ -41,6 +41,8 @@ public class User extends AbstractBaseEntity{
 //    @Fetch(FetchMode.SUBSELECT)
     @BatchSize(size = 200)
     private Set<Role> roles;
+
+
 
     public String getEmail() {
         return email;
@@ -80,5 +82,16 @@ public class User extends AbstractBaseEntity{
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + getId() +
+                ", email=" + email +
+                ", name=" + name +
+                ", enabled=" + enabled +
+                ", roles=" + roles +
+                '}';
     }
 }

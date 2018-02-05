@@ -1,5 +1,6 @@
 package ru.myori.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.myori.model.User;
 import ru.myori.repository.UserRepository;
@@ -14,7 +15,7 @@ public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
 
-
+    @Autowired
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -56,7 +57,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public List<User> getAll() {
-        return null;
+        return userRepository.getAll();
     }
 
     @Override
