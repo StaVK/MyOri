@@ -5,25 +5,25 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
+import ru.myori.model.Order;
 import ru.myori.model.Product;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Transactional(readOnly = true)
-public interface CrudProductRepository extends JpaRepository<Product, Integer>{
+public interface CrudOrderRepository extends JpaRepository<Order, Integer> {
+    @Query("SELECT o FROM Order o")
+    List<Order> getAll();
 
     @Override
-    Product save(Product product);
+    Order save(Order order);
 
     @Override
-    Product findOne(Integer id);
-
-    @Query("SELECT p FROM Product p ORDER BY p.article")
-    List<Product> getAll();
+    Order findOne(Integer id);
 
     @Transactional
     @Modifying
-    @Query("DELETE FROM Product p WHERE p.id=:id")
+    @Query("DELETE FROM Order o WHERE o.id=:id")
     int delete(@Param("id") int id);
+
 }

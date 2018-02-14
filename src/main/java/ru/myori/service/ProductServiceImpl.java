@@ -2,6 +2,7 @@ package ru.myori.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 import ru.myori.model.Product;
 import ru.myori.repository.ProductRepository;
 import ru.myori.util.exception.NotFoundException;
@@ -13,7 +14,7 @@ import java.util.List;
 @Service
 public class ProductServiceImpl implements ProductService{
 
-    private  final ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
     @Autowired
     public ProductServiceImpl(ProductRepository productRepository) {
@@ -22,12 +23,12 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Product get(int id) throws NotFoundException {
-        return null;
+        return productRepository.get(id);
     }
 
     @Override
-    public void delete(int id) throws NotFoundException {
-
+    public void delete(int id, int userId) throws NotFoundException {
+        productRepository.delete(id);
     }
 
     @Override
@@ -47,11 +48,12 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Product update(Product product) throws NotFoundException {
-        return null;
+        return productRepository.save(product);
     }
 
     @Override
     public Product create(Product product) {
-        return null;
+        Assert.notNull(product, "product must not be null");
+        return productRepository.save(product);
     }
 }

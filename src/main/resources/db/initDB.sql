@@ -1,7 +1,8 @@
 DROP TABLE IF EXISTS user_roles;
-DROP TABLE IF EXISTS products;
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS products CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS orders CASCADE;
+DROP TABLE IF EXISTS order_products CASCADE;
 DROP SEQUENCE IF EXISTS global_seq;
 
 CREATE SEQUENCE global_seq
@@ -38,11 +39,16 @@ CREATE TABLE products (
 CREATE TABLE orders (
   id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   user_id    INTEGER NOT NULL,
-  foruser_id INTEGER NOT NULL
+  foruser_id INTEGER NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
+  FOREIGN KEY (foruser_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
 CREATE TABLE order_products (
+  id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   order_id   INTEGER NOT NULL,
   product_id INTEGER NOT NULL,
-  FOREIGN KEY (order_id) REFERENCES orders (id) ON DELETE CASCADE
+  volume     INTEGER NOT NULL,
+  FOREIGN KEY (order_id) REFERENCES orders (id) ON DELETE CASCADE,
+  FOREIGN KEY (product_id) REFERENCES products (id) ON DELETE CASCADE
 );

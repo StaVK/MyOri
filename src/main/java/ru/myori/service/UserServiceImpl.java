@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User get(int id) throws NotFoundException {
-        return null;
+        return userRepository.get(id);
     }
 
     @Override

@@ -32,4 +32,9 @@ public abstract class AbstractBaseEntity implements HasId {
     public void setId(Integer id) {
         this.id=id;
     }
+
+    @Override
+    public boolean isNew() {
+        return this.id == null;
+    }
 }

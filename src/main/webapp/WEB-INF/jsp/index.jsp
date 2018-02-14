@@ -17,6 +17,7 @@
   <ul>
     <li><a href="users"><spring:message code="user.title"/></a></li>
     <li><a href="products"><spring:message code="product.title"/></a></li>
+    <li><a href="orders"><spring:message code="order.title"/></a></li>
   </ul>
 </section>
 <%--<jsp:include page="fragments/footer.jsp"/>--%>

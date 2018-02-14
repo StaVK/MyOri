@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import ru.myori.service.OrderService;
 import ru.myori.service.ProductService;
 import ru.myori.service.UserService;
 
@@ -15,6 +16,9 @@ public class RootController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private OrderService orderService;
 
     @GetMapping("/")
     public String root() {
@@ -29,5 +33,10 @@ public class RootController {
     public String products(Model model) {
         model.addAttribute("products", productService.getAll());
         return "products";
+    }
+    @GetMapping("/orders")
+    public String orders(Model model) {
+        model.addAttribute("orders", orderService.getAll());
+        return "orders";
     }
 }

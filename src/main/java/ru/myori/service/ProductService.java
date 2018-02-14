@@ -11,7 +11,7 @@ import java.util.List;
 public interface ProductService{
     Product get(int id) throws NotFoundException;
 
-    void delete(int id) throws NotFoundException;
+    void delete(int id, int userId) throws NotFoundException;
 
     default List<Product> getBetweenDates(LocalDate startDate, LocalDate endDate) {
         return getBetweenDateTimes(LocalDateTime.of(startDate, LocalTime.MIN), LocalDateTime.of(endDate, LocalTime.MAX));

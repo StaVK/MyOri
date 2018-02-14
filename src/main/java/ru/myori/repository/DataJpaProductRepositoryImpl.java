@@ -2,6 +2,7 @@ package ru.myori.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.myori.model.Product;
 
 import java.time.LocalDateTime;
@@ -14,6 +15,7 @@ public class DataJpaProductRepositoryImpl implements ProductRepository{
     private CrudProductRepository crudProductRepository;
 
     @Override
+    @Transactional
     public Product save(Product product) {
         return crudProductRepository.save(product);
     }
@@ -30,6 +32,6 @@ public class DataJpaProductRepositoryImpl implements ProductRepository{
 
     @Override
     public boolean delete(int id) {
-        return crudProductRepository.delete(id);
+        return crudProductRepository.delete(id)!=0;
     }
 }
