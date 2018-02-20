@@ -47,8 +47,8 @@
                 <%--<td>${order.products}</td>--%>
                 <td>${order.user.id}</td>
                 <td>${order.forUser.id}</td>
-                <td><a href="orders/update?id=${order.id}"><spring:message code="common.update"/></a></td>
-                <td><a href="orders/delete?id=${order.id}"><spring:message code="common.delete"/></a></td>
+                <td><a href="orders/orderUpdate?orderId=${order.id}"><spring:message code="common.update"/></a></td>
+                <td><a href="orders/orderDelete?orderId=${order.id}"><spring:message code="common.delete"/></a></td>
             </tr>
         </c:forEach>
     </table>

@@ -23,7 +23,27 @@ public class OrderProductServiceImpl implements OrderProductService{
     }
 
     @Override
+    public boolean delete(int prodId) {
+        return orderProductRepository.delete(prodId);
+    }
+
+    @Override
     public Set<OrderProduct> getAll() {
         return orderProductRepository.getAll();
+    }
+
+    @Override
+    public OrderProduct get(OrderProduct orderProduct) {
+        return orderProductRepository.get(orderProduct);
+    }
+
+    @Override
+    public OrderProduct getProd(int orderId, int prodId) {
+        return orderProductRepository.getProd(orderId, prodId);
+    }
+
+    @Override
+    public int update(OrderProduct orderProduct) {
+        return orderProductRepository.update(orderProduct);
     }
 }

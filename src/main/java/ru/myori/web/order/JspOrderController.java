@@ -24,88 +24,30 @@ import java.util.Objects;
 @RequestMapping(value = "/orders")
 public class JspOrderController extends AbstractOrderController {
 
-    @Autowired
-    ProductService productService;
-
-    @Autowired
-    OrderService orderService;
-
-    @Autowired
-    UserService userService;
-
-    @Autowired
-    OrderProductService orderProductService;
-
-    @GetMapping("/delete")
+    @GetMapping("/orderDelete")
     public String delete(HttpServletRequest request) {
         super.delete(getId(request));
         return "orders";
     }
 
-    /*    @GetMapping("/update")
-        public String update(HttpServletRequest request, Model model) {
-            model.addAttribute("meal", super.get(getId(request)));
-            return "mealForm";
-        }*/
-    @GetMapping("/getProductForOrder")
-    public String addProductInOrder(Model model, @RequestParam(value = "orderId") int orderId) {
-        model.addAttribute("products", productService.getAll());
-        model.addAttribute("orderId", orderId);
-        return "productsForOrder";
-    }
-
-    @GetMapping("/addProductInOrder")
-    public String addProduct(@RequestParam(value = "id") int id, @RequestParam(value = "orderId") int orderId, Model model) {
-/*        int id = Integer.valueOf(request.getParameter("id"));
-        int orderId = Integer.valueOf(request.getParameter("orderId"));*/
-        Product product = productService.get(id);
-        Order order=orderService.get(orderId);
-        OrderProduct newOProduct=new OrderProduct();
-        newOProduct.setProduct(product);
-        newOProduct.setOrder(order);
-        newOProduct.setVolume(3);
-        orderProductService.create(newOProduct);
-//        orderService.addProductInOrder(orderId, id);
-//        orderService.update();
+    @GetMapping("/orderUpdate")
+    public String update(@RequestParam(value = "orderId") int orderId, Model model) {
+        Order order = super.get(orderId);
         model.addAttribute("order", order);
-        model.addAttribute("orderProduct", orderProductService.getAll());
+        model.addAttribute("orderProduct", null);
         return "orderForm";
     }
 
     @GetMapping("/create")
     public String create(Model model) {
-        Order order=new Order();
+        Order order = new Order();
         order.setProducts(new HashSet<>());
-        order.setUser(userService.get(100000));
-        order.setForUser(userService.get(100001));
+        order.setUser(super.getUser(100000));
+        order.setForUser(super.getUser(100001));
 
-        model.addAttribute("order", orderService.create(order));
+        model.addAttribute("order", super.create(order));
         return "orderForm";
     }
-
-/*    @PostMapping
-    public String updateOrCreate(HttpServletRequest request) {
-        Product product = new Product(Integer.valueOf(request.getParameter("article")),
-                request.getParameter("description"),
-                Double.valueOf(request.getParameter("price")));
-
-        if (request.getParameter("id").isEmpty()) {
-            super.create(product);
-        } else {
-            super.update(product, getId(request));
-        }
-        return "redirect:/products";
-    }*/
-
-/*    @PostMapping("/filter")
-    public String getBetween(HttpServletRequest request, Model model) {
-        LocalDate startDate = parseLocalDate(request.getParameter("startDate"));
-        LocalDate endDate = parseLocalDate(request.getParameter("endDate"));
-        LocalTime startTime = parseLocalTime(request.getParameter("startTime"));
-        LocalTime endTime = parseLocalTime(request.getParameter("endTime"));
-        model.addAttribute("meals", super.getBetween(startDate, startTime, endDate, endTime));
-        return "meals";
-    }*/
 
     private int getId(HttpServletRequest request) {
         String paramId = Objects.requireNonNull(request.getParameter("id"));
