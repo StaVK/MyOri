@@ -16,7 +16,6 @@ public interface CrudProductRepository extends JpaRepository<Product, Integer>{
     @Override
     Product save(Product product);
 
-    @Override
     Product findOne(Integer id);
 
     @Query("SELECT p FROM Product p ORDER BY p.article")
@@ -24,6 +23,8 @@ public interface CrudProductRepository extends JpaRepository<Product, Integer>{
 
     @Transactional
     @Modifying
-    @Query("DELETE FROM Product p WHERE p.id=:id")
+    @Query("DELETE FROM Product p WHERE p.prodId=:id")
     int delete(@Param("id") int id);
+
+    Product getProductByArticle(Integer article);
 }

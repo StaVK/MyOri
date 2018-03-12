@@ -25,5 +25,8 @@ INSERT INTO products (article, description, price) VALUES
   ('777', 'Туалетная вода 2', 510),
   ('888', 'Дезодорант', 1500);
 
-INSERT INTO orders (id, user_id, foruser_id) VALUES
+INSERT INTO orders (orderId, user_id, foruser_id) VALUES
   (nextval('global_seq'),'100000','100001');
+
+INSERT INTO order_products(opid, orderid, prodid, volume) VALUES
+  ('100011','100010','100002','2')

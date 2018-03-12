@@ -46,7 +46,7 @@ public class jspOrderProductController extends AbstractOrderProductController {
 //        orderService.addProductInOrder(orderId, id);
 //        orderService.update();
         model.addAttribute("order", order);
-        model.addAttribute("orderProduct", super.getAll());
+        model.addAttribute("orderProduct", super.getAllOP(orderId));
         return "orderForm";
     }
 

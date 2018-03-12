@@ -34,7 +34,7 @@ public class JspOrderController extends AbstractOrderController {
     public String update(@RequestParam(value = "orderId") int orderId, Model model) {
         Order order = super.get(orderId);
         model.addAttribute("order", order);
-        model.addAttribute("orderProduct", null);
+        //model.addAttribute("orderProduct", super.orderProductService.getAll(orderId));
         return "orderForm";
     }
 

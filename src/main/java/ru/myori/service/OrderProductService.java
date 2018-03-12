@@ -9,13 +9,13 @@ public interface OrderProductService {
 
     OrderProduct create(OrderProduct orderProduct);
 
-    Set<OrderProduct> getAll();
+    Set<OrderProduct> getAll(int orderId);
 
     OrderProduct get(OrderProduct orderProduct);
 
     OrderProduct getProd(int orderId, int prodId);
 
-    int update(OrderProduct orderProduct);
+    int update(int orderId, int article, int volume);
 
     boolean delete(int prodId);
 }

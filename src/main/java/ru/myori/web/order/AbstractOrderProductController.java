@@ -10,22 +10,18 @@ import ru.myori.service.OrderProductService;
 import ru.myori.service.OrderService;
 import ru.myori.service.ProductService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class AbstractOrderProductController {
+public class AbstractOrderProductController extends AbstractController{
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     private final int userId=100000;
 
-    @Autowired
-    private OrderProductService orderProductService;
-
-    @Autowired
-    private ProductService productService;
-
-    @Autowired
-    private OrderService orderService;
+    public Product getProductByArticle(int article){
+        return productService.getByArticle(article);
+    }
 
     public void productDelete(int prodId) {
 //        int userId = AuthorizedUser.id();
@@ -58,8 +54,13 @@ public class AbstractOrderProductController {
         return orderProductService.create(orderProduct);
     }
 
-    public Set<OrderProduct> getAll(){
+    public Set<OrderProduct> getAllOP(int orderId){
         log.info("getAll products for User {}", userId);
-        return orderProductService.getAll();
+        return orderProductService.getAll(orderId);
+    }
+
+    public int update(int orderId, int article, int volume){
+        log.info("update order product for User {}", userId);
+        return orderProductService.update(orderId,article,volume);
     }
 }

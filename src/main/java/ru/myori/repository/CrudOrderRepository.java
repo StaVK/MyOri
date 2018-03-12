@@ -18,12 +18,14 @@ public interface CrudOrderRepository extends JpaRepository<Order, Integer> {
     @Override
     Order save(Order order);
 
-    @Override
     Order findOne(Integer id);
 
+    /*    @Transactional
+        @Modifying
+        @Query("DELETE FROM Order o WHERE o.id=:id")
+        int delete(@Param("id") int id);*/
     @Transactional
     @Modifying
-    @Query("DELETE FROM Order o WHERE o.id=:id")
-    int delete(@Param("id") int id);
+    void delete(int id);
 
 }

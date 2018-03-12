@@ -28,7 +28,7 @@ public class DataJpaOrderProductRepositoryImpl implements OrderProductRepository
 
     @Override
     public OrderProduct save(OrderProduct orderProduct) {
-        if(orderProduct.getId()!=null && get(orderProduct).getId()!=null){
+        if(orderProduct.getOpId()!=null && get(orderProduct).getOpId()!=null){
             update(orderProduct);
             return get(orderProduct);
         }
@@ -36,13 +36,13 @@ public class DataJpaOrderProductRepositoryImpl implements OrderProductRepository
     }
 
     @Override
-    public Set<OrderProduct> getAll() {
-        return new HashSet<>(crudOrderProductRepository.findAll());
+    public Set<OrderProduct> getAll(int orderId) {
+        return crudOrderProductRepository.getAllByOrderId(orderId);
     }
 
     @Override
     public OrderProduct get(OrderProduct orderProduct) {
-        return crudOrderProductRepository.findOne(orderProduct.getId());
+        return crudOrderProductRepository.findOne(orderProduct.getOpId());
     }
 
     @Override
@@ -51,10 +51,13 @@ public class DataJpaOrderProductRepositoryImpl implements OrderProductRepository
     }
 
     @Override
-    public int update(OrderProduct orderProduct) {
+    public int update(int orderId, int article, int volume) {
         return crudOrderProductRepository.update(
-                crudOrderRepository.findOne(orderProduct.getOrder().getId()),
-                crudProductRepository.findOne(orderProduct.getProduct().getId()),
-                orderProduct.getVolume());
+                crudOrderRepository.findOne(orderId),
+                crudProductRepository.getProductByArticle(article),
+                volume);
+    }
+    public int update(OrderProduct orderProduct){
+        return crudOrderProductRepository.update(orderProduct.getOrder(),orderProduct.getProduct(),orderProduct.getVolume());
     }
 }

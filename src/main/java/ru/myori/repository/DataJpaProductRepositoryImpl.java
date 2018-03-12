@@ -34,4 +34,9 @@ public class DataJpaProductRepositoryImpl implements ProductRepository{
     public boolean delete(int id) {
         return crudProductRepository.delete(id)!=0;
     }
+
+    @Override
+    public Product getByArticle(int article) {
+        return crudProductRepository.getProductByArticle(article);
+    }
 }

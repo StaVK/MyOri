@@ -4,24 +4,33 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.myori.model.Order;
+import ru.myori.model.OrderProduct;
+import ru.myori.model.Product;
 import ru.myori.model.User;
+import ru.myori.service.OrderProductService;
 import ru.myori.service.OrderService;
+import ru.myori.service.ProductService;
 import ru.myori.service.UserService;
 
+import java.util.List;
+import java.util.Set;
 
-public abstract class AbstractOrderController {
+
+public abstract class AbstractOrderController extends AbstractController{
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     private final int userId=100000;
 
-    @Autowired
-    OrderService orderService;
-
-    @Autowired
-    UserService userService;
-
     public User getUser(int userId){
         return userService.get(userId);
+    }
+
+    public List<Order> getAll(){
+        return orderService.getAll();
+    }
+
+    public Set<OrderProduct> getAllOP(int orderId){
+        return super.orderProductService.getAll(orderId);
     }
 
     public Order get(int id) {

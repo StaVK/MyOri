@@ -56,4 +56,9 @@ public class ProductServiceImpl implements ProductService{
         Assert.notNull(product, "product must not be null");
         return productRepository.save(product);
     }
+
+    @Override
+    public Product getByArticle(int article) {
+        return productRepository.getByArticle(article);
+    }
 }

@@ -14,18 +14,9 @@ public class DataJpaOrderRepositoryImpl implements OrderRepository {
     @Autowired
     private CrudOrderRepository crudOrderRepository;
 
-    @Autowired
-    private CrudUserRepository crudUserRepository;
-
     @Override
     @Transactional
     public Order save(Order order) {
-
-/*        if (!meal.isNew() && get(meal.getId(), userId) == null) {
-            return null;
-        }*/
-
-
         return crudOrderRepository.save(order);
     }
 
@@ -41,6 +32,7 @@ public class DataJpaOrderRepositoryImpl implements OrderRepository {
 
     @Override
     public boolean delete(int id) {
-        return false;
+        crudOrderRepository.delete(id);
+        return true;
     }
 }

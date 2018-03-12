@@ -17,12 +17,9 @@ import java.util.Set;
 public class User extends AbstractNamedEntity{
 
     @Column(name = "email", nullable = false, unique = true)
-    @Email
-    @NotBlank
     private String email;
 
     @Column(name = "password", nullable = false)
-    @NotBlank
     @Length(min = 5)
     private String password;
 

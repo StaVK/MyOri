@@ -10,6 +10,7 @@ import ru.myori.service.ProductService;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Set;
 
 
 public abstract class AbstractProductController {
@@ -29,6 +30,11 @@ public abstract class AbstractProductController {
 //        int userId = AuthorizedUser.id();
         log.info("delete meal {} for User {}", id, userId);
         service.delete(id, userId);
+    }
+
+    public List<Product> getAll(){
+        log.info("get all products for User {}", userId);
+        return  service.getAll();
     }
 
 /*    public List<MealWithExceed> getAll() {

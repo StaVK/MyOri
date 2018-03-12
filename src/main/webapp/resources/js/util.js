@@ -1,5 +1,4 @@
 function addProductInOrder(orderId,prodId) {
-    // TODO: Читает только первый тег vol в таблице, а остальные нет.
     var volume;
     volume=document.getElementById(prodId).value;
     // создаем форму с нужными action и method

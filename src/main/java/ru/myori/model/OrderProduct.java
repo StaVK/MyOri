@@ -1,28 +1,52 @@
 package ru.myori.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
+import static ru.myori.model.AbstractBaseEntity.START_SEQ;
+
 @Entity
 @Table(name = "order_products")
-public class OrderProduct extends AbstractBaseEntity{
+public class OrderProduct{
+    @Id
+    @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = START_SEQ)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
+    @Access(value = AccessType.PROPERTY)
+    private Integer opId;
 
     @Column(name="volume")
     private int volume;
 
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name="order_id")
+    @JoinColumn(name="orderId")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Order order;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
+//    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "prodId")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Product product;
 
     public OrderProduct() {
+    }
+
+    public Integer getOpId() {
+        return opId;
+    }
+
+    public void setOpId(Integer opId) {
+        this.opId = opId;
+    }
+
+    public OrderProduct(Order order, Product product, int volume){
+        this.order=order;
+        this.product=product;
+        this.volume=volume;
     }
 
     public Product getProduct() {

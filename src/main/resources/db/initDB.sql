@@ -29,7 +29,7 @@ CREATE TABLE user_roles
 );
 
 CREATE TABLE products (
-  id          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  prodId      INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   article     INTEGER          NOT NULL,
   description TEXT             NOT NULL,
   price       DOUBLE PRECISION NOT NULL
@@ -37,7 +37,7 @@ CREATE TABLE products (
 -- CREATE UNIQUE INDEX meals_unique_user_datetime_idx ON meals (user_id, date_time)
 
 CREATE TABLE orders (
-  id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  orderId         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   user_id    INTEGER NOT NULL,
   foruser_id INTEGER NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
@@ -45,10 +45,10 @@ CREATE TABLE orders (
 );
 
 CREATE TABLE order_products (
-  id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-  order_id   INTEGER NOT NULL,
-  product_id INTEGER NOT NULL,
-  volume     INTEGER NOT NULL,
-  FOREIGN KEY (order_id) REFERENCES orders (id) ON DELETE CASCADE,
-  FOREIGN KEY (product_id) REFERENCES products (id) ON DELETE CASCADE
+  opId    INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  orderId INTEGER NOT NULL,
+  prodId   INTEGER NOT NULL,
+  volume   INTEGER NOT NULL,
+  FOREIGN KEY (orderId) REFERENCES orders (orderId) ON DELETE CASCADE,
+  FOREIGN KEY (prodId) REFERENCES products (prodId) ON DELETE CASCADE
 );

@@ -15,7 +15,7 @@ public interface CrudUserRepository extends JpaRepository<User,Integer> {
     @Override
     User save(User user);
 
-    @Override
+
     User findOne(Integer id);
 
     @Override

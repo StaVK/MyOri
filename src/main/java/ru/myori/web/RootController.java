@@ -35,8 +35,8 @@ public class RootController {
         return "products";
     }
     @GetMapping("/orders")
-    public String orders(Model model) {
-        model.addAttribute("orders", orderService.getAll());
+    public String orders() {
+//        model.addAttribute("orders", orderService.getAll());
         return "orders";
     }
 }

@@ -8,7 +8,7 @@ import ru.myori.repository.OrderProductRepository;
 import java.util.Set;
 
 @Service
-public class OrderProductServiceImpl implements OrderProductService{
+public class OrderProductServiceImpl implements OrderProductService {
 
     private final OrderProductRepository orderProductRepository;
 
@@ -28,8 +28,8 @@ public class OrderProductServiceImpl implements OrderProductService{
     }
 
     @Override
-    public Set<OrderProduct> getAll() {
-        return orderProductRepository.getAll();
+    public Set<OrderProduct> getAll(int orderId) {
+        return orderProductRepository.getAll(orderId);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class OrderProductServiceImpl implements OrderProductService{
     }
 
     @Override
-    public int update(OrderProduct orderProduct) {
-        return orderProductRepository.update(orderProduct);
+    public int update(int orderId, int article, int volume) {
+        return orderProductRepository.update(orderId, article, volume);
     }
 }

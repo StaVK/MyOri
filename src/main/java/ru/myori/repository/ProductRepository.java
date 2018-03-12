@@ -14,6 +14,8 @@ public interface ProductRepository {
 
     boolean delete(int id);
 
+    Product getByArticle(int article);
+
 
 
 }

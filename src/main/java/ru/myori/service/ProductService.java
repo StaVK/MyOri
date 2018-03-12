@@ -25,4 +25,5 @@ public interface ProductService{
 
     Product create(Product product);
 
+    Product getByArticle(int article);
 }
