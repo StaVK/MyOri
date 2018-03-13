@@ -67,4 +67,9 @@ public class Product {
     public void setPrice(double price) {
         this.price = price;
     }
+
+
+    public boolean isNew() {
+        return this.prodId == null;
+    }
 }

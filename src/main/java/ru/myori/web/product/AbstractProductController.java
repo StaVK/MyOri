@@ -20,11 +20,11 @@ public abstract class AbstractProductController {
     @Autowired
     private ProductService service;
 
-/*    public Product get(int id) {
-        int userId = AuthorizedUser.id();
-        log.info("get meal {} for User {}", id, userId);
+    public Product get(int id) {
+//        int userId = AuthorizedUser.id();
+        log.info("get product {} for User {}", id, userId);
         return service.get(id, userId);
-    }*/
+    }
 
     public void delete(int id) {
 //        int userId = AuthorizedUser.id();
@@ -50,30 +50,11 @@ public abstract class AbstractProductController {
         return service.create(product);
     }
 
-    public void update(Product product, int id) {
+    public void update(Product product) {
 //        int userId = AuthorizedUser.id();
 //        assureIdConsistent(meal, id);
         log.info("update {} for User {}", product, userId);
-//        service.update(product, userId);
+        service.update(product);
     }
 
-    /**
-     * <ol>Filter separately
-     *   <li>by date</li>
-     *   <li>by time for every date</li>
-     * </ol>
-     */
-/*    public List<MealWithExceed> getBetween(LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime) {
-        int userId = AuthorizedUser.id();
-        log.info("getBetween dates({} - {}) time({} - {}) for User {}", startDate, endDate, startTime, endTime, userId);
-
-        return MealsUtil.getFilteredWithExceeded(
-                service.getBetweenDates(
-                        startDate != null ? startDate : DateTimeUtil.MIN_DATE,
-                        endDate != null ? endDate : DateTimeUtil.MAX_DATE, userId),
-                startTime != null ? startTime : LocalTime.MIN,
-                endTime != null ? endTime : LocalTime.MAX,
-                AuthorizedUser.getCaloriesPerDay()
-        );
-    }*/
 }

@@ -12,7 +12,7 @@
     <h3><spring:message code="${product.isNew() ? 'product.add' : 'product.edit'}"/></h3>
     <hr>
     <form method="post" action="products">
-        <input type="hidden" name="id" value="${product.id}">
+        <input type="hidden" name="prodId" value="${product.prodId}">
         <dl>
             <dt><spring:message code="product.article"/>:</dt>
             <dd><input type="number" value="${product.article}" name="article"></dd>

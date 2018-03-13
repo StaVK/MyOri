@@ -16,6 +16,11 @@ public interface CrudProductRepository extends JpaRepository<Product, Integer>{
     @Override
     Product save(Product product);
 
+    @Transactional
+    @Modifying
+    @Query("UPDATE Product product SET product.description=:description, product.price=:price WHERE product.article=:article")
+    int update(@Param("article") int article, @Param("description") String description, @Param("price") double price);
+
     Product findOne(Integer id);
 
     @Query("SELECT p FROM Product p ORDER BY p.article")

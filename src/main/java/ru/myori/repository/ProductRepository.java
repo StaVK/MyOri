@@ -16,6 +16,6 @@ public interface ProductRepository {
 
     Product getByArticle(int article);
 
-
+    int update(Product product);
 
 }

@@ -20,11 +20,11 @@ public class JspProductController extends AbstractProductController {
         return "redirect:/products";
     }
 
-/*    @GetMapping("/update")
+    @GetMapping("/update")
     public String update(HttpServletRequest request, Model model) {
-        model.addAttribute("meal", super.get(getId(request)));
-        return "mealForm";
-    }*/
+        model.addAttribute("product", super.get(getId(request)));
+        return "productForm";
+    }
 
     @GetMapping("/create")
     public String create(Model model) {
@@ -38,10 +38,10 @@ public class JspProductController extends AbstractProductController {
                 request.getParameter("description"),
                 Double.valueOf(request.getParameter("price")));
 
-        if (request.getParameter("id").isEmpty()) {
+        if (request.getParameter("prodId").isEmpty()) {
             super.create(product);
         } else {
-            super.update(product, getId(request));
+            super.update(product);//TODO Сделать апдейт чтоб именно исправлял, а не создавал новую запись
         }
         return "redirect:/products";
     }
@@ -57,7 +57,7 @@ public class JspProductController extends AbstractProductController {
     }*/
 
     private int getId(HttpServletRequest request) {
-        String paramId = Objects.requireNonNull(request.getParameter("id"));
+        String paramId = Objects.requireNonNull(request.getParameter("prodId"));
         return Integer.valueOf(paramId);
     }
 }
