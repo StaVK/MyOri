@@ -52,6 +52,17 @@ $(function () {
     // makeEditable();
 });
 
+function serialData() {
+    var table = datatableApi;
+    var data;
+
+    table.rows().every(function (rowIdx, tableLoop, rowLoop) {
+        data = this.data();
+
+    });
+    return data;
+}
+
 function renderEditVolume(data, type, row) {
     var art=row.product.article;
     var vol=row.volume;

@@ -10,9 +10,10 @@ import java.util.List;
 @Transactional(readOnly = true)
 public interface CrudUserRepository extends JpaRepository<User,Integer> {
 
-    int delete(int id);
+//    int delete(int id);
 
     @Override
+    @Transactional
     User save(User user);
 
 

@@ -2,12 +2,17 @@ package ru.myori.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 import ru.myori.model.User;
 import ru.myori.repository.UserRepository;
 import ru.myori.to.UserTo;
 import ru.myori.util.exception.NotFoundException;
 
 import java.util.List;
+
+import static ru.myori.util.UserUtil.prepareToSave;
+import static ru.myori.util.UserUtil.updateFromTo;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -22,12 +27,14 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User create(User user) {
-        return null;
+        Assert.notNull(user, "user must not be null");
+        Assert.isNull(getByEmail(user.getEmail()),"User with this email already exists!");
+        return userRepository.save(user);
     }
 
     @Override
     public void delete(int id) throws NotFoundException {
-
+        userRepository.delete(id);
     }
 
     @Override
@@ -42,7 +49,9 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void update(User user) {
-
+        Assert.notNull(user, "user must not be null");
+        Assert.isNull(getByEmail(user.getEmail()),"User with this email already exists!");
+        userRepository.save(user);
     }
 
     @Override
@@ -51,8 +60,10 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void update(UserTo user) {
-
+    public void update(UserTo userTo) {
+        User user = updateFromTo(get(userTo.getId()), userTo);
+        Assert.isNull(getByEmail(user.getEmail()),"User with this email already exists!");
+        userRepository.save(prepareToSave(user));
     }
 
     @Override
@@ -61,8 +72,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void enable(int id, boolean enable) {
-
+    @Transactional
+    public void enable(int id, boolean enabled) {
+        User user = get(id);
+        user.setEnabled(enabled);
+        userRepository.save(user);
     }
 
     @Override

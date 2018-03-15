@@ -1,3 +1,21 @@
+var form;
+
+/*function makeEditable() {
+    form = $("#detailsForm");
+    $(document).ajaxError(function (event, jqXHR, options, jsExc) {
+        failNoty(event, jqXHR, options, jsExc);
+    });
+
+    // solve problem with cache in IE: https://stackoverflow.com/a/4303862/548473
+    $.ajaxSetup({cache: false});
+
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function(e, xhr, options) {
+        xhr.setRequestHeader(header, token);
+    });
+}*/
+
 function deleteRow(id) {
     $.ajax({
         url: ajaxUrl + id,
@@ -6,6 +24,15 @@ function deleteRow(id) {
             updateTable();
             // successNoty("Deleted");
         }
+    });
+}
+function updateRow(id) {
+    $("#modalTitle").html(i18n["editTitle"]);
+    $.get(ajaxUrl + id, function (data) {
+        $.each(data, function (key, value) {
+            form.find("input[name='" + key + "']").val(value);
+        });
+        $("#editRow").modal();
     });
 }
 
@@ -36,21 +63,7 @@ function save() {
     });
 }
 
-function serialData() {
-    var table = datatableApiProd;
-    var data;
 
-    table.rows().every(function (rowIdx, tableLoop, rowLoop) {
-        data = this.data();
-
-    });
-    return data;
-}
-
-function add() {
-    $("#modalTitle").html(i18n["product.add"]);
-    $("#editRow").modal();
-}
 function addProdInOrder(orderId) {
     var form=$("#addProductInOrderForm");
     var data=form.serialize()+"&orderId="+orderId;

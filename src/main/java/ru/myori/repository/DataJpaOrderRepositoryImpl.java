@@ -33,6 +33,6 @@ public class DataJpaOrderRepositoryImpl implements OrderRepository {
     @Override
     public boolean delete(int id) {
         crudOrderRepository.delete(id);
-        return true;
+        return true;//TODO Исправить
     }
 }
