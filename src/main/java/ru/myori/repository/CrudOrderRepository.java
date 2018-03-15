@@ -12,8 +12,9 @@ import java.util.List;
 
 @Transactional(readOnly = true)
 public interface CrudOrderRepository extends JpaRepository<Order, Integer> {
-    @Query("SELECT o FROM Order o")
-    List<Order> getAll();
+
+    @Query("SELECT o FROM Order o WHERE o.user.id=:userId")
+    List<Order> getAll(@Param("userId") int userId);
 
     @Override
     Order save(Order order);

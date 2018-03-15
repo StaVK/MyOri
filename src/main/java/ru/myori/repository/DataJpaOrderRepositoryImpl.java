@@ -26,8 +26,8 @@ public class DataJpaOrderRepositoryImpl implements OrderRepository {
     }
 
     @Override
-    public List<Order> getAll() {
-        return crudOrderRepository.getAll();
+    public List<Order> getAll(int userId) {
+        return crudOrderRepository.getAll(userId);
     }
 
     @Override

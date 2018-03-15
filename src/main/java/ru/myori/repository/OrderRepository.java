@@ -11,7 +11,7 @@ public interface OrderRepository {
 
     Order get(int id);
 
-    List<Order> getAll();
+    List<Order> getAll(int userId);
 
     boolean delete(int id);
 }

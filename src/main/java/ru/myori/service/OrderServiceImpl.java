@@ -28,8 +28,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> getAll() {
-        return orderRepository.getAll();
+    public List<Order> getAll(int userId) {
+        return orderRepository.getAll(userId);
     }
 
     @Override

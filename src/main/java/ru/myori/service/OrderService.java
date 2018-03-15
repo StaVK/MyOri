@@ -10,7 +10,7 @@ public interface OrderService {
 
 //    boolean addProductInOrder(int orderId, int id);
 
-    List<Order> getAll();
+    List<Order> getAll(int userId);
 
     Order create(Order order);
 

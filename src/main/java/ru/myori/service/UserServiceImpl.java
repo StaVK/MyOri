@@ -14,7 +14,7 @@ import java.util.List;
 import static ru.myori.util.UserUtil.prepareToSave;
 import static ru.myori.util.UserUtil.updateFromTo;
 
-@Service
+@Service("userService")
 public class UserServiceImpl implements UserService{
 
 
