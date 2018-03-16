@@ -2,6 +2,7 @@ package ru.myori.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -9,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.support.SessionStatus;
+import ru.myori.AuthorizedUser;
 import ru.myori.service.OrderService;
 import ru.myori.service.ProductService;
 import ru.myori.service.UserService;
@@ -53,7 +55,6 @@ public class RootController extends AbstractUserController{
     }
     @GetMapping("/orders")
     public String orders() {
-//        model.addAttribute("orders", orderService.getAll());
         return "orders";
     }
 
@@ -74,5 +75,11 @@ public class RootController extends AbstractUserController{
             status.setComplete();
             return "redirect:login?message=app.registered&username=" + userTo.getEmail();
         }
+    }
+
+    @GetMapping("/profile")
+    public String profile(ModelMap model, @AuthenticationPrincipal AuthorizedUser authorizedUser) {
+        model.addAttribute("userTo", authorizedUser.getUserTo());
+        return "profile";
     }
 }

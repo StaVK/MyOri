@@ -1,7 +1,9 @@
 package ru.myori;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import ru.myori.model.User;
 import ru.myori.to.UserTo;
 import ru.myori.util.UserUtil;
@@ -9,9 +11,11 @@ import ru.myori.util.UserUtil;
 import static java.util.Objects.requireNonNull;
 
 public class AuthorizedUser extends org.springframework.security.core.userdetails.User {
+
     private static final long serialVersionUID = 1L;
 
     private UserTo userTo;
+
 
     public AuthorizedUser(User user) {
         super(user.getEmail(), user.getPassword(), user.isEnabled(), true, true, true, user.getRoles());

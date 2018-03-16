@@ -1,9 +1,12 @@
 package ru.myori.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import ru.myori.AuthorizedUser;
 import ru.myori.model.User;
 import ru.myori.repository.UserRepository;
 import ru.myori.to.UserTo;
@@ -15,7 +18,7 @@ import static ru.myori.util.UserUtil.prepareToSave;
 import static ru.myori.util.UserUtil.updateFromTo;
 
 @Service("userService")
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService,UserDetailsService {
 
 
     private final UserRepository userRepository;
@@ -23,6 +26,15 @@ public class UserServiceImpl implements UserService{
     @Autowired
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+    @Override
+    public AuthorizedUser loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.getByEmail(email.toLowerCase());
+        if (user == null) {
+            throw new UsernameNotFoundException("User " + email + " is not found");
+        }
+        return new AuthorizedUser(user);
     }
 
     @Override

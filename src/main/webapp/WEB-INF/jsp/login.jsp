@@ -33,6 +33,7 @@
 
 <div class="jumbotron">
     <div class="container">
+        <br>
         <c:if test="${param.error}">
             <div class="error">
                     ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}

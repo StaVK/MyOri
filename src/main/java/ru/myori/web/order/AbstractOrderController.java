@@ -20,7 +20,7 @@ import java.util.Set;
 public abstract class AbstractOrderController extends AbstractController{
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    private final int userId=100000;
+    //private final int userId=100000;
 
     public User getUser(int userId){
         return userService.get(userId);
@@ -36,26 +36,26 @@ public abstract class AbstractOrderController extends AbstractController{
     }
 
     public Order get(int id) {
-//        int userId = AuthorizedUser.id();
+        int userId = AuthorizedUser.id();
         log.info("get order {} for User {}", id, userId);
         return orderService.get(id);
     }
 
     public void delete(int id) {
-//        int userId = AuthorizedUser.id();
+        int userId = AuthorizedUser.id();
         log.info("delete order {} for User {}", id, userId);
         orderService.delete(id);
     }
 
     public Order create(Order order) {
-//        int userId = AuthorizedUser.id();
+        int userId = AuthorizedUser.id();
 //        checkNew(meal);
         log.info("create {} for User {}", order, userId);
         return orderService.create(order);
     }
 
     public void update(Order order, int id) {
-//        int userId = AuthorizedUser.id();
+        int userId = AuthorizedUser.id();
 //        assureIdConsistent(meal, id);
         log.info("update {} for User {}", order, userId);
 //        service.update(product, userId);
