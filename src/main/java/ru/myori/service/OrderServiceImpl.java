@@ -23,8 +23,8 @@ public class OrderServiceImpl implements OrderService {
     }*/
 
     @Override
-    public Order get(int id) {
-        return orderRepository.get(id);
+    public Order get(int id, int userId) {
+        return orderRepository.get(id, userId);
     }
 
     @Override
@@ -33,17 +33,17 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order create(Order order) {
-        return orderRepository.save(order);
+    public Order create(Order order, int userId) {
+        return orderRepository.save(order, userId);
     }
 
     @Override
-    public void delete(int id) {
-        orderRepository.delete(id);
+    public void delete(int id, int userId) {
+        orderRepository.delete(id,userId);
     }
 
     @Override
-    public Order update(Order order) {
-        return orderRepository.save(order);
+    public Order update(Order order, int userId) {
+        return orderRepository.save(order, userId);
     }
 }

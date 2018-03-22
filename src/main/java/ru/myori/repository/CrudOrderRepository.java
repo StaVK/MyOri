@@ -21,12 +21,15 @@ public interface CrudOrderRepository extends JpaRepository<Order, Integer> {
 
     Order findOne(Integer id);
 
+    Order getOrderByOrderIdAndUserId(Integer id, Integer userId);
+
     /*    @Transactional
         @Modifying
         @Query("DELETE FROM Order o WHERE o.id=:id")
         int delete(@Param("id") int id);*/
     @Transactional
     @Modifying
-    void delete(int id);
+    @Query("DELETE FROM Order o WHERE o.id=:id AND o.user.id=:userId")
+    void delete(@Param("id") int id, @Param("userId") int userId);
 
 }

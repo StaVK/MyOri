@@ -17,41 +17,39 @@ import java.util.List;
 import java.util.Set;
 
 
-public abstract class AbstractOrderController extends AbstractController{
+public abstract class AbstractOrderController extends AbstractController {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    //private final int userId=100000;
-
-    public User getUser(int userId){
+    public User getUser(int userId) {
         return userService.get(userId);
     }
 
-    public List<Order> getAll(){
+    public List<Order> getAll() {
         int userId = AuthorizedUser.id();
         return orderService.getAll(userId);
     }
 
-    public Set<OrderProduct> getAllOP(int orderId){
+    public Set<OrderProduct> getAllOP(int orderId) {
         return super.orderProductService.getAll(orderId);
     }
 
     public Order get(int id) {
         int userId = AuthorizedUser.id();
         log.info("get order {} for User {}", id, userId);
-        return orderService.get(id);
+        return orderService.get(id, userId);
     }
 
     public void delete(int id) {
         int userId = AuthorizedUser.id();
         log.info("delete order {} for User {}", id, userId);
-        orderService.delete(id);
+        orderService.delete(id, userId);
     }
 
     public Order create(Order order) {
         int userId = AuthorizedUser.id();
 //        checkNew(meal);
         log.info("create {} for User {}", order, userId);
-        return orderService.create(order);
+        return orderService.create(order, userId);
     }
 
     public void update(Order order, int id) {

@@ -66,7 +66,8 @@ function serialData() {
 function renderEditVolume(data, type, row) {
     var art=row.product.article;
     var vol=row.volume;
-        return "<input id='vol' type='number' onchange='saveData("+art+")' value='" + vol + "'>";
+    var inpId='op'+row.opId;
+        return "<input id="+inpId+" type='number' onchange='saveData("+inpId+","+art+")' value='" + vol + "'>";
 }
 
 /*$('#vol').onchange(function() {
@@ -80,8 +81,8 @@ function renderEditVolume(data, type, row) {
     //$(this).data('timer', wait);
 }*/
 
-function saveData(article){
-    var data1="&orderId="+$("#orderId").val()+"&article="+article+"&volume="+$("#vol").val();
+function saveData(inpId, article){
+    var data1="&orderId="+$("#orderId").val()+"&article="+article+"&volume="+$(inpId).val();
     $.ajax({
         type: "POST",
         url: ajaxUrl+"editV",

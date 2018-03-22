@@ -40,7 +40,9 @@ public class Order{
 
     public Order() {
     }
-
+    public boolean isNew() {
+        return getOrderId() == null;
+    }
     public Integer getOrderId() {
         return orderId;
     }

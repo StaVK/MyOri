@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface OrderRepository {
 
-    Order save(Order order);
+    Order save(Order order, int userId);
 
-    Order get(int id);
+    Order get(int id, int userId);
 
     List<Order> getAll(int userId);
 
-    boolean delete(int id);
+    boolean delete(int id, int userId);
 }
