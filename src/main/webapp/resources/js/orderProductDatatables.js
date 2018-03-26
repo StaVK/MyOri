@@ -94,39 +94,10 @@ function saveData(inpId, article){
     });
 }
 
-/*function editVol() {
-    var editRow = $("td + input")
-
-    var OriginalContent = $(editRow).text();
-
-    $(editRow).addClass("cellEditing");
-    $(editRow).html("<input type='text' value=" + OriginalContent + " />");
-    $(editRow).children().first().focus();
-
-    $(editRow).children().first().keypress(function (e) {
-        if (e.which == 13) {
-            var newContent = $(editRow).val();
-            $(editRow).parent().text(newContent);
-            $(editRow).parent().removeClass("cellEditing");
-        }
-    });
-
-    $(editRow).children().first().blur(function () {
-        $(editRow).parent().text(OriginalContent);
-        $(editRow).parent().removeClass("cellEditing");
-    });
-}*/
-
-
-
 function updateTable() {
     $.get(ajaxUrl + $("#orderId").val(), function (data) {
         datatableApi.clear().rows.add(data).draw();
     });
-}
-
-function updateRow(row) {
-    editVol();
 }
 
 function renderDeleteBtn(data, type, row) {

@@ -1,6 +1,7 @@
 package ru.myori.service;
 
 import ru.myori.model.Order;
+import ru.myori.model.User;
 
 import java.util.List;
 
@@ -17,4 +18,6 @@ public interface OrderService {
     void delete(int id, int userId);
 
     Order update(Order order, int userId);
+
+    User chgCustomer(int customerId, int orderId, int userId); //TODO доделать изменение покупателя в заказе
 }

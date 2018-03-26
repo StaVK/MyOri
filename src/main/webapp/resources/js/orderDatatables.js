@@ -46,6 +46,8 @@ function updateTable() {
     });
 }
 
+
+
 function deleteRow(id) {
     $.ajax({
         url: ajaxUrl + id,

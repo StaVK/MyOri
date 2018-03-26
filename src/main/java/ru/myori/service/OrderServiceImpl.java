@@ -3,6 +3,7 @@ package ru.myori.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.myori.model.Order;
+import ru.myori.model.User;
 import ru.myori.repository.OrderRepository;
 
 import java.util.List;
@@ -39,11 +40,16 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void delete(int id, int userId) {
-        orderRepository.delete(id,userId);
+        orderRepository.delete(id, userId);
     }
 
     @Override
     public Order update(Order order, int userId) {
         return orderRepository.save(order, userId);
+    }
+
+    @Override
+    public User chgCustomer(int customerId, int orderId, int userId) {
+        return orderRepository.chgCustomer(customerId, orderId, userId);
     }
 }

@@ -21,7 +21,7 @@
         <intercept-url pattern="/login" access="isAnonymous()"/>
         <intercept-url pattern="/register" access="isAnonymous()"/>
 
-        <intercept-url pattern="/**/admin/**" access="hasRole('ROLE_ADMIN')"/>
+        <!--<intercept-url pattern="/**/admin/**" access="hasRole('ROLE_ADMIN')"/>-->
         <intercept-url pattern="/ajax/**" access="isAuthenticated()"/>
         <intercept-url pattern="/**" access="isAuthenticated()"/>
         <!--<intercept-url pattern="/**" access="isAnonymous()"/>-->

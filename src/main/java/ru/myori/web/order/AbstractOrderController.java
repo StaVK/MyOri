@@ -59,4 +59,10 @@ public abstract class AbstractOrderController extends AbstractController {
 //        service.update(product, userId);
     }
 
+    public User chgCustomer(int customerId, int orderId) {
+        int userId = AuthorizedUser.id();
+        log.info("update customer {} for Order {}", customerId, orderId);
+        return orderService.chgCustomer(customerId, orderId, userId);
+    }
+
 }

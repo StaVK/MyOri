@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.myori.model.Order;
+import ru.myori.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,5 +45,11 @@ public class DataJpaOrderRepositoryImpl implements OrderRepository {
     public boolean delete(int id, int userId) {
         crudOrderRepository.delete(id, userId);
         return true;//TODO Исправить
+    }
+
+
+    public User chgCustomer(int customerId, int orderId, int userId) {
+        crudOrderRepository.chgCustomer(customerId, orderId, userId);
+        return crudUserRepository.findOne(customerId);
     }
 }
