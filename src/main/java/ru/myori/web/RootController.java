@@ -34,7 +34,7 @@ public class RootController extends AbstractUserController{
 
     @GetMapping("/")
     public String root() {
-        return "index";
+        return "orders";
     }
 
     @GetMapping(value = "/login")
@@ -56,6 +56,11 @@ public class RootController extends AbstractUserController{
     @GetMapping("/orders")
     public String orders() {
         return "orders";
+    }
+
+    @GetMapping("/storage")
+    public String storage() {
+        return "storage";
     }
 
     @GetMapping("/register")

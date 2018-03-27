@@ -13,11 +13,15 @@ import java.util.List;
 @Repository
 public class DataJpaOrderRepositoryImpl implements OrderRepository {
 
-    @Autowired
-    private CrudOrderRepository crudOrderRepository;
+    private final CrudOrderRepository crudOrderRepository;
+
+    private final CrudUserRepository crudUserRepository;
 
     @Autowired
-    private CrudUserRepository crudUserRepository;
+    public DataJpaOrderRepositoryImpl(CrudOrderRepository crudOrderRepository, CrudUserRepository crudUserRepository) {
+        this.crudOrderRepository = crudOrderRepository;
+        this.crudUserRepository = crudUserRepository;
+    }
 
     @Override
     @Transactional

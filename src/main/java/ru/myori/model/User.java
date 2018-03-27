@@ -1,5 +1,6 @@
 package ru.myori.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -14,7 +15,7 @@ import java.util.*;
 
 @Entity
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "users_unique_email_idx")})
-public class User extends AbstractNamedEntity{
+public class User extends AbstractNamedEntity {
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;
@@ -30,7 +31,7 @@ public class User extends AbstractNamedEntity{
     @NotNull
     private Date registered;
 
-   // @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    // @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
@@ -38,6 +39,17 @@ public class User extends AbstractNamedEntity{
 //    @Fetch(FetchMode.SUBSELECT)
     @BatchSize(size = 200)
     private Set<Role> roles;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+//    @JoinColumn (name="storageId", insertable=false, updatable=false)
+    private Set<Storage> storages;
+
+//    @CollectionTable(name = "customers", joinColumns = @JoinColumn(name = "user_id"))
+//    @Column(name = "customerId")
+/*    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", nullable = false)*/
+//    @OneToMany(mappedBy = "User")
+//    private Set<Integer> customers;
 
     public User() {
     }
@@ -61,6 +73,10 @@ public class User extends AbstractNamedEntity{
         this.registered = registered;
         setRoles(roles);
     }
+
+/*    public Set<Integer> getCustomers() {
+        return customers;
+    }*/
 
     public String getEmail() {
         return email;

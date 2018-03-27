@@ -1,4 +1,6 @@
 DELETE FROM user_roles;
+DELETE FROM customers;
+DELETE FROM storage;
 DELETE FROM products;
 DELETE FROM users;
 DELETE FROM orders;
@@ -26,7 +28,25 @@ INSERT INTO products (article, description, price) VALUES
   ('888', 'Дезодорант', 1500);
 
 INSERT INTO orders (orderId, user_id, foruser_id) VALUES
-  (nextval('global_seq'),'100000','100001');
+  (nextval('global_seq'), '100000', '100001');
 
-INSERT INTO order_products(opid, orderid, prodid, volume) VALUES
-  ('100011','100010','100002','2')
+INSERT INTO order_products (opid, orderid, prodid, volume) VALUES
+  ('100011', '100010', '100002', '2');
+
+INSERT INTO users (name, email, password)
+VALUES ('User2', 'user2@yandex.ru', 'password');
+
+INSERT INTO users (name, email, password)
+VALUES ('User11', 'user11@yandex.ru', 'password');
+
+INSERT INTO users (name, email, password)
+VALUES ('User21', 'user21@yandex.ru', 'password');
+
+INSERT INTO customers (user_id, customerid)
+VALUES (100000, 100012);
+
+INSERT INTO customers (user_id, customerid)
+VALUES (100011, 100013);
+
+INSERT INTO storage (storageid, name, userid)
+VALUES (nextval('global_seq'),'Главный склад', 100000);

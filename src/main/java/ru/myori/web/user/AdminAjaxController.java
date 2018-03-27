@@ -8,6 +8,7 @@ import ru.myori.util.UserUtil;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/ajax/admin/users")
@@ -46,4 +47,9 @@ public class AdminAjaxController extends AbstractUserController {
     public void enable(@PathVariable("id") int id, @RequestParam("enabled") boolean enabled) {
         super.enable(id, enabled);
     }
+
+/*    @GetMapping("/customers")
+    public Set<User> getCustomers(){
+        return super.getCustomers();
+    }*/
 }

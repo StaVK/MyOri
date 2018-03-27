@@ -3,11 +3,14 @@ package ru.myori.web.user;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import ru.myori.AuthorizedUser;
 import ru.myori.model.User;
 import ru.myori.service.UserService;
 import ru.myori.to.UserTo;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public abstract class AbstractUserController {
     protected final Logger log = LoggerFactory.getLogger(getClass());
@@ -57,4 +60,10 @@ public abstract class AbstractUserController {
         log.info((enabled ? "enable " : "disable ") + id);
         service.enable(id, enabled);
     }
+
+/*    public Set<User> getCustomers(){
+        int userId = AuthorizedUser.id();
+        log.info("Get customers for user {}", userId);
+        return service.get(userId).getCustomers();
+    }*/
 }

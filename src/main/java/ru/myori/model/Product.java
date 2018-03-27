@@ -24,9 +24,6 @@ public class Product {
     @Column(name = "price", nullable = false)
     private double price;
 
-/*    @ManyToMany(mappedBy = "products")
-    private List<Order> order;*/
-
     public Product() {
     }
 
