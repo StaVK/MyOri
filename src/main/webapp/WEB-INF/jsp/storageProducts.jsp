@@ -12,20 +12,25 @@
 <jsp:include page="fragments/headTag.jsp"/>
 <body>
 <script type="text/javascript" src="resources/js/datatablesUtil.js" defer></script>
-<script type="text/javascript" src="resources/js/storageDatatables.js" defer></script>
+<script type="text/javascript" src="resources/js/storageProductDatatables.js" defer></script>
 <jsp:include page="fragments/bodyHeader.jsp"/>
 <div class="jumbotron">
     <div class="container">
         <div class="shadow">
             <section>
-                <h3><spring:message code="storage.storages"/></h3>
+                <h3><spring:message code="order.products"/></h3>
                 <hr>
+                <input type="hidden" id="storageId" name="orderId" value=${storageId}> <%--TODO--%>
                 <%--<a href="storage/create"><spring:message code="common.add"/></a>--%>
                 <hr>
-                <table class="table table-striped display" id="storageDatatable">
+                <table class="table table-striped display" id="storageProductDatatable">
                     <thead>
                     <tr>
-                        <th><spring:message code="storage.name"/></th>
+                        <th><spring:message code="product.article"/></th>
+                        <th><spring:message code="product.description"/></th>
+                        <th><spring:message code="product.price"/></th>
+                        <th><spring:message code="common.volume"/></th>
+                        <th colspan="2"><spring:message code="common.actions"/></th>
                     </tr>
                     </thead>
 

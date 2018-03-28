@@ -28,8 +28,8 @@ public class Storage {
     private User user;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn (name="prodId", insertable=false, updatable=false)
-    private Set<Product> products;
+    @JoinColumn (name="spId", updatable=false)
+    private Set<StorageProduct> products;
 
     public String getName() {
         return name;
@@ -55,11 +55,11 @@ public class Storage {
         this.user = user;
     }
 
-    public Set<Product> getProducts() {
+    public Set<StorageProduct> getProducts() {
         return products;
     }
 
-    public void setProducts(Set<Product> products) {
+    public void setProducts(Set<StorageProduct> products) {
         this.products = products;
     }
 }

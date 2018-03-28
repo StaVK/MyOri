@@ -2,6 +2,7 @@ package ru.myori.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.myori.model.Product;
 import ru.myori.model.Storage;
 import ru.myori.repository.StorageRepository;
 
@@ -25,5 +26,10 @@ public class StorageServiceImpl implements StorageService {
     @Override
     public Set<Storage> getAll(int userId){
         return storageRepository.getAll(userId);
+    }
+
+    @Override
+    public Set<Product> getProducts(int storageId, int userId){
+        return storageRepository.getProducts(storageId,userId);
     }
 }

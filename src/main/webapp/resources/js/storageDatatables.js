@@ -18,7 +18,13 @@ $(function () {
         "info": true,
         "columns": [
             {
-                "data": "name"
+                "data": "name",
+                "render": function (data, type, row) {
+                    if (type === "display") {
+                        return "<a class='btn btn-info' href='sp/"+row.storageId+"'>" + row.name + "</a>";
+                    }
+                    return data;
+                }
             }
         ],
         "order": [

@@ -4,17 +4,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
-import ru.myori.model.Product;
-import ru.myori.model.Storage;
+import ru.myori.model.OrderProduct;
+import ru.myori.model.StorageProduct;
 
 import java.util.List;
 import java.util.Set;
 
 @Transactional(readOnly = true)
-public interface CrudStorageRepository extends JpaRepository<Storage, Integer> {
-    @Query("SELECT s FROM Storage s WHERE s.user.id=:userId")
-    List<Storage> getAll(@Param("userId") int userId);
+public interface CrudStorageProductRepository extends JpaRepository<StorageProduct, Integer> {
 
-    @Query("SELECT p FROM Product p")
-    Set<Product> getProducts();
+    @Query("SELECT sp FROM StorageProduct sp WHERE sp.storage.storageId=:storageId")
+    List<StorageProduct> getAllByStorage(@Param("storageId") int storageId);
 }

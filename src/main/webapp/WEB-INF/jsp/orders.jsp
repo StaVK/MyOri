@@ -28,18 +28,6 @@
                     </tr>
                     </thead>
 
-<%--                    <c:forEach items="${orders}" var="order">
-                        <jsp:useBean id="order" scope="page" type="ru.myori.model.Order"/>
-                        <tr>
-                            <td>${order.id}</td>
-                            <td>${order.user.id}</td>
-                            <td>${order.forUser.id}</td>
-                            <td><a href="orders/orderUpdate?orderId=${order.id}"><spring:message
-                                    code="common.update"/></a></td>
-                            <td><a href="orders/orderDelete?orderId=${order.id}"><spring:message
-                                    code="common.delete"/></a></td>
-                        </tr>
-                    </c:forEach>--%>
                 </table>
             </section>
         </div>

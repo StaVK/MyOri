@@ -50,3 +50,6 @@ VALUES (100011, 100013);
 
 INSERT INTO storage (storageid, name, userid)
 VALUES (nextval('global_seq'),'Главный склад', 100000);
+
+INSERT INTO storage_products(spid, volume, prodid, storageid)
+VALUES (nextval('global_seq'),5,100002,100014)

@@ -33,24 +33,35 @@ CREATE TABLE user_roles
 
 CREATE TABLE storage
 (
-  storageid integer NOT NULL,
+  storageid INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   name VARCHAR NOT NULL,
   userid integer NOT NULL,
-  CONSTRAINT storage_pkey PRIMARY KEY (storageid),
   CONSTRAINT fkd9mujigmn3o07ld2m1osdam3y FOREIGN KEY (userid)
   REFERENCES users (id) MATCH SIMPLE
   ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 
-/*
+CREATE TABLE products (
+  prodId      INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  article     INTEGER          NOT NULL,
+  description TEXT             NOT NULL,
+  price       DOUBLE PRECISION NOT NULL
+);
 
 CREATE TABLE storage_products
 (
-  storageId INTEGER NOT NULL,
-  productId INTEGER NOT NULL,
-  FOREIGN KEY (storageId) REFERENCES storage (storageId) ON DELETE CASCADE,
-  FOREIGN KEY (productId) REFERENCES products (prodId) ON DELETE CASCADE
-);*/
+  spid INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  volume integer NOT NULL,
+  prodid integer NOT NULL,
+  storageid integer NOT NULL,
+  CONSTRAINT fk2jf7oqjn70dtpbkjpxqkb1jgi FOREIGN KEY (storageid)
+  REFERENCES storage (storageid) MATCH SIMPLE
+  ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT fk2v4acakr0x6tj13kiru0sf6y5 FOREIGN KEY (prodid)
+  REFERENCES products (prodid) MATCH SIMPLE
+  ON UPDATE NO ACTION ON DELETE CASCADE
+);
+
 
 CREATE TABLE customers
 (
@@ -61,12 +72,7 @@ CREATE TABLE customers
 );
 
 
-CREATE TABLE products (
-  prodId      INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-  article     INTEGER          NOT NULL,
-  description TEXT             NOT NULL,
-  price       DOUBLE PRECISION NOT NULL
-);
+
 -- CREATE UNIQUE INDEX meals_unique_user_datetime_idx ON meals (user_id, date_time)
 
 CREATE TABLE orders (
