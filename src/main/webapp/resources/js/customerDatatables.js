@@ -1,11 +1,11 @@
 var ajaxUrlCustomer = "ajax/admin/users/";
 var datatableCustomer;
 
-function updateTable() {
+/*function updateTable() {
     $.get(ajaxUrl, function (data) {
         datatableUser.clear().rows.add(data).draw();
     });
-}
+}*/
 
 // $(document).ready(function () {
 $(function () {

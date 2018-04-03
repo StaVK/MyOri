@@ -62,4 +62,8 @@ public class Storage {
     public void setProducts(Set<StorageProduct> products) {
         this.products = products;
     }
+
+    public boolean isNew() {
+        return getStorageId() == null;
+    }
 }

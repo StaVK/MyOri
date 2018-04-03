@@ -1,4 +1,4 @@
-package ru.myori.repository;
+package ru.myori.repository.order;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
@@ -6,8 +6,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.myori.model.Order;
 import ru.myori.model.User;
+import ru.myori.repository.user.CrudUserRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository

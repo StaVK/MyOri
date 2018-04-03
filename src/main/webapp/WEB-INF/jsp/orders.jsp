@@ -35,4 +35,5 @@
 </div>
 <jsp:include page="fragments/footer.jsp"/>
 </body>
+
 </html>

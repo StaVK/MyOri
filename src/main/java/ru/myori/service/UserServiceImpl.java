@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import ru.myori.AuthorizedUser;
 import ru.myori.model.User;
-import ru.myori.repository.UserRepository;
+import ru.myori.repository.user.UserRepository;
 import ru.myori.to.UserTo;
 import ru.myori.util.exception.NotFoundException;
 

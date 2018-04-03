@@ -25,7 +25,7 @@ public abstract class AbstractStorageController {
     public Storage get(int storageId){
         int userId = AuthorizedUser.id();
         log.info("get storage {} for User {}", storageId, userId);
-        return storageService.get(storageId);
+        return storageService.get(storageId, userId);
     }
 
     public Set<Storage> getAll(){
@@ -38,5 +38,19 @@ public abstract class AbstractStorageController {
         int userId = AuthorizedUser.id();
         log.info("getProducts for User {}", userId);
         return storageProductService.getAll(storageId);
+    }
+
+    public Storage create(Storage storage) {
+        int userId = AuthorizedUser.id();
+//        checkNew(meal);
+        log.info("create {} for User {}", storage, userId);
+        return storageService.create(storage, userId);
+    }
+
+    public void update(int storageId, Storage storage) {
+        int userId = AuthorizedUser.id();
+//        assureIdConsistent(meal, id);
+        log.info("update {} for User {}", storage, userId);
+        storageService.update(storageId, storage, userId);
     }
 }

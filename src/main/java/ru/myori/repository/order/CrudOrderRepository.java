@@ -1,4 +1,4 @@
-package ru.myori.repository;
+package ru.myori.repository.order;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

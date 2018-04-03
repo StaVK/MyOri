@@ -1,6 +1,7 @@
-package ru.myori.repository;
+package ru.myori.repository.storage;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,4 +18,9 @@ public interface CrudStorageRepository extends JpaRepository<Storage, Integer> {
 
     @Query("SELECT p FROM Product p")
     Set<Product> getProducts();
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE Storage st SET st.name=:name WHERE st.storageId=:storageId AND st.user.id=:userId")
+    int update(@Param("storageId") int storageId, @Param("name") String name, @Param("userId") int userId);
 }

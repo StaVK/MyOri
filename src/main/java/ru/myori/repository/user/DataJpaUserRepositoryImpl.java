@@ -1,9 +1,11 @@
-package ru.myori.repository;
+package ru.myori.repository.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import ru.myori.model.User;
+import ru.myori.repository.user.CrudUserRepository;
+import ru.myori.repository.user.UserRepository;
 
 import java.util.List;
 

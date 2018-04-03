@@ -1,15 +1,14 @@
-package ru.myori.repository;
+package ru.myori.repository.product;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.myori.model.Product;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public class DataJpaProductRepositoryImpl implements ProductRepository{
+public class DataJpaProductRepositoryImpl implements ProductRepository {
 
     @Autowired
     private CrudProductRepository crudProductRepository;

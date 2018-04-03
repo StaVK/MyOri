@@ -1,4 +1,4 @@
-package ru.myori.repository;
+package ru.myori.repository.order;
 
 import ru.myori.model.Order;
 import ru.myori.model.Product;

@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.myori.model.Order;
 import ru.myori.model.User;
-import ru.myori.repository.OrderRepository;
+import ru.myori.repository.order.OrderRepository;
 
 import java.util.List;
 

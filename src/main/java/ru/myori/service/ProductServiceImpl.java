@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.myori.model.Product;
-import ru.myori.repository.ProductRepository;
+import ru.myori.repository.product.ProductRepository;
 import ru.myori.util.exception.NotFoundException;
 
 import java.time.LocalDate;

@@ -1,4 +1,4 @@
-package ru.myori.repository;
+package ru.myori.repository.user;
 
 import ru.myori.model.User;
 

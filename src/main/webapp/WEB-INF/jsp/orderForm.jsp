@@ -7,7 +7,6 @@
 <body>
 <script type="text/javascript" src="resources/js/datatablesUtil.js" defer></script>
 <script type="text/javascript" src="resources/js/orderProductDatatables.js" defer></script>
-<%--<script type="text/javascript" src="resources/js/productDatatables.js" defer></script>--%>
 <script type="text/javascript" src="resources/js/customerDatatables.js" defer></script>
 <jsp:include page="fragments/bodyHeader.jsp"/>
 <div class="jumbotron">

@@ -1,4 +1,4 @@
-package ru.myori.repository;
+package ru.myori.repository.user;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;

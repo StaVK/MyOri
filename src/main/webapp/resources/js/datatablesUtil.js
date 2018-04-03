@@ -64,8 +64,6 @@ function save() {
 }
 
 function editCustomer() {
-    // $("#modalTitle").html(i18n["addTitle"]);
-    // form.find(":input").val("");
     $("#editRow").modal();
 }
 
