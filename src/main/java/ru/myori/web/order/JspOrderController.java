@@ -1,22 +1,13 @@
 package ru.myori.web.order;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.myori.model.Order;
-import ru.myori.model.OrderProduct;
-import ru.myori.model.Product;
-import ru.myori.service.OrderProductService;
-import ru.myori.service.OrderService;
-import ru.myori.service.ProductService;
-import ru.myori.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
 

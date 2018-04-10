@@ -26,6 +26,9 @@ public class StorageProduct {
     @Column(name="volume")
     private int volume;
 
+    @Column(name="price")
+    private float price;
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name="storageId")
@@ -33,6 +36,20 @@ public class StorageProduct {
     private Storage storage;
 
     public StorageProduct() {
+    }
+
+    public StorageProduct(Product product, int volume, Storage storage) {
+        this.product = product;
+        this.volume = volume;
+        this.storage = storage;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
     }
 
     public Integer getSpId() {

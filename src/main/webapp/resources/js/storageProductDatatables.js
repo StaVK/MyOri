@@ -17,7 +17,7 @@ $(function () {
                 "mData": "product.description"
             },
             {
-                "mData": "product.price"
+                "mData": "price"
             },
             {
                 "mData": "volume"

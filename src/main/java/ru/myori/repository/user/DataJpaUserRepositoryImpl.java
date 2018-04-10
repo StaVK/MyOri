@@ -23,8 +23,8 @@ public class DataJpaUserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public void delete(int id) {
-        crudUserRepository.delete(id);
+    public boolean delete(int id) {
+        return crudUserRepository.delete(id)!=0;
     }
 
     @Override

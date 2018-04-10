@@ -1,5 +1,6 @@
 DELETE FROM user_roles;
 DELETE FROM customers;
+DELETE FROM storage_products;
 DELETE FROM storage;
 DELETE FROM products;
 DELETE FROM users;
@@ -12,10 +13,7 @@ VALUES ('User', 'user@yandex.ru', 'password');
 INSERT INTO users (name, email, password)
 VALUES ('Admin', 'admin@gmail.com', 'admin');
 
-INSERT INTO user_roles (role, user_id) VALUES
-  ('ROLE_USER', 100000),
-  ('ROLE_ADMIN', 100001),
-  ('ROLE_USER', 100001);
+
 
 INSERT INTO products (article, description, price) VALUES
   ('111', 'Помада1', 500),
@@ -48,8 +46,16 @@ VALUES (100000, 100012);
 INSERT INTO customers (user_id, customerid)
 VALUES (100011, 100013);
 
+INSERT INTO user_roles (role, user_id) VALUES
+  ('ROLE_USER', 100000),
+  ('ROLE_ADMIN', 100001),
+  ('ROLE_USER', 100001),
+  ('ROLE_USER', 100011),
+  ('ROLE_USER', 100012),
+  ('ROLE_USER', 100013);
+
 INSERT INTO storage (storageid, name, userid)
 VALUES (nextval('global_seq'),'Главный склад', 100000);
 
-INSERT INTO storage_products(spid, volume, prodid, storageid)
-VALUES (nextval('global_seq'),5,100002,100014)
+INSERT INTO storage_products(spid, volume, price, prodid, storageid)
+VALUES (nextval('global_seq'),5, 1.1,100002,100014)

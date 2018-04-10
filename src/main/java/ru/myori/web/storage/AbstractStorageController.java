@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.myori.AuthorizedUser;
-import ru.myori.model.Product;
 import ru.myori.model.Storage;
 import ru.myori.model.StorageProduct;
 import ru.myori.service.StorageProductService;

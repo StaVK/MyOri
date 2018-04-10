@@ -31,6 +31,15 @@ public class Storage {
     @JoinColumn (name="spId", updatable=false)
     private Set<StorageProduct> products;
 
+    public Storage() {
+    }
+
+    public Storage(String name, User user, Set<StorageProduct> products) {
+        this.name = name;
+        this.user = user;
+        this.products = products;
+    }
+
     public String getName() {
         return name;
     }

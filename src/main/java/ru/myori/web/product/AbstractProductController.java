@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ru.myori.model.Product;
 import ru.myori.service.ProductService;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
-import java.util.Set;
 
 
 public abstract class AbstractProductController {

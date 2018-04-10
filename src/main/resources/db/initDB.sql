@@ -52,6 +52,7 @@ CREATE TABLE storage_products
 (
   spid INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   volume integer NOT NULL,
+  price float NOT NULL,
   prodid integer NOT NULL,
   storageid integer NOT NULL,
   CONSTRAINT fk2jf7oqjn70dtpbkjpxqkb1jgi FOREIGN KEY (storageid)

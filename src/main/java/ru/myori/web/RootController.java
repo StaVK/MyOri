@@ -29,9 +29,6 @@ public class RootController extends AbstractUserController{
     @Autowired
     private ProductService productService;
 
-    @Autowired
-    private OrderService orderService;
-
     @GetMapping("/")
     public String root() {
         return "orders";

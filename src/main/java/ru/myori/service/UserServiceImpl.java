@@ -16,6 +16,8 @@ import java.util.List;
 
 import static ru.myori.util.UserUtil.prepareToSave;
 import static ru.myori.util.UserUtil.updateFromTo;
+import static ru.myori.util.ValidationUtil.checkNotFound;
+import static ru.myori.util.ValidationUtil.checkNotFoundWithId;
 
 @Service("userService")
 public class UserServiceImpl implements UserService,UserDetailsService {
@@ -40,29 +42,30 @@ public class UserServiceImpl implements UserService,UserDetailsService {
     @Override
     public User create(User user) {
         Assert.notNull(user, "user must not be null");
-        Assert.isNull(getByEmail(user.getEmail()),"User with this email already exists!");
+//        Assert.isNull(getByEmail(user.getEmail()),"User with this email already exists!");
         return userRepository.save(user);
     }
 
     @Override
     public void delete(int id) throws NotFoundException {
-        userRepository.delete(id);
+        checkNotFoundWithId(userRepository.delete(id),id);
     }
 
     @Override
     public User get(int id) throws NotFoundException {
-        return userRepository.get(id);
+        return checkNotFoundWithId(userRepository.get(id), id);
     }
 
     @Override
     public User getByEmail(String email) throws NotFoundException {
-        return null;
+        Assert.notNull(email, "email must not be null");
+        return checkNotFound(userRepository.getByEmail(email),"email=" + email);
     }
 
     @Override
     public void update(User user) {
         Assert.notNull(user, "user must not be null");
-        Assert.isNull(getByEmail(user.getEmail()),"User with this email already exists!");
+//        Assert.isNull(getByEmail(user.getEmail()),"User with this email already exists!");
         userRepository.save(user);
     }
 
@@ -91,8 +94,4 @@ public class UserServiceImpl implements UserService,UserDetailsService {
         userRepository.save(user);
     }
 
-    @Override
-    public User getWithMeals(int id) {
-        return null;
-    }
 }
