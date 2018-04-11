@@ -11,7 +11,7 @@ import ru.myori.util.exception.NotFoundException;
 
 import java.util.*;
 
-import static ru.myori.UserTestData.*;
+import static ru.myori.testData.UserTestData.*;
 
 
 public abstract class AbstractUserServiceTest extends AbstractServiceTest {

@@ -10,8 +10,12 @@ import java.util.List;
 @Service
 public class StorageProductServiceImpl implements StorageProductService {
 
+    private final StorageProductRepository storageProductRepository;
+
     @Autowired
-    StorageProductRepository storageProductRepository;
+    public StorageProductServiceImpl(StorageProductRepository storageProductRepository) {
+        this.storageProductRepository = storageProductRepository;
+    }
 
     @Override
     public List<StorageProduct> getAll(int storageId) {

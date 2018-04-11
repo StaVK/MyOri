@@ -27,11 +27,22 @@ public class Product {
     public Product() {
     }
 
+    public Product(Product product){
+        this(product.getProdId(),product.getArticle(),product.getDescription(),product.getPrice());
+    }
+
+
     public Product(Integer article, String description, double price) {
+        this(null, article, description, price);
+    }
+
+    public Product(Integer prodId, Integer article, String description, double price) {
+        this.prodId = prodId;
         this.article = article;
         this.description = description;
         this.price = price;
     }
+
 
     public Integer getProdId() {
         return prodId;
@@ -68,5 +79,15 @@ public class Product {
 
     public boolean isNew() {
         return this.prodId == null;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "prodId=" + prodId +
+                ", article=" + article +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                '}';
     }
 }

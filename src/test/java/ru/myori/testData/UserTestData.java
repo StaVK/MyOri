@@ -1,4 +1,4 @@
-package ru.myori;
+package ru.myori.testData;
 
 
 import ru.myori.matcher.BeanMatcher;

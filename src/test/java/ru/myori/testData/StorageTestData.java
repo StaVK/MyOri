@@ -1,4 +1,4 @@
-package ru.myori;
+package ru.myori.testData;
 
 import ru.myori.model.Storage;
 import ru.myori.model.StorageProduct;

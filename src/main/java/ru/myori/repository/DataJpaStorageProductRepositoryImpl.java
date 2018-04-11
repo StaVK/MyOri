@@ -10,7 +10,7 @@ import java.util.List;
 public class DataJpaStorageProductRepositoryImpl implements StorageProductRepository {
 
     @Autowired
-    CrudStorageProductRepository crudStorageProductRepository;
+    private CrudStorageProductRepository crudStorageProductRepository;
 
     @Override
     public List<StorageProduct> getAll(int storageId) {

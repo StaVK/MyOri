@@ -22,7 +22,6 @@ import static ru.myori.util.ValidationUtil.checkNotFoundWithId;
 @Service("userService")
 public class UserServiceImpl implements UserService,UserDetailsService {
 
-
     private final UserRepository userRepository;
 
     @Autowired

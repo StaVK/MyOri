@@ -20,7 +20,7 @@ public class DataJpaProductRepositoryImpl implements ProductRepository {
     }
 
     public int update(Product product){
-        return crudProductRepository.update(product.getArticle(),product.getDescription(),product.getPrice());
+        return crudProductRepository.update(product.getProdId(),product.getArticle(),product.getDescription(),product.getPrice());
     }
 
     @Override
