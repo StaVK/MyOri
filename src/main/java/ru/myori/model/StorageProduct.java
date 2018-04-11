@@ -38,9 +38,15 @@ public class StorageProduct {
     public StorageProduct() {
     }
 
-    public StorageProduct(Product product, int volume, Storage storage) {
+    public StorageProduct(Product product, int volume, float price,Storage storage) {
+        this(null,product,volume,price,storage);
+    }
+
+    public StorageProduct(Integer spId, Product product, int volume, float price, Storage storage) {
+        this.spId=spId;
         this.product = product;
         this.volume = volume;
+        this.price=price;
         this.storage = storage;
     }
 
@@ -82,5 +88,16 @@ public class StorageProduct {
 
     public void setStorage(Storage storage) {
         this.storage = storage;
+    }
+
+    @Override
+    public String toString() {
+        return "StorageProduct{" +
+                "spId=" + spId +
+                ", product=" + product +
+                ", volume=" + volume +
+                ", price=" + price +
+                ", storage=" + storage +
+                '}';
     }
 }

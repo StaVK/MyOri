@@ -34,7 +34,16 @@ public class Storage {
     public Storage() {
     }
 
+    public Storage(Storage storage){
+        this(storage.getStorageId(),storage.getName(),storage.getUser(),storage.getProducts());
+    }
+
     public Storage(String name, User user, Set<StorageProduct> products) {
+        this(null,name,user, products);
+    }
+
+    public Storage(Integer storageId, String name, User user, Set<StorageProduct> products) {
+        this.storageId=storageId;
         this.name = name;
         this.user = user;
         this.products = products;
@@ -74,5 +83,15 @@ public class Storage {
 
     public boolean isNew() {
         return getStorageId() == null;
+    }
+
+    @Override
+    public String toString() {
+        return "Storage{" +
+                "storageId=" + storageId +
+                ", name='" + name + '\'' +
+                ", user=" + user +
+                ", products=" + products +
+                '}';
     }
 }
