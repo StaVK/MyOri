@@ -10,9 +10,9 @@
     <http pattern="/webjars/**" security="none"/>
 
 
-    <http pattern="/rest/**" use-expressions="true" name="restSecurityFilterChain" create-session="stateless">
+    <http pattern="/ajax/**" use-expressions="true" name="restSecurityFilterChain" create-session="stateless">
         <http-basic/>
-        <intercept-url pattern="/rest/admin/**" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/ajax/admin/**" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/**" access="isAuthenticated()"/>
         <csrf disabled="true"/>
     </http>
@@ -21,8 +21,10 @@
         <intercept-url pattern="/login" access="isAnonymous()"/>
         <intercept-url pattern="/register" access="isAnonymous()"/>
 
+
+        <!--<intercept-url pattern="/ajax/**" access="isAuthenticated()"/>-->
         <!--<intercept-url pattern="/**/admin/**" access="hasRole('ROLE_ADMIN')"/>-->
-        <intercept-url pattern="/ajax/**" access="isAuthenticated()"/>
+        <intercept-url pattern="/ajax/product/**" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/**" access="isAuthenticated()"/>
         <!--<intercept-url pattern="/**" access="isAnonymous()"/>-->
 

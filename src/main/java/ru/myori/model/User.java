@@ -2,11 +2,7 @@ package ru.myori.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.BatchSize;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
@@ -40,16 +36,10 @@ public class User extends AbstractNamedEntity {
     @BatchSize(size = 200)
     private Set<Role> roles;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
-//    @JoinColumn (name="storageId", insertable=false, updatable=false)
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
     private Set<Storage> storages;
 
-//    @CollectionTable(name = "customers", joinColumns = @JoinColumn(name = "user_id"))
-//    @Column(name = "customerId")
-/*    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", nullable = false)*/
-//    @OneToMany(mappedBy = "User")
-//    private Set<Integer> customers;
 
     public User() {
     }
@@ -82,9 +72,6 @@ public class User extends AbstractNamedEntity {
         setRoles(roles);
     }
 
-/*    public Set<Integer> getCustomers() {
-        return customers;
-    }*/
 
     public String getEmail() {
         return email;
@@ -126,14 +113,37 @@ public class User extends AbstractNamedEntity {
         this.roles = CollectionUtils.isEmpty(roles) ? Collections.emptySet() : EnumSet.copyOf(roles);
     }
 
+    public Set<Storage> getStorages() {
+        return storages;
+    }
+
+    public void setStorages(Set<Storage> storages) {
+        this.storages = storages;
+    }
+
+    /*@Override
+    public String toString() {
+        return "User{" +
+                "email=" + email +
+                ", password=" + password +
+                ", enabled=" + enabled +
+                ", registered=" + registered +
+                ", roles=" + roles +
+                ", storages=" + storages +
+                ", name=" + name +
+                "}";
+    }*/
+
     @Override
     public String toString() {
         return "User{" +
-                "id=" + getId() +
-                ", email=" + email +
-                ", name=" + name +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
                 ", enabled=" + enabled +
+                ", registered=" + registered +
                 ", roles=" + roles +
+//                ", storages=" + storages +
+                ", name='" + name + '\'' +
                 '}';
     }
 }

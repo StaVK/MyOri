@@ -3,8 +3,9 @@ package ru.myori.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.myori.model.OrderProduct;
-import ru.myori.repository.OrderProductRepository;
+import ru.myori.repository.op.OrderProductRepository;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -28,7 +29,7 @@ public class OrderProductServiceImpl implements OrderProductService {
     }
 
     @Override
-    public Set<OrderProduct> getAll(int orderId) {
+    public List<OrderProduct> getAll(int orderId) {
         return orderProductRepository.getAll(orderId);
     }
 

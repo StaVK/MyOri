@@ -27,41 +27,36 @@ public class StorageServiceTest extends AbstractServiceTest {
 
     @Test
     public void get() {
-        Storage actual=storageService.get(STORAGE.getStorageId(),USER_ID);
+        Storage actual = storageService.get(STORAGE.getStorageId(), USER_ID);
         MATCHER.assertEquals(STORAGE, actual);
     }
 
     @Test
     public void getAll() {
-        MATCHER.assertListEquals(Arrays.asList(STORAGE),new ArrayList<>(storageService.getAll(USER_ID)));
+        MATCHER.assertListEquals(Arrays.asList(STORAGE), new ArrayList<>(storageService.getAll(USER_ID)));
     }
 
     @Test
     public void getProducts() {
-
-        StorageProductTestData.MATCHER.assertListEquals(new ArrayList<StorageProduct>(STORAGE_PRODUCT_SET),storageProductService.getAll(STORAGE_ID));
+        Storage storage=storageService.get(STORAGE_ID, USER_ID);
+        List<StorageProduct> storageProductList=new ArrayList<StorageProduct>(storage.getProducts());
+        StorageProductTestData.MATCHER.assertListEquals(STORAGE_PRODUCT_LIST, storageProductList);
     }
 
     @Test
     public void update() {
-        Storage updated=new Storage(STORAGE);
+        Storage updated = new Storage(STORAGE);
         updated.setName("New storage name");
-        storageService.update(updated.getStorageId(),updated,USER_ID);
-        MATCHER.assertEquals(updated,storageService.get(STORAGE_ID,USER_ID));
+        storageService.update(updated.getStorageId(), updated, USER_ID);
+        MATCHER.assertEquals(updated, storageService.get(STORAGE_ID, USER_ID));
     }
 
     @Test
     public void create() {
-/*        Product newProduct=new Product(124,"New product", 5.2);
-        Product created=productService.create(newProduct);
-        newProduct.setProdId(created.getProdId());
-        List<Product> productList=new ArrayList<>(PRODUCT_LIST);
-        productList.add(newProduct);
-        MATCHER.assertListEquals(productList,productService.getAll());*/
-
-        Storage newStorage=new Storage("newStorage",USER,new HashSet<>());
-        Storage created=storageService.create(newStorage,USER_ID);
+        Storage newStorage = new Storage("newStorage", USER, new HashSet<>());
+        Storage created = storageService.create(newStorage, USER_ID);
         newStorage.setStorageId(created.getStorageId());
-        MATCHER.assertListEquals(Arrays.asList(STORAGE,newStorage),new ArrayList<>(storageService.getAll(USER_ID)));
+        Set<Storage> storageSet=storageService.getAll(USER_ID);
+        MATCHER.assertListEquals(Arrays.asList(STORAGE, newStorage), new ArrayList<>(storageSet));
     }
 }

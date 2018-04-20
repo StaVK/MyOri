@@ -28,7 +28,7 @@ public class JspProductController extends AbstractProductController {
 
     @GetMapping("/create")
     public String create(Model model) {
-        model.addAttribute("product", new Product(1, "Туалетная вода", 1000.0));
+        model.addAttribute("product", new Product(null, null, 0.0));
         return "productForm";
     }
 
@@ -46,15 +46,6 @@ public class JspProductController extends AbstractProductController {
         return "redirect:/products";
     }
 
-/*    @PostMapping("/filter")
-    public String getBetween(HttpServletRequest request, Model model) {
-        LocalDate startDate = parseLocalDate(request.getParameter("startDate"));
-        LocalDate endDate = parseLocalDate(request.getParameter("endDate"));
-        LocalTime startTime = parseLocalTime(request.getParameter("startTime"));
-        LocalTime endTime = parseLocalTime(request.getParameter("endTime"));
-        model.addAttribute("meals", super.getBetween(startDate, startTime, endDate, endTime));
-        return "meals";
-    }*/
 
     private int getId(HttpServletRequest request) {
         String paramId = Objects.requireNonNull(request.getParameter("prodId"));

@@ -54,7 +54,7 @@ public class AbstractOrderProductController extends AbstractController{
         return orderProductService.create(orderProduct);
     }
 
-    public Set<OrderProduct> getAllOP(int orderId){
+    public List<OrderProduct> getAllOP(int orderId){
         int userId = AuthorizedUser.id();
         log.info("getAll products for User {}", userId);
         return orderProductService.getAll(orderId);

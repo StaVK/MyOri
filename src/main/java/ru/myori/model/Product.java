@@ -31,7 +31,6 @@ public class Product {
         this(product.getProdId(),product.getArticle(),product.getDescription(),product.getPrice());
     }
 
-
     public Product(Integer article, String description, double price) {
         this(null, article, description, price);
     }

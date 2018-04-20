@@ -20,7 +20,7 @@ public class AjaxOrderProductController extends AbstractOrderProductController {
     }
 
     @GetMapping(value = "/{orderId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Set<OrderProduct> getAll(@PathVariable("orderId") int orderId) {
+    public List<OrderProduct> getAll(@PathVariable("orderId") int orderId) {
         return super.getAllOP(orderId);
     }
 

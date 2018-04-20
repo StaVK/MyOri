@@ -6,6 +6,8 @@ import ru.myori.model.Role;
 import ru.myori.model.User;
 import ru.myori.web.json.JsonUtil;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 import static ru.myori.model.AbstractBaseEntity.START_SEQ;
@@ -13,9 +15,9 @@ import static ru.myori.model.AbstractBaseEntity.START_SEQ;
 public class UserTestData {
     public static final int USER_ID = START_SEQ;
     public static final int ADMIN_ID = START_SEQ + 1;
-    public static final int USER2_ID = START_SEQ+11;
-    public static final int USER11_ID = START_SEQ+12;
-    public static final int USER21_ID = START_SEQ+13;
+    public static final int USER2_ID = START_SEQ + 11;
+    public static final int USER11_ID = START_SEQ + 12;
+    public static final int USER21_ID = START_SEQ + 13;
 
 
     public static final User USER = new User(USER_ID, "User", "user@yandex.ru", "password", Role.ROLE_USER);
@@ -24,6 +26,7 @@ public class UserTestData {
     public static final User USER11 = new User(USER11_ID, "User11", "user11@yandex.ru", "password", Role.ROLE_USER);
     public static final User USER21 = new User(USER21_ID, "User21", "user21@yandex.ru", "password", Role.ROLE_USER);
 
+    public static final List<User> USERS_LIST = Arrays.asList(ADMIN, USER, USER11, USER2, USER21);
 
 
     public static final BeanMatcher<User> MATCHER = BeanMatcher.of(User.class,

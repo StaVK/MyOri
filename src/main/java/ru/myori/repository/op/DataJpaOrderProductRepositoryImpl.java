@@ -1,4 +1,4 @@
-package ru.myori.repository;
+package ru.myori.repository.op;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -6,6 +6,7 @@ import ru.myori.model.OrderProduct;
 import ru.myori.repository.order.CrudOrderRepository;
 import ru.myori.repository.product.CrudProductRepository;
 
+import java.util.List;
 import java.util.Set;
 
 @Repository
@@ -35,7 +36,7 @@ public class DataJpaOrderProductRepositoryImpl implements OrderProductRepository
     }
 
     @Override
-    public Set<OrderProduct> getAll(int orderId) {
+    public List<OrderProduct> getAll(int orderId) {
         return crudOrderProductRepository.getAllByOrderId(orderId);
     }
 

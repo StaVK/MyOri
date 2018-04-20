@@ -3,8 +3,10 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%--<%@ taglib prefix="fn" uri="http://topjava.javawebinar.ru/functions" %>--%>
 <html>
+<jsp:include page="fragments/i18n.jsp"/>
 <jsp:include page="fragments/headTag.jsp"/>
 <body>
+<script type="text/javascript" src="resources/js/productDatatables.js" defer></script>
 <jsp:include page="fragments/bodyHeader.jsp"/>
 <div class="jumbotron">
     <div class="container">
@@ -14,18 +16,24 @@
                 <h3><spring:message code="product.title"/></h3>
 
                 <hr>
-                <a href="products/create"><spring:message code="product.add"/></a>
+                <%--<a href="products/create"><spring:message code="product.add"/></a>--%>
+
+                <a class="btn btn-primary" onclick="add()">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    <spring:message code="common.add"/>
+                </a>
                 <hr>
-                <table class="table table-striped display">
+                <table class="table table-striped display" id="productDatatable">
                     <thead>
                     <tr>
                         <th><spring:message code="product.article"/></th>
                         <th><spring:message code="product.description"/></th>
                         <th><spring:message code="product.price"/></th>
-                        <th colspan="2"><spring:message code="common.actions"/></th>
+                        <th></th>
+                        <th></th>
                     </tr>
                     </thead>
-                    <c:forEach items="${products}" var="product">
+<%--                    <c:forEach items="${products}" var="product">
                         <jsp:useBean id="product" scope="page" type="ru.myori.model.Product"/>
                         <tr>
                             <td>${product.article}</td>
@@ -36,12 +44,78 @@
                             <td><a href="products/delete?prodId=${product.prodId}"><spring:message
                                     code="common.delete"/></a></td>
                         </tr>
-                    </c:forEach>
+                    </c:forEach>--%>
                 </table>
             </section>
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="editRow">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h2 class="modal-title" id="modalTitle"></h2>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="detailsForm">
+                    <input type="hidden" name="prodId" value="${product.prodId}">
+                    <div class="form-group">
+                        <label for="article" class="control-label col-xs-3"><spring:message
+                                code="product.article"/></label>
+                        <div class="col-xs-9">
+                            <input type="number" id="article" name="article" placeholder="0">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description" class="control-label col-xs-3"><spring:message
+                                code="product.description"/></label>
+                        <div class="col-xs-9">
+                            <input type="text" id="description" name="description">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="price" class="control-label col-xs-3"><spring:message
+                                code="product.price"/></label>
+                        <div class="col-xs-9">
+                            <input type="number" id="price" name="price">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-offset-3 col-xs-9">
+                            <button class="btn btn-primary" type="button" onclick="save()"><spring:message code="common.save"/></button>
+                            <button class="btn btn-primary" onclick="window.history.back()" type="button"><spring:message code="common.cancel"/></button>
+                        </div>
+                    </div>
+<%--                    <input type="hidden" id="prodId" name="prodId">
+
+                    <div class="form-group">
+                        <label for="name" class="control-label col-xs-3"><spring:message
+                                code="storage.name"/></label>
+
+                        <div class="col-xs-9">
+                            <input class="form-control" id="name" name="name"
+                                   placeholder="<spring:message code="storage.name"/>">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-xs-offset-3 col-xs-9">
+                            <button class="btn btn-primary" type="button" onclick="save()">
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>--%>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <jsp:include page="fragments/footer.jsp"/>
 </body>
+<script type="text/javascript">
+    i18n["editTitle"] = '<spring:message code="common.edit"/>';
+</script>
 </html>

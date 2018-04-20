@@ -58,9 +58,4 @@ public abstract class AbstractUserController {
         service.enable(id, enabled);
     }
 
-/*    public Set<User> getCustomers(){
-        int userId = AuthorizedUser.id();
-        log.info("Get customers for user {}", userId);
-        return service.get(userId).getCustomers();
-    }*/
 }

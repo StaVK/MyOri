@@ -1,7 +1,5 @@
 package ru.myori.to;
 
-import org.hibernate.validator.constraints.Range;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

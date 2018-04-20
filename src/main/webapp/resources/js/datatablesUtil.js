@@ -22,7 +22,7 @@ function deleteRow(id) {
         type: "DELETE",
         success: function () {
             updateTable();
-            // successNoty("Deleted");
+            successNoty("Deleted");
         }
     });
 }

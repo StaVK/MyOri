@@ -11,7 +11,6 @@
 <div class="jumbotron">
     <div class="container">
         <div class="shadow">
-
             <section>
                 <h3><spring:message code="order.title"/></h3>
                 <hr>

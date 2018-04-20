@@ -1,12 +1,13 @@
-package ru.myori.repository;
+package ru.myori.repository.op;
 
 import ru.myori.model.OrderProduct;
 
+import java.util.List;
 import java.util.Set;
 
 public interface OrderProductRepository {
     OrderProduct save(OrderProduct orderProduct);
-    Set<OrderProduct> getAll(int orderId);
+    List<OrderProduct> getAll(int orderId);
     OrderProduct get(OrderProduct orderProduct);
     OrderProduct getProd(int orderId, int prodId);
     int update(int orderId, int article, int volume);

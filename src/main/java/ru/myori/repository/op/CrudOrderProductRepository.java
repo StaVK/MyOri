@@ -1,4 +1,4 @@
-package ru.myori.repository;
+package ru.myori.repository.op;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -9,6 +9,7 @@ import ru.myori.model.Order;
 import ru.myori.model.OrderProduct;
 import ru.myori.model.Product;
 
+import java.util.List;
 import java.util.Set;
 
 @Transactional(readOnly = true)
@@ -34,5 +35,5 @@ public interface CrudOrderProductRepository extends JpaRepository<OrderProduct, 
     int delete(@Param("id") int id);
 
     @Query("SELECT op FROM OrderProduct op WHERE op.order.orderId=:orderId")
-    Set<OrderProduct> getAllByOrderId(@Param("orderId") int orderId);
+    List<OrderProduct> getAllByOrderId(@Param("orderId") int orderId);
 }

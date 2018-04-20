@@ -1,6 +1,5 @@
 package ru.myori.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -27,8 +26,7 @@ public class Storage {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn (name="spId", updatable=false)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "storage")
     private Set<StorageProduct> products;
 
     public Storage() {
@@ -91,7 +89,7 @@ public class Storage {
                 "storageId=" + storageId +
                 ", name='" + name + '\'' +
                 ", user=" + user +
-                ", products=" + products +
+//                ", products=" + products +
                 '}';
     }
 }

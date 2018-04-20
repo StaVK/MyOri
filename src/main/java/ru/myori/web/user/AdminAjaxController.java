@@ -48,8 +48,9 @@ public class AdminAjaxController extends AbstractUserController {
         super.enable(id, enabled);
     }
 
-/*    @GetMapping("/customers")
-    public Set<User> getCustomers(){
-        return super.getCustomers();
-    }*/
+    @Override
+    @GetMapping(value = "/by", produces = MediaType.APPLICATION_JSON_VALUE)
+    public User getByMail(@RequestParam("email") String email) {
+        return super.getByMail(email);
+    }
 }

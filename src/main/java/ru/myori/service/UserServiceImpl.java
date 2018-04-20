@@ -20,7 +20,7 @@ import static ru.myori.util.ValidationUtil.checkNotFound;
 import static ru.myori.util.ValidationUtil.checkNotFoundWithId;
 
 @Service("userService")
-public class UserServiceImpl implements UserService,UserDetailsService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepository userRepository;
 
@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService,UserDetailsService {
 
     @Override
     public void delete(int id) throws NotFoundException {
-        checkNotFoundWithId(userRepository.delete(id),id);
+        checkNotFoundWithId(userRepository.delete(id), id);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService,UserDetailsService {
     @Override
     public User getByEmail(String email) throws NotFoundException {
         Assert.notNull(email, "email must not be null");
-        return checkNotFound(userRepository.getByEmail(email),"email=" + email);
+        return checkNotFound(userRepository.getByEmail(email), "email=" + email);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class UserServiceImpl implements UserService,UserDetailsService {
     @Override
     public void update(UserTo userTo) {
         User user = updateFromTo(get(userTo.getId()), userTo);
-        Assert.isNull(getByEmail(user.getEmail()),"User with this email already exists!");
+        Assert.isNull(getByEmail(user.getEmail()), "User with this email already exists!");
         userRepository.save(prepareToSave(user));
     }
 

@@ -23,7 +23,7 @@ public abstract class AbstractOrderController extends AbstractController {
         return orderService.getAll(userId);
     }
 
-    public Set<OrderProduct> getAllOP(int orderId) {
+    public List<OrderProduct> getAllOP(int orderId) {
         return super.orderProductService.getAll(orderId);
     }
 

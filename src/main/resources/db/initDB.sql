@@ -36,9 +36,8 @@ CREATE TABLE storage
   storageid INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   name VARCHAR NOT NULL,
   userid integer NOT NULL,
-  CONSTRAINT fkd9mujigmn3o07ld2m1osdam3y FOREIGN KEY (userid)
-  REFERENCES users (id) MATCH SIMPLE
-  ON UPDATE NO ACTION ON DELETE NO ACTION
+  CONSTRAINT fkd9mujigmn3o07ld2m1osdam3y
+  FOREIGN KEY (userid) REFERENCES users (id) ON DELETE CASCADE
 );
 
 CREATE TABLE products (
@@ -55,9 +54,9 @@ CREATE TABLE storage_products
   price float NOT NULL,
   prodid integer NOT NULL,
   storageid integer NOT NULL,
-  CONSTRAINT fk2jf7oqjn70dtpbkjpxqkb1jgi FOREIGN KEY (storageid)
-  REFERENCES storage (storageid) MATCH SIMPLE
-  ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT fk2jf7oqjn70dtpbkjpxqkb1jgi
+  FOREIGN KEY (storageid) REFERENCES storage (storageid) MATCH SIMPLE
+  ON UPDATE NO ACTION ON DELETE CASCADE,
   CONSTRAINT fk2v4acakr0x6tj13kiru0sf6y5 FOREIGN KEY (prodid)
   REFERENCES products (prodid) MATCH SIMPLE
   ON UPDATE NO ACTION ON DELETE CASCADE
