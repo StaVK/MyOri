@@ -70,17 +70,6 @@ function renderEditVolume(data, type, row) {
         return "<input id="+inpId+" type='number' onchange='saveData("+inpId+","+art+")' value='" + vol + "'>";
 }
 
-/*$('#vol').onchange(function() {
-    clearTimeout($.data(this, 'timer'));
-    var wait = setTimeout(saveData, 500); // delay after user types
-    $(this).data('timer', wait);
-});*/
-/*function delayChange(article) {
-    //clearTimeout($.data(this, 'timer'));
-    var wait = setTimeout(saveData(article), 10000);
-    //$(this).data('timer', wait);
-}*/
-
 function saveData(inpId, article){
     var data1="&orderId="+$("#orderId").val()+"&article="+article+"&volume="+$(inpId).val();
     $.ajax({

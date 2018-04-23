@@ -1,10 +1,10 @@
-var ajaxUrlStorageProduct = "ajax/storage/";
+var ajaxUrlStorageProduct = "ajax/sp/";
 var datatableApiStorageProduct;
 
 $(function () {
     datatableApiStorageProduct = $("#storageProductDatatable").DataTable({
         "ajax": {
-            "url": ajaxUrlStorageProduct+"products/"+$('#storageId').val(),
+            "url": ajaxUrlStorageProduct+$('#storageId').val(),
             "dataSrc": ""
         },
         "paging": false,
@@ -33,3 +33,30 @@ $(function () {
     });
     // makeEditable();
 });
+var form = $("#detailsForm");
+
+function add() {
+    $("#modalTitle").html(i18n["addTitle"]);
+    form.find(":input").val("");
+    $("#editRow").modal();
+}
+
+function save() {
+    var data="&storageId="+$("#storageId").val()+"&"+form.serialize();
+    $.ajax({
+        type: "POST",
+        url: ajaxUrlStorageProduct,
+        data: data,
+        success: function () {
+            $("#editRow").modal("hide");
+            updateTable();
+            // successNoty("common.saved");
+        }
+    });
+}
+
+function updateTable() {
+    $.get(ajaxUrlStorageProduct+$("#storageId").val(), function (data) {
+        datatableApiStorageProduct.clear().rows.add(data).draw();
+    });
+}

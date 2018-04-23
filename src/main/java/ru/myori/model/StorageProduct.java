@@ -90,6 +90,10 @@ public class StorageProduct {
         this.storage = storage;
     }
 
+    public boolean isNew() {
+        return getSpId() == null;
+    }
+
     @Override
     public String toString() {
         return "StorageProduct{" +

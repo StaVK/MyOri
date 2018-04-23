@@ -1,6 +1,7 @@
-package ru.myori.repository;
+package ru.myori.repository.sp;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,4 +16,12 @@ public interface CrudStorageProductRepository extends JpaRepository<StorageProdu
 
     @Query("SELECT sp FROM StorageProduct sp WHERE sp.storage.storageId=:storageId")
     List<StorageProduct> getAllByStorage(@Param("storageId") int storageId);
+
+    @Query("SELECT sp FROM StorageProduct sp WHERE sp.product.article=:article AND sp.storage.storageId=:storageId")
+    StorageProduct getByArticleAndStorage(@Param("article") int article, @Param("storageId") int storageId);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE StorageProduct sp SET sp.volume=:volume WHERE sp.spId=:spId")
+    int update(@Param("spId") int spId, @Param("volume") int volume);
 }

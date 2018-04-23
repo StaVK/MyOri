@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(value = "/sp")
+@RequestMapping(value = "/storage")
 public class JspStorageController extends AbstractStorageController{
     @GetMapping("/{storageId}")
     public String productsInStorage(@PathVariable("storageId") int storageId, Model model) {

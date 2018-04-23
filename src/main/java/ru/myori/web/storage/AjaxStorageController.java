@@ -17,10 +17,9 @@ public class AjaxStorageController extends AbstractStorageController {
         return super.getAll();
     }
 
-    @GetMapping(value = "/products/{storageId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<StorageProduct> getProducts(@PathVariable("storageId") int storageId) {
-        return super.getProducts(storageId);
-    }
+
+
+//    @PostMapping("/products/{}")
 
     @GetMapping("/{storageId}")
     public Storage get(@PathVariable("storageId") int storageId){
