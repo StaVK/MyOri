@@ -6,6 +6,7 @@ import ru.myori.AuthorizedUser;
 import ru.myori.model.Order;
 import ru.myori.model.OrderProduct;
 import ru.myori.model.Product;
+import ru.myori.model.SummaryOrder;
 
 import java.util.List;
 import java.util.Set;
@@ -58,6 +59,12 @@ public class AbstractOrderProductController extends AbstractController{
         int userId = AuthorizedUser.id();
         log.info("getAll products for User {}", userId);
         return orderProductService.getAll(orderId);
+    }
+
+    public List<OrderProduct> getAll(){
+        int userId = AuthorizedUser.id();
+        log.info("getAll products for User {}", userId);
+        return orderProductService.getAll();
     }
 
     public int update(int orderId, int article, int volume){

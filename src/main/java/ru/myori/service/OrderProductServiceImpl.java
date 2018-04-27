@@ -47,4 +47,9 @@ public class OrderProductServiceImpl implements OrderProductService {
     public int update(int orderId, int article, int volume) {
         return orderProductRepository.update(orderId, article, volume);
     }
+
+    @Override
+    public List<OrderProduct> getAll() {
+        return orderProductRepository.getAll();
+    }
 }

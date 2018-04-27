@@ -12,6 +12,8 @@
                 <li>
                     <form:form class="navbar-form" action="logout" method="post">
                         <sec:authorize access="isAuthenticated()">
+                            <a class="btn btn-info" href="orders"><spring:message code="order.orders"/></a>
+                            <a class="btn btn-info" href="summaryOrder"><spring:message code="order.summaryOrder"/></a>
                             <a class="btn btn-info" href="storage"><spring:message code="common.storage"/></a>
                             <sec:authorize access="hasRole('ROLE_ADMIN')">
                                 <a class="btn btn-info" href="products"><spring:message code="product.title"/></a>

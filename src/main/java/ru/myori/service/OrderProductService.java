@@ -12,6 +12,8 @@ public interface OrderProductService {
 
     List<OrderProduct> getAll(int orderId);
 
+    List<OrderProduct> getAll();
+
     OrderProduct get(OrderProduct orderProduct);
 
     OrderProduct getProd(int orderId, int prodId);

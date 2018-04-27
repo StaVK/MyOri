@@ -34,6 +34,12 @@ public interface CrudOrderProductRepository extends JpaRepository<OrderProduct, 
     @Query("DELETE FROM OrderProduct op WHERE op.opId=:id")
     int delete(@Param("id") int id);
 
+    @Transactional
     @Query("SELECT op FROM OrderProduct op WHERE op.order.orderId=:orderId")
     List<OrderProduct> getAllByOrderId(@Param("orderId") int orderId);
+
+    @Transactional
+    @Query("SELECT new OrderProduct(op.product, SUM(op.volume)) FROM OrderProduct op GROUP BY op.product")
+//    @Query("SELECT op.*, SUM(op.volume) FROM OrderProduct op GROUP BY op.product")
+    List<OrderProduct> getAll();
 }

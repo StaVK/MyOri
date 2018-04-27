@@ -13,7 +13,7 @@ import java.util.Set;
 
 @Transactional(readOnly = true)
 public interface CrudStorageRepository extends JpaRepository<Storage, Integer> {
-    @Query("SELECT s FROM Storage s WHERE s.user.id=:userId ORDER BY storageId DESC")
+    @Query("SELECT s FROM Storage s WHERE s.user.id=:userId")
     List<Storage> getAll(@Param("userId") int userId);
 
     @Query("SELECT p FROM Product p")

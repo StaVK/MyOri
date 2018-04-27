@@ -45,7 +45,7 @@ public class StorageProductServiceImpl implements StorageProductService {
     @Override
     public void createOrUpdate(int article, int storageId, int volume, float price, int userId) {
         StorageProduct storageProduct = getByArticle(article, storageId);
-        if (storageProduct != null) {
+        if (storageProduct != null && storageProduct.getPrice()==price) {
             storageProduct.setVolume(storageProduct.getVolume()+volume);
             storageProductRepository.update(storageProduct);
         } else {

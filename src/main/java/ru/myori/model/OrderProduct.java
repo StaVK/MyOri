@@ -3,6 +3,8 @@ package ru.myori.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.stereotype.Repository;
+import ru.myori.repository.reports.SummaryOrderRepository;
 
 import javax.persistence.*;
 
@@ -11,6 +13,9 @@ import static ru.myori.model.AbstractBaseEntity.START_SEQ;
 @Entity
 @Table(name = "order_products")
 public class OrderProduct{
+
+
+
     @Id
     @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = START_SEQ)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
@@ -35,18 +40,23 @@ public class OrderProduct{
     public OrderProduct() {
     }
 
+    public OrderProduct(Order order, Product product, int volume){
+        this.order=order;
+        this.product=product;
+        this.volume=volume;
+    }
+
+    public OrderProduct(Product product, long volume){
+        this.product=product;
+        this.volume=(int)volume;
+    }
+
     public Integer getOpId() {
         return opId;
     }
 
     public void setOpId(Integer opId) {
         this.opId = opId;
-    }
-
-    public OrderProduct(Order order, Product product, int volume){
-        this.order=order;
-        this.product=product;
-        this.volume=volume;
     }
 
     public Product getProduct() {

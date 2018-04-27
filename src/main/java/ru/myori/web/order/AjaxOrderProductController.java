@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.myori.model.Order;
 import ru.myori.model.OrderProduct;
 import ru.myori.model.Product;
+import ru.myori.model.SummaryOrder;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -22,6 +23,11 @@ public class AjaxOrderProductController extends AbstractOrderProductController {
     @GetMapping(value = "/{orderId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<OrderProduct> getAll(@PathVariable("orderId") int orderId) {
         return super.getAllOP(orderId);
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<OrderProduct> getAll() {
+        return super.getAll();
     }
 
     @PostMapping

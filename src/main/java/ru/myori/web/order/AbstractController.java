@@ -1,10 +1,7 @@
 package ru.myori.web.order;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import ru.myori.service.OrderProductService;
-import ru.myori.service.OrderService;
-import ru.myori.service.ProductService;
-import ru.myori.service.UserService;
+import ru.myori.service.*;
 
 public abstract class AbstractController {
     @Autowired
@@ -18,4 +15,7 @@ public abstract class AbstractController {
 
     @Autowired
     ProductService productService;
+
+//    @Autowired
+//    SummaryOrderService summaryOrderService;
 }

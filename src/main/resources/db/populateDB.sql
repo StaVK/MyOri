@@ -58,4 +58,14 @@ INSERT INTO storage (storageid, name, userid)
 VALUES (nextval('global_seq'),'Главный склад', 100000);
 
 INSERT INTO storage_products(spid, volume, price, prodid, storageid)
-VALUES (nextval('global_seq'),5, 1.1,100002,100014)
+VALUES (nextval('global_seq'),5, 1.1,100002,100014);
+
+INSERT INTO order_products (opid, orderid, prodid, volume) VALUES
+  (nextval('global_seq'), '100010', '100003', '2');
+
+
+INSERT INTO orders (orderId, user_id, foruser_id) VALUES
+  (nextval('global_seq'), '100000', '100012');
+
+INSERT INTO order_products (opid, orderid, prodid, volume) VALUES
+  (nextval('global_seq'), '100017', '100003', '3');
