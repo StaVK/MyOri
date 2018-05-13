@@ -12,7 +12,7 @@ public interface OrderProductService {
 
     List<OrderProduct> getAll(int orderId);
 
-    List<OrderProduct> getAll();
+    List<OrderProduct> getAllForSummary(int userId);
 
     OrderProduct get(OrderProduct orderProduct);
 

@@ -5,11 +5,8 @@ import org.springframework.web.bind.annotation.*;
 import ru.myori.model.Order;
 import ru.myori.model.OrderProduct;
 import ru.myori.model.Product;
-import ru.myori.model.SummaryOrder;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/ajax/op")

@@ -3,10 +3,9 @@ package ru.myori.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.springframework.stereotype.Repository;
-import ru.myori.repository.reports.SummaryOrderRepository;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import static ru.myori.model.AbstractBaseEntity.START_SEQ;
 
@@ -37,6 +36,9 @@ public class OrderProduct{
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Product product;
 
+    @NotNull
+    private int status;
+
     public OrderProduct() {
     }
 
@@ -49,6 +51,14 @@ public class OrderProduct{
     public OrderProduct(Product product, long volume){
         this.product=product;
         this.volume=(int)volume;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public Integer getOpId() {

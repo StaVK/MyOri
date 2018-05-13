@@ -49,7 +49,7 @@ public class OrderProductServiceImpl implements OrderProductService {
     }
 
     @Override
-    public List<OrderProduct> getAll() {
-        return orderProductRepository.getAll();
+    public List<OrderProduct> getAllForSummary(int userId) {
+        return orderProductRepository.getAllForSummary(userId);
     }
 }

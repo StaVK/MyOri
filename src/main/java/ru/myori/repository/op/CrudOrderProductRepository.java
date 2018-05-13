@@ -39,7 +39,6 @@ public interface CrudOrderProductRepository extends JpaRepository<OrderProduct, 
     List<OrderProduct> getAllByOrderId(@Param("orderId") int orderId);
 
     @Transactional
-    @Query("SELECT new OrderProduct(op.product, SUM(op.volume)) FROM OrderProduct op GROUP BY op.product")
-//    @Query("SELECT op.*, SUM(op.volume) FROM OrderProduct op GROUP BY op.product")
-    List<OrderProduct> getAll();
+    @Query("SELECT new OrderProduct(op.product, SUM(op.volume)) FROM OrderProduct op WHERE op.order.orderId IN (SELECT o FROM Order o WHERE o.user.id=:userId) GROUP BY op.product")
+    List<OrderProduct> getAll(@Param("userId") int userId);
 }

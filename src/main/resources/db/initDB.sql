@@ -88,6 +88,7 @@ CREATE TABLE order_products (
   orderId INTEGER NOT NULL,
   prodId  INTEGER NOT NULL,
   volume  INTEGER NOT NULL,
+  status INTEGER NOT NULL,
   FOREIGN KEY (orderId) REFERENCES orders (orderId) ON DELETE CASCADE,
   FOREIGN KEY (prodId) REFERENCES products (prodId) ON DELETE CASCADE
 );

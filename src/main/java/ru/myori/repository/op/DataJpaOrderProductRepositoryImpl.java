@@ -41,9 +41,8 @@ public class DataJpaOrderProductRepositoryImpl implements OrderProductRepository
     }
 
     @Override
-    public List<OrderProduct> getAll() {
-        List<OrderProduct> orderProductList=crudOrderProductRepository.getAll();
-        return orderProductList;
+    public List<OrderProduct> getAllForSummary(int userId) {
+        return crudOrderProductRepository.getAll(userId);
     }
 
     @Override

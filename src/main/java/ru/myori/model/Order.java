@@ -13,7 +13,7 @@ import static ru.myori.model.AbstractBaseEntity.START_SEQ;
 
 @Entity
 @Table(name = "orders")
-public class Order{
+public class Order {
 
     @Id
     @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = START_SEQ)
@@ -23,7 +23,7 @@ public class Order{
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
-    @JoinColumn (name="opId", insertable=false, updatable=false)
+    @JoinColumn(name = "opId", insertable = false, updatable = false)
     private Set<OrderProduct> products;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -38,11 +38,17 @@ public class Order{
     @NotNull
     private User forUser;
 
+
+
     public Order() {
     }
+
+
+
     public boolean isNew() {
         return getOrderId() == null;
     }
+
     public Integer getOrderId() {
         return orderId;
     }
