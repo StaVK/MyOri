@@ -24,4 +24,9 @@ public interface CrudStorageProductRepository extends JpaRepository<StorageProdu
     @Modifying
     @Query("UPDATE StorageProduct sp SET sp.volume=:volume WHERE sp.spId=:spId")
     int update(@Param("spId") int spId, @Param("volume") int volume);
+
+    @Transactional
+    @Modifying
+    @Query("DELETE FROM StorageProduct sp WHERE sp.spId=:spId")
+    int delete(@Param("spId") int spId);
 }

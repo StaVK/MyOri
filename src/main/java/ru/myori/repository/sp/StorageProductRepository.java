@@ -10,7 +10,9 @@ public interface StorageProductRepository {
 
     StorageProduct save(StorageProduct storageProduct);
 
-    StorageProduct getByArticle(int article, int storageId);
+    StorageProduct getByArticleAndStorage(int article, int storageId);
 
     int update(StorageProduct storageProduct);
+
+    boolean delete(int spId);
 }

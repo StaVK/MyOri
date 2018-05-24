@@ -62,13 +62,18 @@ public class AbstractOrderProductController extends AbstractController{
     public List<OrderProduct> getAll(){
         int userId = AuthorizedUser.id();
         log.info("getAll products for User {}", userId);
-        return orderProductService.getAllForSummary(userId);
-//        return null;
+        return orderProductService.getAll(userId);
     }
 
-    public int update(int orderId, int article, int volume){
+    public List<OrderProduct> getSummary(){
+        int userId = AuthorizedUser.id();
+        log.info("getSummary products for User {}", userId);
+        return orderProductService.getAllForSummary(userId);
+    }
+
+    public int update(int opId, int volume){
         int userId = AuthorizedUser.id();
         log.info("update order product for User {}", userId);
-        return orderProductService.update(orderId,article,volume);
+        return orderProductService.update(opId,volume);
     }
 }

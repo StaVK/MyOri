@@ -16,6 +16,9 @@ public interface CrudOrderRepository extends JpaRepository<Order, Integer> {
     @Query("SELECT o FROM Order o WHERE o.user.id=:userId")
     List<Order> getAll(@Param("userId") int userId);
 
+    @Query("SELECT o FROM Order o WHERE o.user.id=:userId AND o.forUser.id=:customerId AND o.status=:status")
+    List<Order> getAllActive(@Param("userId") int userId, @Param("customerId") int customerId, @Param("status") int status);
+
     @Override
     Order save(Order order);
 
@@ -23,10 +26,6 @@ public interface CrudOrderRepository extends JpaRepository<Order, Integer> {
 
     Order getOrderByOrderIdAndUserId(Integer id, Integer userId);
 
-    /*    @Transactional
-        @Modifying
-        @Query("DELETE FROM Order o WHERE o.id=:id")
-        int delete(@Param("id") int id);*/
     @Transactional
     @Modifying
     @Query("DELETE FROM Order o WHERE o.id=:id AND o.user.id=:userId")
@@ -37,4 +36,8 @@ public interface CrudOrderRepository extends JpaRepository<Order, Integer> {
     @Query("UPDATE Order o SET o.forUser.id=:customerId WHERE o.orderId=:orderId AND o.user.id=:userId")
     void chgCustomer(@Param("customerId") int customerId, @Param("orderId")int orderId, @Param("userId") int userId);
 
+    @Transactional
+    @Modifying
+    @Query("UPDATE Order o SET o.status=:status WHERE o.orderId=:orderId")
+    void changeStatus(@Param("orderId")int orderId, @Param("status") int status);
 }

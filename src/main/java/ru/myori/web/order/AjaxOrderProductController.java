@@ -27,6 +27,11 @@ public class AjaxOrderProductController extends AbstractOrderProductController {
         return super.getAll();
     }
 
+    @GetMapping(value = "/summary",produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<OrderProduct> getSummary() {
+        return super.getSummary();
+    }
+
     @PostMapping
     public void addProductInOrder(@RequestParam(value = "article") int article, @RequestParam(value = "volume") int volume, @RequestParam(value = "orderId") int orderId) {
 
@@ -45,7 +50,7 @@ public class AjaxOrderProductController extends AbstractOrderProductController {
     }
 
     @PostMapping("/editV")
-    public void editVolume(@RequestParam(value = "article") int article, @RequestParam(value = "volume") int volume, @RequestParam(value = "orderId") int orderId) {
-        super.update(orderId, article, volume);
+    public void editVolume(@RequestParam(value = "opId") int opId, @RequestParam(value = "volume") int volume) {
+        super.update(opId, volume);
     }
 }

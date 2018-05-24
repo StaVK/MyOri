@@ -39,6 +39,11 @@ public class RootController extends AbstractUserController{
         return "login";
     }
 
+    @GetMapping(value = "/boxes")
+    public String delivery() {
+        return "boxes";
+    }
+
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/users")
     public String users(Model model) {

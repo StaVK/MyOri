@@ -13,7 +13,9 @@ import static ru.myori.model.AbstractBaseEntity.START_SEQ;
 @Table(name = "order_products")
 public class OrderProduct{
 
-
+    public static final int ORDER_PRODUCT_START=0;
+    public static final int ORDER_PRODUCT_INBOX=1;
+    public static final int ORDER_PRODUCT_FINISH=2;
 
     @Id
     @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = START_SEQ)
@@ -23,6 +25,9 @@ public class OrderProduct{
 
     @Column(name="volume")
     private int volume;
+
+    @Column(name="executedVolume")
+    private int executedVolume;
 
     @JsonIgnore
     @ManyToOne
@@ -51,6 +56,14 @@ public class OrderProduct{
     public OrderProduct(Product product, long volume){
         this.product=product;
         this.volume=(int)volume;
+    }
+
+    public int getExecutedVolume() {
+        return executedVolume;
+    }
+
+    public void setExecutedVolume(int executedVolume) {
+        this.executedVolume = executedVolume;
     }
 
     public int getStatus() {

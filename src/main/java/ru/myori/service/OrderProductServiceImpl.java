@@ -1,6 +1,7 @@
 package ru.myori.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.parser.PartTree;
 import org.springframework.stereotype.Service;
 import ru.myori.model.OrderProduct;
 import ru.myori.repository.op.OrderProductRepository;
@@ -34,8 +35,13 @@ public class OrderProductServiceImpl implements OrderProductService {
     }
 
     @Override
-    public OrderProduct get(OrderProduct orderProduct) {
-        return orderProductRepository.get(orderProduct);
+    public List<OrderProduct> getAllForSummary(int userId) {
+        return orderProductRepository.getAllForSummary(userId);
+    }
+
+    @Override
+    public OrderProduct get(int opId) {
+        return orderProductRepository.get(opId);
     }
 
     @Override
@@ -44,12 +50,22 @@ public class OrderProductServiceImpl implements OrderProductService {
     }
 
     @Override
-    public int update(int orderId, int article, int volume) {
-        return orderProductRepository.update(orderId, article, volume);
+    public int update(int opId, int volume) {
+        OrderProduct orderProduct=orderProductRepository.get(opId);
+        orderProduct.setVolume(volume);
+        return orderProductRepository.update(orderProduct);
+//        return orderProductRepository.update(orderId, article, volume);
+    }
+
+
+
+/*    @Override
+    public int update(OrderProduct orderProduct) {
+        return orderProductRepository.update(orderProduct);
     }
 
     @Override
-    public List<OrderProduct> getAllForSummary(int userId) {
-        return orderProductRepository.getAllForSummary(userId);
-    }
+    public int updateExecutedVolume(OrderProduct orderProduct) {
+        return orderProductRepository.updateExecutedVolume(orderProduct);
+    }*/
 }

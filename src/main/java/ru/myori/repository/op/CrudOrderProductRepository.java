@@ -23,15 +23,22 @@ public interface CrudOrderProductRepository extends JpaRepository<OrderProduct, 
 
     @Transactional
     @Modifying
-    @Query("UPDATE OrderProduct op SET op.volume=:volume WHERE op.order=:order AND op.product=:prod")
-    int update(@Param("order") Order order, @Param("prod") Product prod, @Param("volume") int volume);
+    @Query("UPDATE OrderProduct op SET op.volume=:volume, op.executedVolume=:executedVolume, op.order=:order, op.product=:product, op.status=:status WHERE op.opId=:opId AND op.status=0")
+    int update(
+            @Param("opId") int opId,
+            @Param("order") Order order,
+            @Param("product") Product prod,
+            @Param("volume") int volume,
+            @Param("executedVolume") int executedVolume,
+            @Param("status") int status
+    );
 
     @Query("SELECT op FROM OrderProduct op JOIN FETCH op.order WHERE op.order.orderId=:orderId AND op.product.id=:prodId")
     OrderProduct getProd(@Param("orderId") int orderId, @Param("prodId") int prodId);
 
     @Modifying
     @Transactional
-    @Query("DELETE FROM OrderProduct op WHERE op.opId=:id")
+    @Query("DELETE FROM OrderProduct op WHERE op.opId=:id AND op.status=0")
     int delete(@Param("id") int id);
 
     @Transactional
@@ -39,6 +46,6 @@ public interface CrudOrderProductRepository extends JpaRepository<OrderProduct, 
     List<OrderProduct> getAllByOrderId(@Param("orderId") int orderId);
 
     @Transactional
-    @Query("SELECT new OrderProduct(op.product, SUM(op.volume)) FROM OrderProduct op WHERE op.order.orderId IN (SELECT o FROM Order o WHERE o.user.id=:userId) GROUP BY op.product")
-    List<OrderProduct> getAll(@Param("userId") int userId);
+    @Query("SELECT new OrderProduct(op.product, SUM(op.volume-op.executedVolume)) FROM OrderProduct op WHERE op.order.orderId IN (SELECT o FROM Order o WHERE o.user.id=:userId) AND (op.volume > op.executedVolume) GROUP BY op.product")
+    List<OrderProduct> getAllForSummary(@Param("userId") int userId);
 }

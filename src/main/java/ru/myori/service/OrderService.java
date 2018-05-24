@@ -20,4 +20,6 @@ public interface OrderService {
     Order update(Order order, int userId);
 
     User chgCustomer(int customerId, int orderId, int userId); //TODO доделать изменение покупателя в заказе
+
+    void changeStatus(int orderId, int status);
 }

@@ -56,4 +56,15 @@ public class DataJpaOrderRepositoryImpl implements OrderRepository {
         crudOrderRepository.chgCustomer(customerId, orderId, userId);
         return crudUserRepository.findOne(customerId);
     }
+
+    @Override
+    public List<Order> getAllActive(int userId, int customerId, int status) {
+        return crudOrderRepository.getAllActive(userId, customerId, status);
+//        return crudOrderRepository.getAll(userId);
+    }
+
+    @Override
+    public void changeStatus(int orderId, int status) {
+        crudOrderRepository.changeStatus(orderId, status);
+    }
 }

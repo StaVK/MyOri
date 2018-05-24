@@ -14,11 +14,15 @@ public interface OrderProductService {
 
     List<OrderProduct> getAllForSummary(int userId);
 
-    OrderProduct get(OrderProduct orderProduct);
+    OrderProduct get(int opId);
 
     OrderProduct getProd(int orderId, int prodId);
 
-    int update(int orderId, int article, int volume);
+    int update(int opId, int volume);
+
+//    int update(OrderProduct orderProduct);
 
     boolean delete(int prodId);
+
+//    int updateExecutedVolume(OrderProduct orderProduct);
 }

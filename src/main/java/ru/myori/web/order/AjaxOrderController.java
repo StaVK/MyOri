@@ -5,9 +5,10 @@ import org.springframework.web.bind.annotation.*;
 import ru.myori.model.Order;
 import ru.myori.model.User;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Set;
+
+import static ru.myori.model.Order.ORDER_WORK;
+
 
 @RestController
 @RequestMapping("/ajax/order")
@@ -27,5 +28,10 @@ public class AjaxOrderController extends AbstractOrderController {
     @GetMapping("/chgCust")
     public User changeCustomer(@RequestParam("orderId") int orderId, @RequestParam("customerId") int customerId) {
         return super.chgCustomer(customerId, orderId);
+    }
+
+    @GetMapping("/setStatusWork")
+    public void changeStatus(@RequestParam("orderId") int orderId) {
+        super.changeStatus(orderId, ORDER_WORK);
     }
 }

@@ -39,7 +39,7 @@ public class StorageProductServiceImpl implements StorageProductService {
 
     @Override
     public StorageProduct getByArticle(int article, int storageId) {
-        return storageProductRepository.getByArticle(article, storageId);
+        return storageProductRepository.getByArticleAndStorage(article, storageId);
     }
 
     @Override

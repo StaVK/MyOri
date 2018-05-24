@@ -14,7 +14,11 @@ public interface OrderRepository {
 
     List<Order> getAll(int userId);
 
+    List<Order> getAllActive(int userId, int customerId, int status);
+
     boolean delete(int id, int userId);
 
     User chgCustomer(int customerId, int orderId, int userId);
+
+    void changeStatus(int orderId, int status);
 }

@@ -12,4 +12,6 @@ public interface StorageProductService {
     StorageProduct getByArticle(int article, int storageId);
 
     void createOrUpdate(int article, int storageId, int volume, float price,int userId);
+
+
 }

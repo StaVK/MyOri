@@ -52,4 +52,9 @@ public class OrderServiceImpl implements OrderService {
     public User chgCustomer(int customerId, int orderId, int userId) {
         return orderRepository.chgCustomer(customerId, orderId, userId);
     }
+
+    @Override
+    public void changeStatus(int orderId, int status) {
+        orderRepository.changeStatus(orderId, status);
+    }
 }

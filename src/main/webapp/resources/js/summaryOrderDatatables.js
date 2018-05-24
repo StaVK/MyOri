@@ -1,4 +1,4 @@
-var ajaxUrl = "ajax/op/";
+var ajaxUrl = "ajax/op/summary";
 var datatableApiProd;
 
 $(function () {

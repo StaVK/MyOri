@@ -33,18 +33,6 @@
                         <th></th>
                     </tr>
                     </thead>
-<%--                    <c:forEach items="${products}" var="product">
-                        <jsp:useBean id="product" scope="page" type="ru.myori.model.Product"/>
-                        <tr>
-                            <td>${product.article}</td>
-                            <td>${product.description}</td>
-                            <td>${product.price}</td>
-                            <td><a href="products/update?prodId=${product.prodId}"><spring:message
-                                    code="common.update"/></a></td>
-                            <td><a href="products/delete?prodId=${product.prodId}"><spring:message
-                                    code="common.delete"/></a></td>
-                        </tr>
-                    </c:forEach>--%>
                 </table>
             </section>
         </div>

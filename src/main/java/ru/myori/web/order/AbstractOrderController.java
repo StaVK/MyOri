@@ -20,6 +20,7 @@ public abstract class AbstractOrderController extends AbstractController {
 
     public List<Order> getAll() {
         int userId = AuthorizedUser.id();
+        log.info("get all orders for User {}", userId);
         return orderService.getAll(userId);
     }
 
@@ -55,8 +56,13 @@ public abstract class AbstractOrderController extends AbstractController {
 
     public User chgCustomer(int customerId, int orderId) {
         int userId = AuthorizedUser.id();
-        log.info("update customer {} for Order {}", customerId, orderId);
+        log.info("User {} update customer {} for Order {}", userId, customerId, orderId);
         return orderService.chgCustomer(customerId, orderId, userId);
     }
 
+    public void changeStatus(int orderId, int status) {
+        int userId = AuthorizedUser.id();
+        log.info("User {} update status {} for Order {}", userId, status, orderId);
+        orderService.changeStatus(orderId, status);
+    }
 }

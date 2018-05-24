@@ -23,12 +23,17 @@ public class DataJpaStorageProductRepositoryImpl implements StorageProductReposi
     }
 
     @Override
-    public StorageProduct getByArticle(int article, int storageId) {
+    public StorageProduct getByArticleAndStorage(int article, int storageId) {
         return crudStorageProductRepository.getByArticleAndStorage(article, storageId);
     }
 
     @Override
     public int update(StorageProduct storageProduct) {
         return crudStorageProductRepository.update(storageProduct.getSpId(),storageProduct.getVolume());
+    }
+
+    @Override
+    public boolean delete(int spId) {
+        return crudStorageProductRepository.delete(spId)!=0;
     }
 }

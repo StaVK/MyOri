@@ -9,12 +9,17 @@
 <script type="text/javascript" src="resources/js/orderProductDatatables.js" defer></script>
 <script type="text/javascript" src="resources/js/customerDatatables.js" defer></script>
 <jsp:include page="fragments/bodyHeader.jsp"/>
+
+
 <div class="jumbotron">
     <div class="container">
         <div class="shadow">
             <section>
+
                 <h3><spring:message code="order.order"/> ${order.orderId}</h3>
+
                 <input type="hidden" id="orderId" name="orderId" value=${order.orderId}>
+                <%--<input type="hidden" id="status" name="status" value=${order.status}>--%>
 
                 <hr>
 
@@ -26,61 +31,71 @@
                             <div class="col-xs-9">
                                 <input type="text" id="customer" name="customer" placeholder="0" readonly
                                        value=${order.forUser.name}>
-                                <a onclick='editCustomer();'><span class='glyphicon glyphicon-pencil'
-                                                                   aria-hidden='true'></span></a>
+
+                                <c:if test="${order.status!=1}">
+                                    <a onclick='editCustomer();'><span class='glyphicon glyphicon-pencil'
+                                                                       aria-hidden='true'></span></a>
+                                </c:if>
                             </div>
                         </div>
                     </form>
-                    <form class="form-horizontal" id="addProductInOrderForm">
-                        <div class="form-group">
-                            <label for="article" class="control-label col-xs-3"><spring:message
-                                    code="product.article"/></label>
-                            <div class="col-xs-9">
-                                <input type="number" id="article" name="article" placeholder="0">
+                    <c:if test="${order.status!=1}">
+                        <form class="form-horizontal" id="addProductInOrderForm">
+                            <div class="form-group">
+                                <label for="article" class="control-label col-xs-3"><spring:message
+                                        code="product.article"/></label>
+                                <div class="col-xs-9">
+                                    <input type="number" id="article" name="article">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="volume" class="control-label col-xs-3"><spring:message
-                                    code="common.volume"/></label>
-                            <div class="col-xs-9">
-                                <input type="number" id="volume" name="volume" placeholder="0">
+                            <div class="form-group">
+                                <label for="volume" class="control-label col-xs-3"><spring:message
+                                        code="common.volume"/></label>
+                                <div class="col-xs-9">
+                                    <input type="number" id="volume" name="volume" placeholder="0">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-offset-3 col-xs-9">
-                                <button class="btn btn-primary" type="button"
-                                        onclick="addProdInOrder(${order.orderId})">
-                                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                            <c:if test="${order.status!=1}">
+                                <div class="form-group">
+                                    <div class="col-xs-offset-3 col-xs-9">
+                                        <button class="btn btn-primary" type="button"
+                                                onclick="addProdInOrder(${order.orderId})">
+                                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </c:if>
+                        </form>
+                    </c:if>
                     <table class="table table-striped display" id="orderProductsDatatable">
                         <thead>
                         <tr>
-                            <%--<th><spring:message code="order.products"/></th>--%>
+                            <th></th>
                             <th><spring:message code="product.article"/></th>
                             <th><spring:message code="product.description"/></th>
                             <th><spring:message code="product.price"/></th>
                             <th><spring:message code="common.volume"/></th>
                             <th><spring:message code="common.sum"/></th>
-                            <th></th>
+                            <th><spring:message code="common.executedVolume"/></th>
                             <th></th>
                         </tr>
                         </thead>
                     </table>
-                    <%--                    <div class="form-group">
-                                            <div class="col-xs-offset-10 col-xs-9">
-                                                <button class="btn btn-primary" type="button" onclick="save()">
-                                                    <spring:message code="common.save"/>
-                                                </button>
-                                            </div>
-                                        </div>--%>
+                    <c:if test="${order.status!=1}">
+                        <div class="form-group">
+                            <div class="col-xs-offset-10 col-xs-9">
+                                <button class="btn btn-primary" type="button" onclick="changeStatus()">
+                                    <spring:message code="order.inTreatment"/>
+                                </button>
+                            </div>
+                        </div>
+                    </c:if>
                 </div>
             </section>
         </div>
     </div>
 </div>
+
 
 <div class="modal fade" id="editRow">
     <div class="modal-dialog">
@@ -100,13 +115,6 @@
                         </tr>
                         </thead>
                     </table>
-                    <%--                    <div class="form-group">
-                                            <div class="col-xs-offset-3 col-xs-9">
-                                                <button class="btn btn-primary" type="button" onclick="save()">
-                                                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                                                </button>
-                                            </div>
-                                        </div>--%>
                 </form>
             </div>
         </div>

@@ -6,6 +6,8 @@ DROP TABLE IF EXISTS products CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS orders CASCADE;
 DROP TABLE IF EXISTS order_products CASCADE;
+DROP TABLE IF EXISTS boxes CASCADE;
+DROP TABLE IF EXISTS box_products CASCADE;
 DROP SEQUENCE IF EXISTS global_seq;
 
 CREATE SEQUENCE global_seq
@@ -34,8 +36,8 @@ CREATE TABLE user_roles
 CREATE TABLE storage
 (
   storageid INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-  name VARCHAR NOT NULL,
-  userid integer NOT NULL,
+  name      VARCHAR NOT NULL,
+  userid    integer NOT NULL,
   CONSTRAINT fkd9mujigmn3o07ld2m1osdam3y
   FOREIGN KEY (userid) REFERENCES users (id) ON DELETE CASCADE
 );
@@ -49,10 +51,10 @@ CREATE TABLE products (
 
 CREATE TABLE storage_products
 (
-  spid INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-  volume integer NOT NULL,
-  price float NOT NULL,
-  prodid integer NOT NULL,
+  spid      INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  volume    integer NOT NULL,
+  price     float   NOT NULL,
+  prodid    integer NOT NULL,
   storageid integer NOT NULL,
   CONSTRAINT fk2jf7oqjn70dtpbkjpxqkb1jgi
   FOREIGN KEY (storageid) REFERENCES storage (storageid) MATCH SIMPLE
@@ -71,14 +73,13 @@ CREATE TABLE customers
   FOREIGN KEY (customerId) REFERENCES users (id) ON DELETE CASCADE
 );
 
-
-
 -- CREATE UNIQUE INDEX meals_unique_user_datetime_idx ON meals (user_id, date_time)
 
 CREATE TABLE orders (
   orderId    INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   user_id    INTEGER NOT NULL,
   foruser_id INTEGER NOT NULL,
+  status     INTEGER NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
   FOREIGN KEY (foruser_id) REFERENCES users (id) ON DELETE CASCADE
 );
@@ -88,7 +89,25 @@ CREATE TABLE order_products (
   orderId INTEGER NOT NULL,
   prodId  INTEGER NOT NULL,
   volume  INTEGER NOT NULL,
-  status INTEGER NOT NULL,
+  executedVolume  INTEGER NOT NULL,
+  status  INTEGER NOT NULL,
   FOREIGN KEY (orderId) REFERENCES orders (orderId) ON DELETE CASCADE,
+  FOREIGN KEY (prodId) REFERENCES products (prodId) ON DELETE CASCADE
+);
+
+CREATE TABLE boxes (
+  boxId      INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  user_id    INTEGER NOT NULL,
+  foruser_id INTEGER NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
+  FOREIGN KEY (foruser_id) REFERENCES users (id) ON DELETE CASCADE
+);
+
+CREATE TABLE box_products (
+  bpId   INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  boxId  INTEGER NOT NULL,
+  prodId INTEGER NOT NULL,
+  volume INTEGER NOT NULL,
+  FOREIGN KEY (boxId) REFERENCES boxes (boxId) ON DELETE CASCADE,
   FOREIGN KEY (prodId) REFERENCES products (prodId) ON DELETE CASCADE
 );

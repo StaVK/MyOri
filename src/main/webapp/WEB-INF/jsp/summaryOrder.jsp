@@ -16,13 +16,6 @@
                 <h3><spring:message code="order.summaryOrder"/></h3>
 
                 <hr>
-                <%--<a href="products/create"><spring:message code="product.add"/></a>--%>
-
-<%--                <a class="btn btn-primary" onclick="add()">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                    <spring:message code="common.add"/>
-                </a>--%>
-                <hr>
                 <table class="table table-striped display" id="summaryOrderDatatable">
                     <thead>
                     <tr>

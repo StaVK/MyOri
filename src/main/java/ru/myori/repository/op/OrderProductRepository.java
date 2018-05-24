@@ -9,8 +9,9 @@ public interface OrderProductRepository {
     OrderProduct save(OrderProduct orderProduct);
     List<OrderProduct> getAll(int orderId);
     List<OrderProduct> getAllForSummary(int userId);
-    OrderProduct get(OrderProduct orderProduct);
+    OrderProduct get(int opId);
     OrderProduct getProd(int orderId, int prodId);
-    int update(int orderId, int article, int volume);
-    boolean delete(int prodId);
+
+    int update(OrderProduct orderProduct);
+    boolean delete(int opId);
 }

@@ -82,3 +82,9 @@ function addProdInOrder(orderId) {
         }
     });
 }
+
+function changeStatus() {
+    var orderId=$("#orderId").val();
+    $.get("ajax/order/setStatusWork?orderId="+orderId);
+}
+

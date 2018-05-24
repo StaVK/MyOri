@@ -22,15 +22,15 @@ public class DataJpaOrderProductRepositoryImpl implements OrderProductRepository
     private CrudProductRepository crudProductRepository;
 
     @Override
-    public boolean delete(int prodId) {
-        return crudOrderProductRepository.delete(prodId)!=0;
+    public boolean delete(int opId) {
+        return crudOrderProductRepository.delete(opId)!=0;
     }
 
     @Override
     public OrderProduct save(OrderProduct orderProduct) {
-        if(orderProduct.getOpId()!=null && get(orderProduct).getOpId()!=null){
+        if(orderProduct.getOpId()!=null && get(orderProduct.getOpId()).getOpId()!=null){
             update(orderProduct);
-            return get(orderProduct);
+            return get(orderProduct.getOpId());
         }
         return crudOrderProductRepository.save(orderProduct);
     }
@@ -42,12 +42,12 @@ public class DataJpaOrderProductRepositoryImpl implements OrderProductRepository
 
     @Override
     public List<OrderProduct> getAllForSummary(int userId) {
-        return crudOrderProductRepository.getAll(userId);
+        return crudOrderProductRepository.getAllForSummary(userId);
     }
 
     @Override
-    public OrderProduct get(OrderProduct orderProduct) {
-        return crudOrderProductRepository.findOne(orderProduct.getOpId());
+    public OrderProduct get(int opId) {
+        return crudOrderProductRepository.findOne(opId);
     }
 
     @Override
@@ -56,13 +56,14 @@ public class DataJpaOrderProductRepositoryImpl implements OrderProductRepository
     }
 
     @Override
-    public int update(int orderId, int article, int volume) {
-        return crudOrderProductRepository.update(
-                crudOrderRepository.findOne(orderId),
-                crudProductRepository.getProductByArticle(article),
-                volume);
-    }
     public int update(OrderProduct orderProduct){
-        return crudOrderProductRepository.update(orderProduct.getOrder(),orderProduct.getProduct(),orderProduct.getVolume());
+        return crudOrderProductRepository.update(
+                orderProduct.getOpId(),
+                orderProduct.getOrder(),
+                orderProduct.getProduct(),
+                orderProduct.getVolume(),
+                orderProduct.getExecutedVolume(),
+                orderProduct.getStatus());
     }
+
 }
