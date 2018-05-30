@@ -16,4 +16,6 @@ public abstract class AbstractController {
     @Autowired
     ProductService productService;
 
+    @Autowired
+    StorageProductService storageProductService;
 }

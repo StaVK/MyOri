@@ -76,6 +76,7 @@
                             <th><spring:message code="product.price"/></th>
                             <th><spring:message code="common.volume"/></th>
                             <th><spring:message code="common.sum"/></th>
+                            <th><spring:message code="common.reserved"/></th>
                             <th><spring:message code="common.executedVolume"/></th>
                             <th></th>
                         </tr>

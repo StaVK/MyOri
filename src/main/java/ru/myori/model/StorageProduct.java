@@ -1,10 +1,16 @@
 package ru.myori.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Columns;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import static ru.myori.model.AbstractBaseEntity.START_SEQ;
 
@@ -23,31 +29,44 @@ public class StorageProduct {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Product product;
 
-    @Column(name="volume")
+    @Column(name = "volume")
     private int volume;
 
-    @Column(name="price")
+    @Column(name = "price")
     private float price;
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name="storageId")
+    @JoinColumn(name = "storageId")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Storage storage;
+
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "storageProduct")
+    private Set<ReserveProduct> reserve;
 
     public StorageProduct() {
     }
 
-    public StorageProduct(Product product, int volume, float price,Storage storage) {
-        this(null,product,volume,price,storage);
+    public StorageProduct(Product product, int volume, float price, Storage storage) {
+        this(null, product, volume, price, storage);
     }
 
     public StorageProduct(Integer spId, Product product, int volume, float price, Storage storage) {
-        this.spId=spId;
+        this.spId = spId;
         this.product = product;
         this.volume = volume;
-        this.price=price;
+        this.price = price;
         this.storage = storage;
+    }
+
+
+    public Set<ReserveProduct> getReserve() {
+        return reserve;
+    }
+
+    public void setReserve(Set<ReserveProduct> reserve) {
+        this.reserve = reserve;
     }
 
     public float getPrice() {
@@ -94,6 +113,7 @@ public class StorageProduct {
         return getSpId() == null;
     }
 
+
     @Override
     public String toString() {
         return "StorageProduct{" +
@@ -102,6 +122,7 @@ public class StorageProduct {
                 ", volume=" + volume +
                 ", price=" + price +
                 ", storage=" + storage +
+                ", reserve=" + reserve +
                 '}';
     }
 }

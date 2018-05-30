@@ -76,25 +76,7 @@
                             <button class="btn btn-primary" onclick="window.history.back()" type="button"><spring:message code="common.cancel"/></button>
                         </div>
                     </div>
-<%--                    <input type="hidden" id="prodId" name="prodId">
 
-                    <div class="form-group">
-                        <label for="name" class="control-label col-xs-3"><spring:message
-                                code="storage.name"/></label>
-
-                        <div class="col-xs-9">
-                            <input class="form-control" id="name" name="name"
-                                   placeholder="<spring:message code="storage.name"/>">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-xs-offset-3 col-xs-9">
-                            <button class="btn btn-primary" type="button" onclick="save()">
-                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                            </button>
-                        </div>
-                    </div>--%>
                 </form>
             </div>
         </div>

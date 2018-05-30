@@ -22,6 +22,16 @@ $(function () {
             {
                 "mData": "volume"
                 // render: function(data){return '<input type="number" id="volume" name="volume">'}
+            },
+            {
+                "mData": "reserve",
+                "render": function (data, type, row) {
+                    var reserveSet=new Set(row.reserve);
+                    var summ=0;
+
+                    for (let item of reserveSet) summ=summ+item.reserveVolume;
+                    return summ;
+                }
             }
         ],
         "order": [

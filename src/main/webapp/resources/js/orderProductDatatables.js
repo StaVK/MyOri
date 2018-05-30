@@ -36,6 +36,11 @@ $(function () {
                 }
             },
             {
+                "mData": "reserved",
+                "defaultContent": "zero",
+                "render": renderReserved
+            },
+            {
                 "mData": "executedVolume"
             },
             /*            {
@@ -58,6 +63,29 @@ $(function () {
     });
     // makeEditable();
 });
+
+function renderReserved(data, type, row) {
+    var reserveSet=new Set(row.reserve);
+    var summ=0;
+
+    for (let item of reserveSet) summ=summ+item.reserveVolume;
+    return "<input id=rp" + row.opId + " type='number' onchange='changeReserve(" + row.opId + ")' value='" + summ + "'>";
+}
+
+function changeReserve(opId) {
+
+    var idTmp = '#rp' + opId;
+    var data1 = "&opId=" + opId + "&reserveVolume=" + $(idTmp).val();
+    $.ajax({
+        type: "POST",
+        url: "ajax/rp/editV",
+        data: data1,
+        success: function () {
+            updateTable();
+            // successNoty("common.saved");
+        }
+    });
+}
 
 function serialData() {
     var table = datatableApi;

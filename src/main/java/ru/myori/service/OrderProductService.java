@@ -2,6 +2,7 @@ package ru.myori.service;
 
 import ru.myori.model.Order;
 import ru.myori.model.OrderProduct;
+import ru.myori.to.OrderProductTo;
 
 import java.util.List;
 import java.util.Set;
@@ -10,7 +11,7 @@ public interface OrderProductService {
 
     OrderProduct create(OrderProduct orderProduct);
 
-    List<OrderProduct> getAll(int orderId);
+    List<OrderProductTo> getAll(int orderId);
 
     List<OrderProduct> getAllForSummary(int userId);
 

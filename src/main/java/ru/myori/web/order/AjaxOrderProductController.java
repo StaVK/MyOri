@@ -2,11 +2,13 @@ package ru.myori.web.order;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import ru.myori.model.Order;
-import ru.myori.model.OrderProduct;
-import ru.myori.model.Product;
+import ru.myori.model.*;
+import ru.myori.to.OrderProductTo;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/ajax/op")
@@ -17,15 +19,19 @@ public class AjaxOrderProductController extends AbstractOrderProductController {
         super.productDelete(id);
     }
 
-    @GetMapping(value = "/{orderId}", produces = MediaType.APPLICATION_JSON_VALUE)
+/*    @GetMapping(value = "/{orderId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<OrderProduct> getAll(@PathVariable("orderId") int orderId) {
         return super.getAllOP(orderId);
-    }
+    }*/
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{orderId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<OrderProductTo> getAllTo(@PathVariable("orderId") int orderId) {
+        return super.getAllOP(orderId);
+    }
+/*    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<OrderProduct> getAll() {
         return super.getAll();
-    }
+    }*/
 
     @GetMapping(value = "/summary",produces = MediaType.APPLICATION_JSON_VALUE)
     public List<OrderProduct> getSummary() {

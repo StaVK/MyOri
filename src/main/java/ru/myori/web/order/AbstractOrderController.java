@@ -6,6 +6,7 @@ import ru.myori.AuthorizedUser;
 import ru.myori.model.Order;
 import ru.myori.model.OrderProduct;
 import ru.myori.model.User;
+import ru.myori.to.OrderProductTo;
 
 import java.util.List;
 import java.util.Set;
@@ -24,7 +25,7 @@ public abstract class AbstractOrderController extends AbstractController {
         return orderService.getAll(userId);
     }
 
-    public List<OrderProduct> getAllOP(int orderId) {
+    public List<OrderProductTo> getAllOP(int orderId) {
         return super.orderProductService.getAll(orderId);
     }
 

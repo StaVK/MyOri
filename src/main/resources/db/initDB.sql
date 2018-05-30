@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS user_roles;
 DROP TABLE IF EXISTS customers;
-DROP TABLE IF EXISTS storage_products;
+DROP TABLE IF EXISTS storage_products CASCADE;
 DROP TABLE IF EXISTS storage CASCADE;
 DROP TABLE IF EXISTS products CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
@@ -8,6 +8,7 @@ DROP TABLE IF EXISTS orders CASCADE;
 DROP TABLE IF EXISTS order_products CASCADE;
 DROP TABLE IF EXISTS boxes CASCADE;
 DROP TABLE IF EXISTS box_products CASCADE;
+DROP TABLE IF EXISTS reserved_products CASCADE;
 DROP SEQUENCE IF EXISTS global_seq;
 
 CREATE SEQUENCE global_seq
@@ -49,32 +50,6 @@ CREATE TABLE products (
   price       DOUBLE PRECISION NOT NULL
 );
 
-CREATE TABLE storage_products
-(
-  spid      INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-  volume    integer NOT NULL,
-  price     float   NOT NULL,
-  prodid    integer NOT NULL,
-  storageid integer NOT NULL,
-  CONSTRAINT fk2jf7oqjn70dtpbkjpxqkb1jgi
-  FOREIGN KEY (storageid) REFERENCES storage (storageid) MATCH SIMPLE
-  ON UPDATE NO ACTION ON DELETE CASCADE,
-  CONSTRAINT fk2v4acakr0x6tj13kiru0sf6y5 FOREIGN KEY (prodid)
-  REFERENCES products (prodid) MATCH SIMPLE
-  ON UPDATE NO ACTION ON DELETE CASCADE
-);
-
-
-CREATE TABLE customers
-(
-  user_id    INTEGER NOT NULL,
-  customerId INTEGER NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
-  FOREIGN KEY (customerId) REFERENCES users (id) ON DELETE CASCADE
-);
-
--- CREATE UNIQUE INDEX meals_unique_user_datetime_idx ON meals (user_id, date_time)
-
 CREATE TABLE orders (
   orderId    INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   user_id    INTEGER NOT NULL,
@@ -95,6 +70,44 @@ CREATE TABLE order_products (
   FOREIGN KEY (prodId) REFERENCES products (prodId) ON DELETE CASCADE
 );
 
+CREATE TABLE reserved_products(
+  rpId INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  spId INTEGER NOT NULL,
+  opId INTEGER NOT NULL,
+  reserveVolume INTEGER,
+  FOREIGN KEY (opId) REFERENCES order_products(opId) ON DELETE CASCADE
+);
+
+CREATE TABLE storage_products
+(
+  spid      INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  volume    integer NOT NULL,
+  price     float   NOT NULL,
+  prodid    integer NOT NULL,
+  storageid integer NOT NULL,
+  rpId INTEGER,
+  FOREIGN KEY (storageid) REFERENCES storage (storageid) MATCH SIMPLE
+  ON UPDATE NO ACTION ON DELETE CASCADE,
+  FOREIGN KEY (prodid) REFERENCES products (prodid) MATCH SIMPLE
+  ON UPDATE NO ACTION ON DELETE CASCADE,
+  FOREIGN KEY (rpId) REFERENCES reserved_products (rpId) ON DELETE CASCADE
+);
+
+
+CREATE TABLE customers
+(
+  user_id    INTEGER NOT NULL,
+  customerId INTEGER NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
+  FOREIGN KEY (customerId) REFERENCES users (id) ON DELETE CASCADE
+);
+
+-- CREATE UNIQUE INDEX meals_unique_user_datetime_idx ON meals (user_id, date_time)
+
+
+
+
+
 CREATE TABLE boxes (
   boxId      INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   user_id    INTEGER NOT NULL,
@@ -111,3 +124,5 @@ CREATE TABLE box_products (
   FOREIGN KEY (boxId) REFERENCES boxes (boxId) ON DELETE CASCADE,
   FOREIGN KEY (prodId) REFERENCES products (prodId) ON DELETE CASCADE
 );
+
+

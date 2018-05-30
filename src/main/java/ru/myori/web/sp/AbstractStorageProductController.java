@@ -22,7 +22,7 @@ public abstract class AbstractStorageProductController {
 
     public List<StorageProduct> getProducts(int storageId){
         int userId = AuthorizedUser.id();
-        log.info("getProducts for User {}", userId);
+        log.info("getProducts in storage {} for User {}", storageId, userId);
         return storageProductService.getAll(storageId);
     }
 

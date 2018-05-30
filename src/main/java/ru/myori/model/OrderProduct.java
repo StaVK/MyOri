@@ -47,6 +47,15 @@ public class OrderProduct{
     public OrderProduct() {
     }
 
+    public OrderProduct(OrderProduct orderProduct) {
+        this.opId=orderProduct.getOpId();
+        this.volume=orderProduct.getVolume();
+        this.executedVolume=orderProduct.getExecutedVolume();
+        this.order=orderProduct.getOrder();
+        this.product=orderProduct.getProduct();
+        this.status=orderProduct.getStatus();
+    }
+
     public OrderProduct(Order order, Product product, int volume){
         this.order=order;
         this.product=product;

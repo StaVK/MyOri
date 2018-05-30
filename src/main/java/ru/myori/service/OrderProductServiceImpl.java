@@ -1,11 +1,15 @@
 package ru.myori.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.parser.PartTree;
 import org.springframework.stereotype.Service;
 import ru.myori.model.OrderProduct;
+import ru.myori.model.ReserveProduct;
+import ru.myori.model.StorageProduct;
 import ru.myori.repository.op.OrderProductRepository;
+import ru.myori.repository.sp.StorageProductRepository;
+import ru.myori.to.OrderProductTo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -14,9 +18,12 @@ public class OrderProductServiceImpl implements OrderProductService {
 
     private final OrderProductRepository orderProductRepository;
 
+    private final StorageProductRepository storageProductRepository;
+
     @Autowired
-    public OrderProductServiceImpl(OrderProductRepository orderProductRepository) {
+    public OrderProductServiceImpl(OrderProductRepository orderProductRepository, StorageProductRepository storageProductRepository) {
         this.orderProductRepository = orderProductRepository;
+        this.storageProductRepository = storageProductRepository;
     }
 
     @Override
@@ -30,8 +37,22 @@ public class OrderProductServiceImpl implements OrderProductService {
     }
 
     @Override
-    public List<OrderProduct> getAll(int orderId) {
-        return orderProductRepository.getAll(orderId);
+    public List<OrderProductTo> getAll(int orderId) {
+        List<OrderProduct> orderProductList=orderProductRepository.getAll(orderId);
+        List<OrderProductTo> orderProductToList=new ArrayList<>();
+        OrderProductTo orderProductTo=null;
+        OrderProduct orderProduct=null;
+        StorageProduct storageProduct;
+        Set<ReserveProduct> reserve;
+
+        for (int i = 0; i < orderProductList.size(); i++) {
+            orderProduct=orderProductList.get(i);
+            storageProduct=storageProductRepository.getByArticleAndStorage(orderProduct.getProduct().getArticle(),100014);
+            reserve=storageProduct.getReserve();
+            orderProductTo=new OrderProductTo(orderProduct, reserve);
+            orderProductToList.add(orderProductTo);
+        }
+        return orderProductToList;
     }
 
     @Override

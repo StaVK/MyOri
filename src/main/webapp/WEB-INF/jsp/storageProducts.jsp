@@ -41,7 +41,8 @@
                         <th><spring:message code="product.description"/></th>
                         <th><spring:message code="common.price"/></th>
                         <th><spring:message code="common.volume"/></th>
-                        <th colspan="2"><spring:message code="common.actions"/></th>
+                        <th><spring:message code="common.reserved"/></th>
+                        <%--<th colspan="2"><spring:message code="common.actions"/></th>--%>
                     </tr>
                     </thead>
 
