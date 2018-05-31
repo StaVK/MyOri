@@ -73,8 +73,8 @@ INSERT INTO orders (orderId, user_id, foruser_id, status) VALUES
 INSERT INTO order_products (opid, orderid, prodid, volume, executedVolume, status) VALUES
   (nextval('global_seq'), '100018', '100003', '3', '0', '0');
 
-INSERT INTO reserved_products (rpId, spId, opId, reserveVolume) VALUES
-  (nextval('global_seq'), 100015, 100011, 1);
+INSERT INTO reserved_products (rpId, spId, opId, reserveVolume, userId) VALUES
+  (nextval('global_seq'), 100015, 100011, 1, 100000);
 
 UPDATE storage_products
 SET rpId = 100020

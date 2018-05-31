@@ -30,7 +30,27 @@ public class ReserveProduct {
     @Column(name = "reserveVolume")
     private int reserveVolume;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "userId", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private User user;
+
     public ReserveProduct() {
+    }
+
+    public ReserveProduct(StorageProduct storageProduct, OrderProduct orderProduct, int reserveVolume, User user) {
+        this.storageProduct = storageProduct;
+        this.orderProduct = orderProduct;
+        this.reserveVolume = reserveVolume;
+        this.user=user;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public StorageProduct getStorageProduct() {

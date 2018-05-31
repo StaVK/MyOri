@@ -41,6 +41,10 @@ $(function () {
                 "render": renderReserved
             },
             {
+                "mData": "available",
+                "defaultContent": "ZeroAvailable"
+            },
+            {
                 "mData": "executedVolume"
             },
             /*            {
@@ -65,10 +69,13 @@ $(function () {
 });
 
 function renderReserved(data, type, row) {
-    var reserveSet=new Set(row.reserve);
+    // var reserveSet=new Set(row.reserve);
     var summ=0;
+    if(row.reserve!=null){
+        summ=row.reserve.reserveVolume;
+    }
 
-    for (let item of reserveSet) summ=summ+item.reserveVolume;
+    // for (let item of reserveSet) summ=summ+item.reserveVolume;
     return "<input id=rp" + row.opId + " type='number' onchange='changeReserve(" + row.opId + ")' value='" + summ + "'>";
 }
 

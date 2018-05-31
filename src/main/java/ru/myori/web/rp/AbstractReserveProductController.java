@@ -3,6 +3,7 @@ package ru.myori.web.rp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import ru.myori.AuthorizedUser;
 import ru.myori.service.ReserveProductService;
 
 public class AbstractReserveProductController {
@@ -13,7 +14,8 @@ public class AbstractReserveProductController {
     ReserveProductService reserveProductService;
 
     public void update(int opId, int reservedVolume) {
-        log.info("update ReserveProduct {} set volume {}", opId, reservedVolume);
-        reserveProductService.update(opId, reservedVolume);
+        int userId = AuthorizedUser.id();
+        log.info("User {} update ReserveProduct {} set volume {}", userId, opId, reservedVolume);
+        reserveProductService.update(userId, opId, reservedVolume);
     }
 }

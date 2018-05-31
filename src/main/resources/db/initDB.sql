@@ -74,7 +74,9 @@ CREATE TABLE reserved_products(
   rpId INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   spId INTEGER NOT NULL,
   opId INTEGER NOT NULL,
+  userId INTEGER NOT NULL,
   reserveVolume INTEGER,
+  FOREIGN KEY (userId) REFERENCES users (id) ON DELETE CASCADE,
   FOREIGN KEY (opId) REFERENCES order_products(opId) ON DELETE CASCADE
 );
 

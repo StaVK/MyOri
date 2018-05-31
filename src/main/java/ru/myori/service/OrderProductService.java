@@ -11,7 +11,7 @@ public interface OrderProductService {
 
     OrderProduct create(OrderProduct orderProduct);
 
-    List<OrderProductTo> getAll(int orderId);
+    List<OrderProductTo> getAll(int orderId, int userId);
 
     List<OrderProduct> getAllForSummary(int userId);
 

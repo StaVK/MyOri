@@ -6,6 +6,7 @@ import ru.myori.model.OrderProduct;
 import ru.myori.model.ReserveProduct;
 import ru.myori.model.StorageProduct;
 import ru.myori.repository.op.OrderProductRepository;
+import ru.myori.repository.rp.ReserveProductRepository;
 import ru.myori.repository.sp.StorageProductRepository;
 import ru.myori.to.OrderProductTo;
 
@@ -20,10 +21,13 @@ public class OrderProductServiceImpl implements OrderProductService {
 
     private final StorageProductRepository storageProductRepository;
 
+    private final ReserveProductRepository reserveProductRepository;
+
     @Autowired
-    public OrderProductServiceImpl(OrderProductRepository orderProductRepository, StorageProductRepository storageProductRepository) {
+    public OrderProductServiceImpl(OrderProductRepository orderProductRepository, StorageProductRepository storageProductRepository, ReserveProductRepository reserveProductRepository) {
         this.orderProductRepository = orderProductRepository;
         this.storageProductRepository = storageProductRepository;
+        this.reserveProductRepository = reserveProductRepository;
     }
 
     @Override
@@ -37,19 +41,29 @@ public class OrderProductServiceImpl implements OrderProductService {
     }
 
     @Override
-    public List<OrderProductTo> getAll(int orderId) {
+    public List<OrderProductTo> getAll(int orderId, int userId) {
         List<OrderProduct> orderProductList=orderProductRepository.getAll(orderId);
         List<OrderProductTo> orderProductToList=new ArrayList<>();
         OrderProductTo orderProductTo=null;
         OrderProduct orderProduct=null;
         StorageProduct storageProduct;
-        Set<ReserveProduct> reserve;
+//        Set<ReserveProduct> reserve;
+        ReserveProduct reserveProduct;
 
         for (int i = 0; i < orderProductList.size(); i++) {
             orderProduct=orderProductList.get(i);
             storageProduct=storageProductRepository.getByArticleAndStorage(orderProduct.getProduct().getArticle(),100014);
-            reserve=storageProduct.getReserve();
-            orderProductTo=new OrderProductTo(orderProduct, reserve);
+
+            reserveProduct=reserveProductRepository.getByOp(orderProduct.getOpId());
+
+            List<ReserveProduct> reserveProductList=reserveProductRepository.getAllByUserAndArticle(userId,storageProduct.getProduct().getArticle());
+            int totalReservedVolumeForThisArticle=0;
+            for(ReserveProduct rp : reserveProductList){
+                totalReservedVolumeForThisArticle+=rp.getReserveVolume();
+            }
+
+            int available=storageProduct.getVolume()-totalReservedVolumeForThisArticle;
+            orderProductTo=new OrderProductTo(orderProduct, reserveProduct, available);
             orderProductToList.add(orderProductTo);
         }
         return orderProductToList;

@@ -7,6 +7,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import ru.myori.model.ReserveProduct;
 
+import java.util.List;
+
 @Transactional(readOnly = true)
 public interface CrudReserveProductRepository extends JpaRepository<ReserveProduct, Integer> {
 
@@ -20,4 +22,7 @@ public interface CrudReserveProductRepository extends JpaRepository<ReserveProdu
 
     @Query("SELECT rp FROM ReserveProduct rp WHERE rp.orderProduct.opId=:opId")
     ReserveProduct getByOp(@Param("opId") int opId);
+
+    @Query("SELECT rp FROM ReserveProduct rp WHERE rp.user.id=:userId AND rp.storageProduct.product.article=:article")
+    List<ReserveProduct> getAllByUserAndArticle(@Param("userId") int userId, @Param("article") int article);
 }

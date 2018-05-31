@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.myori.model.ReserveProduct;
 
+import java.util.List;
+
 @Repository
 public class DataJpaReserveProductRepositoryImpl implements ReserveProductRepository {
 
@@ -18,5 +20,15 @@ public class DataJpaReserveProductRepositoryImpl implements ReserveProductReposi
     @Override
     public ReserveProduct getByOp(int opId) {
         return crudReserveProductRepository.getByOp(opId);
+    }
+
+    @Override
+    public ReserveProduct save(ReserveProduct reserveProduct) {
+        return crudReserveProductRepository.save(reserveProduct);
+    }
+
+    @Override
+    public List<ReserveProduct> getAllByUserAndArticle(int userId, int article) {
+        return crudReserveProductRepository.getAllByUserAndArticle(userId,article);
     }
 }
