@@ -56,7 +56,7 @@ public class AbstractOrderProductController extends AbstractController{
 
     public List<OrderProductTo> getAllOP(int orderId){
         int userId = AuthorizedUser.id();
-        log.info("getAll products for User {}", userId);
+        log.info("getAll OrderProductTo for order {} and User {}", orderId, userId);
         return orderProductService.getAll(orderId, userId);
     }
 

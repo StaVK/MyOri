@@ -20,7 +20,6 @@ public class ReserveProduct {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "spId")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private StorageProduct storageProduct;
 
     @ManyToOne
@@ -32,7 +31,7 @@ public class ReserveProduct {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userId", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+//    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     public ReserveProduct() {
@@ -42,6 +41,13 @@ public class ReserveProduct {
         this.storageProduct = storageProduct;
         this.orderProduct = orderProduct;
         this.reserveVolume = reserveVolume;
+        this.user=user;
+    }
+
+    public ReserveProduct(StorageProduct storageProduct, OrderProduct orderProduct, long reserveVolume, User user) {
+        this.storageProduct = storageProduct;
+        this.orderProduct = orderProduct;
+        this.reserveVolume = (int)reserveVolume;
         this.user=user;
     }
 

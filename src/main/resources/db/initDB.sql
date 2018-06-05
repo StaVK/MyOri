@@ -70,16 +70,6 @@ CREATE TABLE order_products (
   FOREIGN KEY (prodId) REFERENCES products (prodId) ON DELETE CASCADE
 );
 
-CREATE TABLE reserved_products(
-  rpId INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-  spId INTEGER NOT NULL,
-  opId INTEGER NOT NULL,
-  userId INTEGER NOT NULL,
-  reserveVolume INTEGER,
-  FOREIGN KEY (userId) REFERENCES users (id) ON DELETE CASCADE,
-  FOREIGN KEY (opId) REFERENCES order_products(opId) ON DELETE CASCADE
-);
-
 CREATE TABLE storage_products
 (
   spid      INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
@@ -87,13 +77,24 @@ CREATE TABLE storage_products
   price     float   NOT NULL,
   prodid    integer NOT NULL,
   storageid integer NOT NULL,
-  rpId INTEGER,
-  FOREIGN KEY (storageid) REFERENCES storage (storageid) MATCH SIMPLE
-  ON UPDATE NO ACTION ON DELETE CASCADE,
-  FOREIGN KEY (prodid) REFERENCES products (prodid) MATCH SIMPLE
-  ON UPDATE NO ACTION ON DELETE CASCADE,
-  FOREIGN KEY (rpId) REFERENCES reserved_products (rpId) ON DELETE CASCADE
+  --   rpId INTEGER,
+  FOREIGN KEY (storageid) REFERENCES storage (storageid) ON DELETE CASCADE,
+  FOREIGN KEY (prodid) REFERENCES products (prodid) ON DELETE CASCADE
+  --   FOREIGN KEY (rpId) REFERENCES reserved_products (rpId) ON DELETE NO ACTION
 );
+
+CREATE TABLE reserved_products(
+  rpId INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  spId INTEGER NOT NULL,
+  opId INTEGER NOT NULL,
+  userId INTEGER NOT NULL,
+  reserveVolume INTEGER,
+  FOREIGN KEY (userId) REFERENCES users (id) ON DELETE CASCADE,
+  FOREIGN KEY (opId) REFERENCES order_products(opId) ON DELETE CASCADE,
+  FOREIGN KEY (spId) REFERENCES storage_products(spid) ON DELETE CASCADE
+);
+
+
 
 
 CREATE TABLE customers

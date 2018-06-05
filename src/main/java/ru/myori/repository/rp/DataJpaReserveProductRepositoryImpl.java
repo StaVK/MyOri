@@ -31,4 +31,14 @@ public class DataJpaReserveProductRepositoryImpl implements ReserveProductReposi
     public List<ReserveProduct> getAllByUserAndArticle(int userId, int article) {
         return crudReserveProductRepository.getAllByUserAndArticle(userId,article);
     }
+
+    @Override
+    public boolean delete(int rpId) {
+        return crudReserveProductRepository.delete(rpId)!=0;
+    }
+
+    @Override
+    public ReserveProduct getReserveVolume(int article) {
+        return crudReserveProductRepository.getReserveVolume(article);
+    }
 }

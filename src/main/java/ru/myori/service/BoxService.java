@@ -12,7 +12,6 @@ public interface BoxService {
 
     Box create(int userId, int customerId);
 
-    BoxProduct setVolumeInSpAndOp(Box box, StorageProduct storageProduct,OrderProduct orderProduct, int volume);
 
     Box get(int boxId);
 }

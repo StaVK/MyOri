@@ -11,4 +11,8 @@ public interface ReserveProductRepository {
     ReserveProduct save(ReserveProduct reserveProduct);
 
     List<ReserveProduct> getAllByUserAndArticle(int userId, int article);
+
+    boolean delete(int rpId);
+
+    ReserveProduct getReserveVolume(int article);
 }

@@ -76,6 +76,3 @@ INSERT INTO order_products (opid, orderid, prodid, volume, executedVolume, statu
 INSERT INTO reserved_products (rpId, spId, opId, reserveVolume, userId) VALUES
   (nextval('global_seq'), 100015, 100011, 1, 100000);
 
-UPDATE storage_products
-SET rpId = 100020
-WHERE spid = 100015;

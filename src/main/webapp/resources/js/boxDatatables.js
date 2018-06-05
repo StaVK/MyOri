@@ -45,7 +45,7 @@ function selectCustomer(customerId) {
     // var orderId=$("#orderId").val();
     $.ajax({
         type: "POST",
-        url: "ajax/box/addBox?customerId="+customerId,
+        url: ajaxUrl+"addBox?customerId="+customerId,
         success: function () {
             updateTable();
             // successNoty("Deleted");

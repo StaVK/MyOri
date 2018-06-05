@@ -25,4 +25,12 @@ public interface CrudReserveProductRepository extends JpaRepository<ReserveProdu
 
     @Query("SELECT rp FROM ReserveProduct rp WHERE rp.user.id=:userId AND rp.storageProduct.product.article=:article")
     List<ReserveProduct> getAllByUserAndArticle(@Param("userId") int userId, @Param("article") int article);
+
+    @Query("SELECT new ReserveProduct(rp.storageProduct, rp.orderProduct, SUM(rp.reserveVolume),rp.user) FROM ReserveProduct rp WHERE rp.storageProduct.product.article=:article GROUP BY rp.storageProduct.product.article")
+    ReserveProduct getReserveVolume(@Param("article") int article);
+
+    @Transactional
+    @Modifying
+    @Query("DELETE FROM ReserveProduct rp WHERE rp.rpId=:rpId")
+    int delete(@Param("rpId") int rpId);
 }

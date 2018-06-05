@@ -8,6 +8,7 @@ import ru.myori.repository.box.BoxRepository;
 import ru.myori.repository.bp.BoxProductRepository;
 import ru.myori.repository.op.OrderProductRepository;
 import ru.myori.repository.order.OrderRepository;
+import ru.myori.repository.rp.ReserveProductRepository;
 import ru.myori.repository.sp.StorageProductRepository;
 import ru.myori.repository.user.UserRepository;
 
@@ -37,6 +38,9 @@ public class BoxServiceImpl implements BoxService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    ReserveProductRepository reserveProductRepository;
+
     @Override
     public Box get(int boxId) {
         return boxRepository.get(boxId);
@@ -47,6 +51,7 @@ public class BoxServiceImpl implements BoxService {
         return boxRepository.getAll(userId);
     }
 
+    @Transactional
     @Override
     public Box create(int userId, int customerId) {
         //TODO Доделать создание коробки
@@ -56,14 +61,14 @@ public class BoxServiceImpl implements BoxService {
 
         int storageId = 100014; //TODO сделать возможность выбора с каких складов формировать коробку.
 
-        Box box=null;
+        Box box = null;
 
-        if(orderList.size()!=0){
-            User user=userRepository.get(userId);
-            User customer=userRepository.get(customerId);
+        if (orderList.size() != 0) {
+            User user = userRepository.get(userId);
+            User customer = userRepository.get(customerId);
 
-            box=new Box(user,customer);
-            box=boxRepository.save(box);
+            box = new Box(user, customer);
+            box = boxRepository.save(box);
 
             for (int i = 0; i < orderList.size(); i++) {
                 order = orderList.get(i);
@@ -80,49 +85,70 @@ public class BoxServiceImpl implements BoxService {
                     orderVolume = orderProduct.getVolume();
                     article = orderProduct.getProduct().getArticle();
 
-                    storageProduct = storageProductRepository.getByArticleAndStorage(article, storageId);
+                            /*
+        Если по данному OrderProduct на складе есть резерв, то сначала в корзину кладется резерв,
+        при наличии на складе незарезервированных продуктов, остающийся объем добирается из незарезервированного объема
+          */
 
-                    if(storageProduct!=null) {
-                        if (storageProduct.getVolume() < orderVolume) {
-                            setVolumeInSpAndOp(box, storageProduct, orderProduct, storageProduct.getVolume());
-                        } else {
-                            setVolumeInSpAndOp(box, storageProduct, orderProduct, orderVolume);
+                    storageProduct = storageProductRepository.getByArticleAndStorage(article, storageId);
+                    if (storageProduct != null) {
+                        BoxProduct boxProduct = new BoxProduct();
+                        boxProduct.setBox(box);
+                        boxProduct.setProduct(storageProduct.getProduct());
+                        ReserveProduct reserveProduct = reserveProductRepository.getByOp(orderProduct.getOpId());
+                        if (reserveProduct != null) {
+                            // Объем, который был в резерве
+                            int reserveVolume = reserveProduct.getReserveVolume();
+
+                            // Удаляем резерв
+                            boolean del=reserveProductRepository.delete(reserveProduct.getRpId());
+
+                            for(ReserveProduct rp : storageProduct.getReserve()){
+                                if(rp.getOrderProduct().getProduct().getArticle().equals(reserveProduct.getOrderProduct().getProduct().getArticle())){
+                                    storageProduct.getReserve().remove(rp);
+                                }
+                            }
+
+                            // Уменьшаем объем на складе
+                            storageProduct.setVolume(storageProduct.getVolume() - reserveVolume);
+
+                            // Пишем в заказе что его часть исполнена
+                            orderProduct.setExecutedVolume(orderProduct.getExecutedVolume() + reserveVolume);
+
+                            // Кладем в коробку
+                            boxProduct.setVolume(reserveVolume);
+
+                            storageProductRepository.update(storageProduct); // Берем со склада
+                            boxProductRepository.save(boxProduct); // Кладем в корзинку
+                            orderProductRepository.update(orderProduct); // Пишем в заказе что его часть исполнена
+                        }
+                        // Считаем какой объем зарезервирован на складе
+                        int reservedVolume=0;
+                        Set<ReserveProduct> reserveProductSet=storageProduct.getReserve();
+                        for(ReserveProduct rp : reserveProductSet){
+                            reservedVolume+=rp.getReserveVolume();
+                        }
+
+                        // Ели остался свободный объем на складе, то докладываем нужное количество в заказ
+                        int freeVolume=storageProduct.getVolume()-reservedVolume;
+                        if(freeVolume>0){
+                            int unfulfilledVolume= orderVolume-orderProduct.getExecutedVolume();
+                            if(unfulfilledVolume>freeVolume){
+                                unfulfilledVolume=freeVolume;
+                            }
+                            storageProduct.setVolume(storageProduct.getVolume()-unfulfilledVolume);
+                            boxProduct.setVolume(boxProduct.getVolume()+unfulfilledVolume);
+                            orderProduct.setExecutedVolume(orderProduct.getExecutedVolume()+unfulfilledVolume);
+                            storageProductRepository.update(storageProduct);
+                            boxProductRepository.save(boxProduct);
+                            orderProductRepository.update(orderProduct);
                         }
                     }
+
                 }
             }
         }
         return box;
     }
-
-
-    @Transactional
-    public BoxProduct setVolumeInSpAndOp(Box box, StorageProduct storageProduct, OrderProduct orderProduct, int volume) {
-        BoxProduct boxProduct=new BoxProduct();
-        boxProduct.setBox(box);
-        boxProduct.setProduct(storageProduct.getProduct());
-        boxProduct.setVolume(volume);
-
-
-        if(storageProduct.getVolume()==volume){
-            storageProductRepository.delete(storageProduct.getSpId());
-        }
-        else {
-            storageProduct.setVolume(storageProduct.getVolume()-volume);
-        }
-
-        orderProduct.setExecutedVolume(orderProduct.getExecutedVolume()+volume);
-
-        if(orderProduct.getVolume()==orderProduct.getExecutedVolume()){
-            orderProduct.setStatus(OrderProduct.ORDER_PRODUCT_INBOX);
-        }
-
-        boxProductRepository.save(boxProduct);
-        storageProductRepository.update(storageProduct);
-        orderProductRepository.update(orderProduct);
-
-        return boxProduct;
-    }
-
 
 }
