@@ -12,7 +12,10 @@ import java.util.List;
 public interface CrudBoxProductRepository extends JpaRepository<BoxProduct, Integer> {
 
 
-    @Query("SELECT bp FROM BoxProduct bp WHERE bp.box.boxId=:boxId")
-    List<BoxProduct> getAllByBox(@Param("boxId") int boxId);
+
+//    List<BoxProduct> getAll();
+
+    /*@Query("SELECT bp FROM BoxProduct bp WHERE bp.box.boxId=:boxId ORDER BY bp.product.article")
+    List<BoxProduct> getAll(@Param("boxId") int boxId);*/
 
 }

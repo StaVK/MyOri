@@ -28,7 +28,7 @@
                     </thead>
                 </table>
                 <hr>
-                <a class="btn btn-primary" onclick="add()">
+                <a class="btn btn-primary" onclick="printSpReport()">
                     <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
                     <spring:message code="common.print"/>
                 </a>

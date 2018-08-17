@@ -30,6 +30,7 @@ public class Order {
     @JoinColumn(name = "opId", insertable = false, updatable = false)
     private Set<OrderProduct> products;
 
+//    https://habr.com/post/271115/
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)

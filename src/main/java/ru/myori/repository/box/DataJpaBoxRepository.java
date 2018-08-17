@@ -3,6 +3,7 @@ package ru.myori.repository.box;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.myori.model.Box;
+import ru.myori.model.User;
 
 import java.util.List;
 
@@ -26,4 +27,5 @@ public class DataJpaBoxRepository implements BoxRepository {
     public Box get(int boxId) {
         return crudBoxRepository.findOne(boxId);
     }
+
 }

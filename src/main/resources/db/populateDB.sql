@@ -16,7 +16,7 @@ VALUES ('Admin', 'admin@gmail.com', 'admin');
 
 
 INSERT INTO products (article, description, price) VALUES
-  ('111', 'Помада1', 500),
+  ('111', 'Pomada1', 500),
   ('222', 'Помада2', 1000),
   ('333', 'Туалетная вода', 500),
   ('444', 'Тушь', 500),

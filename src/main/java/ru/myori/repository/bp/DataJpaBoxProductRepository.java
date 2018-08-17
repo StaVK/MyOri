@@ -19,6 +19,6 @@ public class DataJpaBoxProductRepository implements BoxProductRepository {
 
     @Override
     public List<BoxProduct> getAllByBox(int boxId) {
-        return crudBoxProductRepository.getAllByBox(boxId);
+        return crudBoxProductRepository.findAll();
     }
 }

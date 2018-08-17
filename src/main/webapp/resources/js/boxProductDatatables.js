@@ -33,3 +33,7 @@ $(function () {
     });
     // makeEditable();
 });
+
+function printSpReport() {
+    $.get(ajaxUrlBoxProduct+"printSpReport/"+$("#boxId").val());
+}
