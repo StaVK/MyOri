@@ -16,11 +16,12 @@
                             <a class="btn btn-info" href="summaryOrder"><spring:message code="order.summaryOrder"/></a>
                             <a class="btn btn-info" href="boxes"><spring:message code="common.delivery"/></a>
                             <a class="btn btn-info" href="storage"><spring:message code="common.storage"/></a>
+                            <a class="btn btn-info" href="customers"><spring:message code="customer.customers"/></a>
                             <sec:authorize access="hasRole('ROLE_ADMIN')">
                                 <a class="btn btn-info" href="products"><spring:message code="product.title"/></a>
                                 <a class="btn btn-info" href="users"><spring:message code="user.title"/></a>
                             </sec:authorize>
-                            <a class="btn btn-info" href="profile"><sec:authentication property="principal.userTo.name"/> <spring:message code="app.profile"/></a>
+                            <a class="btn btn-info" href="userProfile"><sec:authentication property="principal.userTo.name"/> <spring:message code="app.profile"/></a>
                             <button class="btn btn-primary" type="submit">
                                 <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
                             </button>

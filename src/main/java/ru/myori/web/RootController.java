@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.support.SessionStatus;
 import ru.myori.AuthorizedUser;
 import ru.myori.service.OrderService;
+import ru.myori.service.PeopleService;
 import ru.myori.service.ProductService;
 import ru.myori.service.UserService;
 import ru.myori.to.UserTo;
@@ -28,6 +29,9 @@ public class RootController extends AbstractUserController{
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private PeopleService peopleService;
 
     @GetMapping("/")
     public String root() {
@@ -74,7 +78,7 @@ public class RootController extends AbstractUserController{
     public String register(ModelMap model) {
         model.addAttribute("userTo", new UserTo());
         model.addAttribute("register", true);
-        return "profile";
+        return "userProfile";
     }
 
     @PostMapping("/register")
@@ -89,9 +93,16 @@ public class RootController extends AbstractUserController{
         }
     }
 
-    @GetMapping("/profile")
+    @GetMapping("/userProfile")
     public String profile(ModelMap model, @AuthenticationPrincipal AuthorizedUser authorizedUser) {
-        model.addAttribute("userTo", authorizedUser.getUserTo());
-        return "profile";
+        UserTo userTo=authorizedUser.getUserTo();
+        model.addAttribute("userTo", userTo);
+//        model.addAttribute("people", userService.get(userTo.getId()).getPeople());
+        return "userProfile";
+    }
+
+    @GetMapping("/customers")
+    public String customers() {
+        return "customers";
     }
 }

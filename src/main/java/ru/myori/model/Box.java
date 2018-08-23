@@ -6,6 +6,8 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import java.util.Set;
+
 import static ru.myori.model.AbstractBaseEntity.START_SEQ;
 
 @Entity
@@ -29,6 +31,10 @@ public class Box {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
     private User forUser;
+
+    @OneToMany
+    @JoinColumn(name="storageId", insertable = false, updatable = false)
+    private Set<Storage> storageSet;
 
     public Box() {
     }
@@ -60,5 +66,13 @@ public class Box {
 
     public void setForUser(User forUser) {
         this.forUser = forUser;
+    }
+
+    public Set<Storage> getStorageSet() {
+        return storageSet;
+    }
+
+    public void setStorageSet(Set<Storage> storageSet) {
+        this.storageSet = storageSet;
     }
 }

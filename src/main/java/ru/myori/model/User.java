@@ -27,6 +27,11 @@ public class User extends AbstractNamedEntity {
     @NotNull
     private Date registered;
 
+    @JsonIgnore
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "peopleId")
+    private People people;
+
     // @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
@@ -40,6 +45,10 @@ public class User extends AbstractNamedEntity {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
     private Set<Storage> storages;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+    @JsonIgnore
+//    @JoinColumn(name = "customerId", insertable = false, updatable = false)
+    private Set<Customer> customers;
 
     public User() {
     }
@@ -70,6 +79,18 @@ public class User extends AbstractNamedEntity {
         this.enabled = enabled;
         this.registered = registered;
         setRoles(roles);
+    }
+
+    public Set<Customer> getCustomers() {
+        return customers;
+    }
+
+    public void setCustomers(Set<Customer> customers) {
+        this.customers = customers;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
 
@@ -121,18 +142,13 @@ public class User extends AbstractNamedEntity {
         this.storages = storages;
     }
 
-    /*@Override
-    public String toString() {
-        return "User{" +
-                "email=" + email +
-                ", password=" + password +
-                ", enabled=" + enabled +
-                ", registered=" + registered +
-                ", roles=" + roles +
-                ", storages=" + storages +
-                ", name=" + name +
-                "}";
-    }*/
+    public People getPeople() {
+        return people;
+    }
+
+    public void setPeople(People people) {
+        this.people = people;
+    }
 
     @Override
     public String toString() {

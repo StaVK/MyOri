@@ -2,12 +2,11 @@ package ru.myori.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.myori.model.OrderProduct;
-import ru.myori.model.ReserveProduct;
-import ru.myori.model.StorageProduct;
+import ru.myori.model.*;
 import ru.myori.repository.op.OrderProductRepository;
 import ru.myori.repository.rp.ReserveProductRepository;
 import ru.myori.repository.sp.StorageProductRepository;
+import ru.myori.repository.user.UserRepository;
 import ru.myori.to.OrderProductTo;
 
 import java.util.ArrayList;
@@ -23,11 +22,14 @@ public class OrderProductServiceImpl implements OrderProductService {
 
     private final ReserveProductRepository reserveProductRepository;
 
+    private final UserRepository userRepository;
+
     @Autowired
-    public OrderProductServiceImpl(OrderProductRepository orderProductRepository, StorageProductRepository storageProductRepository, ReserveProductRepository reserveProductRepository) {
+    public OrderProductServiceImpl(OrderProductRepository orderProductRepository, StorageProductRepository storageProductRepository, ReserveProductRepository reserveProductRepository, UserRepository userRepository) {
         this.orderProductRepository = orderProductRepository;
         this.storageProductRepository = storageProductRepository;
         this.reserveProductRepository = reserveProductRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -48,26 +50,46 @@ public class OrderProductServiceImpl implements OrderProductService {
         OrderProduct orderProduct = null;
         StorageProduct storageProduct;
 //        Set<ReserveProduct> reserve;
-        ReserveProduct reserveProduct=null;
+        ReserveProduct reserveProduct = null;
 
         for (int i = 0; i < orderProductList.size(); i++) {
             orderProduct = orderProductList.get(i);
             int article = orderProduct.getProduct().getArticle();
-            storageProduct = storageProductRepository.getByArticleAndStorage(article, 100014);
             int available = 0;
 
-            if (storageProduct != null) {
-                reserveProduct = reserveProductRepository.getByOp(orderProduct.getOpId());
+            User user = userRepository.get(userId);
+            final Set<Storage> storages = user.getStorages();
 
-                // Вычисляем сколько продукта с данным артикулом зарезервировано на складе
-                List<ReserveProduct> reserveProductList = reserveProductRepository.getAllByUserAndArticle(userId, storageProduct.getProduct().getArticle());
-                int totalReservedVolumeForThisArticle = 0;
-                for (ReserveProduct rp : reserveProductList) {
-                    totalReservedVolumeForThisArticle += rp.getReserveVolume();
+            // Пробегаем по всем складам чтоб вычислить количество которое зарезервированно
+            // и доступно для резервирования для данного артикула
+            int totalReservedVolumeForThisArticle = 0;
+            for (Storage storage : storages) {
+
+                storageProduct = storageProductRepository.getByArticleAndStorage(article, storage.getStorageId());
+
+                if (storageProduct != null) {
+                    reserveProduct = reserveProductRepository.getByOp(orderProduct.getOpId());
+                    if (reserveProduct != null) {
+                        totalReservedVolumeForThisArticle += reserveProduct.getReserveVolume();
+                    }
+                    available += storageProduct.getVolume() - totalReservedVolumeForThisArticle;
                 }
+/*
+                if (storageProduct != null) {
+                    reserveProduct = reserveProductRepository.getByOp(orderProduct.getOpId());
+                    // TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    // Вычисляем сколько продукта с данным артикулом зарезервировано на складе
+                    List<ReserveProduct> reserveProductList = reserveProductRepository.getAllByUserAndArticle(userId, storageProduct.getProduct().getArticle());
+                    int totalReservedVolumeForThisArticle = 0;
+                    for (ReserveProduct rp : reserveProductList) {
+                        totalReservedVolumeForThisArticle += rp.getReserveVolume();
+                    }
 
-                // Сколько доступно для резервирования
-                available = storageProduct.getVolume() - totalReservedVolumeForThisArticle;
+                    // Сколько доступно для резервирования
+                    available = storageProduct.getVolume() - totalReservedVolumeForThisArticle;
+                }
+                */
+
             }
 
             orderProductTo = new OrderProductTo(orderProduct, reserveProduct, available);

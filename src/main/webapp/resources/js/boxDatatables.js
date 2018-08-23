@@ -16,6 +16,10 @@ $(function () {
             {
                 "mData": "forUser.name"
             },
+/*            {
+                "mData": "storageSet"
+                // "defaultContent": "test"
+            },*/
             {
                 "render": renderReadBtn,
                 "defaultContent": "",
@@ -38,6 +42,7 @@ $(function () {
 });
 
 function addBox() {
+    $("#modalTitle").html(i18n["customer.selectCustomer"]);
     $("#editRow").modal();
 }
 

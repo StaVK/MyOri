@@ -18,7 +18,7 @@
     <div class="container">
         <div class="shadow">
             <section>
-                <h3><spring:message code="order.products"/></h3>
+                <h3><spring:message code="storage.products"/> "${storageName}"</h3>
                 <hr>
                 <input type="hidden" id="storageId" name="storageId" value=${storageId}>
                 <%--<a href="storage/create"><spring:message code="common.add"/></a>--%>

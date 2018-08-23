@@ -6,7 +6,7 @@ import ru.myori.model.ReserveProduct;
 import java.util.Set;
 
 public class OrderProductTo extends OrderProduct {
-//    Set<ReserveProduct> reserve;
+
     ReserveProduct reserve;
 
     int available;

@@ -4,7 +4,7 @@
 
 <script type="text/javascript">
     var i18n = [];
-    <c:forEach var='key' items='<%=new String[]{"product.add", "common.delete", "common.save", "common.add", "common.cancel", "common.actions", "common.search"}%>'>
+    <c:forEach var='key' items='<%=new String[]{"customer.selectCustomer","product.add", "common.delete", "common.save", "common.add", "common.cancel", "common.actions", "common.search"}%>'>
     i18n['${key}'] = '<spring:message code="${key}"/>';
     </c:forEach>
 </script>

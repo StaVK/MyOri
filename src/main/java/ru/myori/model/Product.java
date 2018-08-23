@@ -1,7 +1,6 @@
 package ru.myori.model;
 
 import javax.persistence.*;
-import java.util.List;
 
 import static ru.myori.model.AbstractBaseEntity.START_SEQ;
 

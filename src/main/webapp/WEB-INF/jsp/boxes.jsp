@@ -43,7 +43,7 @@
                     <tr>
                         <th><spring:message code="box.id"/></th>
                         <th><spring:message code="order.forUser"/></th>
-                        <th></th>
+                        <%--<th><spring:message code="box.storages"/></th>--%>
                         <th></th>
                     </tr>
                     </thead>
@@ -80,4 +80,5 @@
 </div>
 
 </body>
+<jsp:include page="fragments/i18n.jsp"/>
 </html>
