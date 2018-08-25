@@ -1,4 +1,4 @@
-var ajaxUrlCustomer = "ajax/admin/users/";
+var ajaxUrlCustomer = "ajax/users/";
 var datatableCustomer;
 
 
@@ -13,16 +13,17 @@ $(function () {
         "info": true,
         "columns": [
             {
-                "data": "name"
+                "data": "people.name"
             },
             {
-                "data": "email"
+                "data": "people.surname",
+                "defaultContent": "test"
             },
             {
-                "data": "id",
+                "data": "customerId",
                 "render": function (data, type, row) {
                     if (type === "display") {
-                        return "<input type='radio' name='customerId' onclick='selectCustomer("+row.id+")'/>";
+                        return "<input type='radio' name='customerId' onclick='selectCustomer("+row.customerId+")'/>";
                     }
                     return data;
                 }
@@ -37,6 +38,19 @@ $(function () {
         // "initComplete": makeEditable
     });
 });
+
+function selectCustomer(customerId) {
+    // var orderId=$("#orderId").val();
+    $.ajax({
+        type: "POST",
+        url: ajaxUrl+"create?customerId="+customerId,
+        success: function () {
+            updateTable();
+            // successNoty("Deleted");
+        }
+    });
+    $("#editRow").modal("hide");
+}
 
 
 

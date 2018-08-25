@@ -27,10 +27,10 @@ public class Box {
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "foruser_id", nullable = false)
+    @JoinColumn(name = "customerId", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
-    private User forUser;
+    private Customer customer;
 
     @OneToMany
     @JoinColumn(name="storageId", insertable = false, updatable = false)
@@ -39,9 +39,9 @@ public class Box {
     public Box() {
     }
 
-    public Box(User user, User forUser){
+    public Box(User user, Customer customer){
         this.user=user;
-        this.forUser=forUser;
+        this.customer=customer;
     }
 
     public Integer getBoxId() {
@@ -60,12 +60,12 @@ public class Box {
         this.user = user;
     }
 
-    public User getForUser() {
-        return forUser;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setForUser(User forUser) {
-        this.forUser = forUser;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public Set<Storage> getStorageSet() {

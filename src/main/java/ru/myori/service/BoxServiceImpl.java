@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.myori.model.*;
 import ru.myori.repository.box.BoxRepository;
 import ru.myori.repository.bp.BoxProductRepository;
+import ru.myori.repository.customer.CustomerRepository;
 import ru.myori.repository.op.OrderProductRepository;
 import ru.myori.repository.order.OrderRepository;
 import ru.myori.repository.rp.ReserveProductRepository;
@@ -41,6 +42,9 @@ public class BoxServiceImpl implements BoxService {
     @Autowired
     ReserveProductRepository reserveProductRepository;
 
+    @Autowired
+    CustomerRepository customerRepository;
+
     @Override
     public Box get(int boxId) {
         return boxRepository.get(boxId);
@@ -54,14 +58,12 @@ public class BoxServiceImpl implements BoxService {
     @Transactional
     @Override
     public Box create(int userId, int customerId) {
-        //TODO Доделать создание коробки
         List<Order> orderList = orderRepository.getAllActive(userId, customerId, 0);
         Order order = null;
         Set<OrderProduct> orderProductSet = null;
 
-//        int storageId = 100014; //TODO сделать возможность выбора с каких складов формировать коробку.
         User user = userRepository.get(userId);
-        User customer = userRepository.get(customerId);
+        Customer customer = customerRepository.get(customerId);
 
         Set<Storage> storageSet=user.getStorages();
 

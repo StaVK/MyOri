@@ -14,7 +14,7 @@
             <section>
                 <h3><spring:message code="box.products"/> ${box}</h3>
                 <hr>
-                <h3><spring:message code="common.customer"/>: ${forUser}</h3>
+                <h3><spring:message code="common.customer"/>: ${customer}</h3>
 
                 <input type="hidden" id="boxId" name="boxId" value=${box}>
                 <hr>

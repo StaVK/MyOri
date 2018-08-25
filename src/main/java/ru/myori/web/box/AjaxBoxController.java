@@ -17,7 +17,7 @@ public class AjaxBoxController extends AbstractBoxController{
         return super.getAll();
     }
 
-    @PostMapping(value = "/addBox", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
     public Box createOrUpdate(@RequestParam("customerId") int customerId){
         return super.create(customerId);
     }

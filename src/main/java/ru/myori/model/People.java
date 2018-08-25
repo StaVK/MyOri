@@ -31,6 +31,13 @@ public class People{
     public People() {
     }
 
+    public People(String name, String surname, String patronymic, @Length(max = 12) String phoneNumber) {
+        this.name = name;
+        this.surname = surname;
+        this.patronymic = patronymic;
+        this.phoneNumber = phoneNumber;
+    }
+
     public String getName() {
         return name;
     }

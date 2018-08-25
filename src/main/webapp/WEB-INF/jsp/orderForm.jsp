@@ -30,7 +30,7 @@
                                     code="common.customer"/></label>
                             <div class="col-xs-9">
                                 <input type="text" id="customer" name="customer" placeholder="0" readonly
-                                       value=${order.forUser.name}>
+                                       value=${order.customer.people.name}>
 
                                 <c:if test="${order.status!=1}">
                                     <a onclick='editCustomer();'><span class='glyphicon glyphicon-pencil'

@@ -28,8 +28,6 @@ public class Customer {
     @JoinColumn(name = "peopleId")
     private People people;
 
-
-
     public Customer() {
     }
 

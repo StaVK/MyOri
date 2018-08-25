@@ -54,4 +54,8 @@ public class CustomerServiceImpl implements CustomerService {
         return 0;
     }
 
+    @Override
+    public Customer get(int customerId) {
+        return customerRepository.get(customerId);
+    }
 }

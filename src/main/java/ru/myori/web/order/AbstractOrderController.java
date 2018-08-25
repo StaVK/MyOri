@@ -3,11 +3,13 @@ package ru.myori.web.order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.myori.AuthorizedUser;
+import ru.myori.model.Customer;
 import ru.myori.model.Order;
 import ru.myori.model.OrderProduct;
 import ru.myori.model.User;
 import ru.myori.to.OrderProductTo;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -17,6 +19,10 @@ public abstract class AbstractOrderController extends AbstractController {
 
     public User getUser(int userId) {
         return userService.get(userId);
+    }
+
+    public Customer getCustomer(int customerId) {
+        return customerService.get(customerId);
     }
 
     public List<Order> getAll() {
@@ -43,11 +49,16 @@ public abstract class AbstractOrderController extends AbstractController {
         orderService.delete(id, userId);
     }
 
-    public Order create(Order order) {
+    public void create(int customerId) {
         int userId = AuthorizedUser.id();
-//        checkNew(meal);
+
+        Order order = new Order();
+        order.setProducts(new HashSet<>());
+        order.setUser(getUser(userId));
+        order.setCustomer(getCustomer(customerId));
+
         log.info("create {} for User {}", order, userId);
-        return orderService.create(order, userId);
+        orderService.create(order, userId);
     }
 
     public void update(Order order, int id) {

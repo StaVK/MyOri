@@ -7,12 +7,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import ru.myori.AuthorizedUser;
+import ru.myori.model.Customer;
 import ru.myori.model.User;
+import ru.myori.repository.customer.CustomerRepository;
 import ru.myori.repository.user.UserRepository;
+import ru.myori.to.CustomerTo;
 import ru.myori.to.UserTo;
 import ru.myori.util.exception.NotFoundException;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static ru.myori.util.UserUtil.prepareToSave;
 import static ru.myori.util.UserUtil.updateFromTo;
@@ -24,9 +30,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepository userRepository;
 
+    private final CustomerRepository customerRepository;
+
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, CustomerRepository customerRepository) {
         this.userRepository = userRepository;
+        this.customerRepository = customerRepository;
     }
 
     @Override
@@ -83,6 +92,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public List<User> getAll() {
         return userRepository.getAll();
+    }
+
+    @Override
+    public Set<Customer> getCustomers(int userId){
+        List<Customer> customerList=customerRepository.getAll(userId);
+//        Set<CustomerTo> customerToSet=customerList.stream().map(customer -> new CustomerTo(customer)).collect(Collectors.toSet());
+        return new HashSet<>(customerList);
     }
 
     @Override

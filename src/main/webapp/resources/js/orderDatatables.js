@@ -17,7 +17,7 @@ $(function () {
                 "mData": "user.name"
             },
             {
-                "mData": "forUser.name"
+                "mData": "customer.people.name"
             },
             {
                 "render": renderEditBtn,
@@ -71,4 +71,10 @@ function renderEditBtn(data, type, row) {
     if (type === "display") {
         return "<a href=orders/orderUpdate?orderId=" + row.orderId + "><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a>";
     }
+}
+
+function add() {
+    $("#modalTitle").html(i18n["customer.selectCustomer"]);
+    // form.find(":input").val("");
+    $("#editRow").modal();
 }

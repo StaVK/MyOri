@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.myori.AuthorizedUser;
 import ru.myori.model.BoxProduct;
+import ru.myori.model.People;
 import ru.myori.service.BoxProductService;
 import ru.myori.service.BoxService;
 
@@ -72,9 +73,12 @@ public class AbstractBoxProductController {
 
             JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataBeanList);
 
+            People people=boxService.get(boxId).getCustomer().getPeople();
+
             Map<String, Object> parameters = new HashMap<>();
             parameters.put("boxId", boxId);
-            parameters.put("clientName", boxService.get(boxId).getForUser().getName());
+            parameters.put("clientName", people.getName());
+            parameters.put("clientSurname", people.getSurname());
 
             File reportPattern = new File(pathForPattern);
 

@@ -66,13 +66,22 @@ CREATE TABLE products (
   price       DOUBLE PRECISION NOT NULL
 );
 
+CREATE TABLE customers
+(
+  customerId INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  userId     INTEGER NOT NULL,
+  peopleId   INTEGER NOT NULL,
+  FOREIGN KEY (userId) REFERENCES users (id) ON DELETE CASCADE,
+  FOREIGN KEY (peopleId) REFERENCES people (peopleId)
+);
+
 CREATE TABLE orders (
   orderId    INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   user_id    INTEGER NOT NULL,
-  foruser_id INTEGER NOT NULL,
+  customerId INTEGER NOT NULL,
   status     INTEGER NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
-  FOREIGN KEY (foruser_id) REFERENCES users (id) ON DELETE CASCADE
+  FOREIGN KEY (customerId) REFERENCES customers (customerId) ON DELETE CASCADE
 );
 
 CREATE TABLE order_products (
@@ -111,14 +120,7 @@ CREATE TABLE reserved_products (
 );
 
 
-CREATE TABLE customers
-(
-  customerId INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-  userId     INTEGER NOT NULL,
-  peopleId   INTEGER NOT NULL,
-  FOREIGN KEY (userId) REFERENCES users (id) ON DELETE CASCADE,
-  FOREIGN KEY (peopleId) REFERENCES people (peopleId)
-);
+
 
 -- CREATE UNIQUE INDEX meals_unique_user_datetime_idx ON meals (user_id, date_time)
 
@@ -126,10 +128,10 @@ CREATE TABLE customers
 CREATE TABLE boxes (
   boxId      INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   user_id    INTEGER NOT NULL,
-  foruser_id INTEGER NOT NULL,
+  customerId INTEGER NOT NULL,
   storageId  INTEGER,
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
-  FOREIGN KEY (foruser_id) REFERENCES users (id) ON DELETE CASCADE,
+  FOREIGN KEY (customerId) REFERENCES customers (customerId) ON DELETE CASCADE,
   FOREIGN KEY (storageId) REFERENCES storage (storageid) ON DELETE CASCADE
 );
 

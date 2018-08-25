@@ -14,7 +14,7 @@ $(function () {
                 "mData": "boxId"
             },
             {
-                "mData": "forUser.name"
+                "mData": "customer.people.name"
             },
 /*            {
                 "mData": "storageSet"

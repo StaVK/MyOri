@@ -10,6 +10,7 @@
 	</subDataset>
 	<parameter name="clientName" class="java.lang.String"/>
 	<parameter name="boxId" class="java.lang.Integer"/>
+	<parameter name="clientSurname" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -24,9 +25,9 @@
 	<title>
 		<band height="29" splitType="Stretch">
 			<textField>
-				<reportElement x="90" y="5" width="340" height="18" uuid="4945f13b-29c7-4f09-ae4d-5016ebe22291"/>
+				<reportElement x="0" y="5" width="548" height="18" uuid="4945f13b-29c7-4f09-ae4d-5016ebe22291"/>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA["Клиент "+$P{clientName}+ " коробка № "+$P{boxId}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Клиент "+$P{clientName}+ " "+ $P{clientSurname}+ " коробка № "+$P{boxId}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

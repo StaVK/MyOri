@@ -4,7 +4,7 @@ var datatableApiBoxProduct;
 $(function () {
     datatableApiBoxProduct = $("#boxProductDatatable").DataTable({
         "ajax": {
-            'url': ajaxUrlBoxProduct + $("#boxId").val(),
+            'url': ajaxUrlBoxProduct+$("#boxId").val(),
             "dataSrc": ""
         },
         "paging": false,

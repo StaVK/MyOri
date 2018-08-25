@@ -38,10 +38,10 @@ public class Order {
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "foruser_id", nullable = false)
+    @JoinColumn(name = "customerId", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
-    private User forUser;
+    private Customer customer;
 
     @NotNull
     private int status;
@@ -85,11 +85,11 @@ public class Order {
         this.user = user;
     }
 
-    public User getForUser() {
-        return forUser;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setForUser(User forUser) {
-        this.forUser = forUser;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }

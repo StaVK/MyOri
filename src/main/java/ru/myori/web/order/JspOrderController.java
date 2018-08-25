@@ -29,16 +29,7 @@ public class JspOrderController extends AbstractOrderController {
         return "orderForm";
     }
 
-    @GetMapping("/create")
-    public String create(Model model) {
-        Order order = new Order();
-        order.setProducts(new HashSet<>());
-        order.setUser(super.getUser(100000));
-        order.setForUser(super.getUser(100001));
 
-        model.addAttribute("order", super.create(order));
-        return "orderForm";
-    }
 
     private int getId(HttpServletRequest request) {
         String paramId = Objects.requireNonNull(request.getParameter("id"));
