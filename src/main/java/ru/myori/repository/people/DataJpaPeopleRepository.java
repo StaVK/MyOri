@@ -19,4 +19,9 @@ public class DataJpaPeopleRepository implements PeopleRepository {
     public People save(People people) {
         return crudPeopleRepository.save(people);
     }
+
+    @Override
+    public boolean delete(int peopleId) {
+        return crudPeopleRepository.delete(peopleId)!=0;
+    }
 }

@@ -1,4 +1,4 @@
-package ru.myori.repository.bp;
+package ru.myori.repository.boxProduct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -20,5 +20,10 @@ public class DataJpaBoxProductRepository implements BoxProductRepository {
     @Override
     public List<BoxProduct> getAllByBox(int boxId) {
         return crudBoxProductRepository.findAll();
+    }
+
+    @Override
+    public boolean delete(int bpId) {
+        return crudBoxProductRepository.delete(bpId)!=0;
     }
 }

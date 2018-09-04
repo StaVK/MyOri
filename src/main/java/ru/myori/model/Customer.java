@@ -7,6 +7,8 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 
+import java.util.Set;
+
 import static ru.myori.model.AbstractBaseEntity.START_SEQ;
 
 @Entity
@@ -27,6 +29,9 @@ public class Customer {
     @OneToOne
     @JoinColumn(name = "peopleId")
     private People people;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "customer")
+    private Set<CustomerProduct> customerProducts;
 
     public Customer() {
     }

@@ -1,10 +1,7 @@
 package ru.myori.web.customer;
 
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.myori.model.Customer;
 import ru.myori.model.People;
 
@@ -26,5 +23,17 @@ public class AjaxCustomerController extends AbstractCustomerController {
         } else {
             super.update(people);
         }
+    }
+
+    @Override
+    @DeleteMapping("/{customerId}")
+    public void delete(@PathVariable("customerId") int customerId) {
+        super.delete(customerId);
+    }
+
+    @Override
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public People getPeople(@PathVariable("id") int id) {
+        return super.getPeople(id);
     }
 }

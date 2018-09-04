@@ -9,7 +9,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 public interface ProductService{
-    Product get(int id, int userId) throws NotFoundException;
+    Product get(int id) throws NotFoundException;
 
     void delete(int id, int userId) throws NotFoundException;
 

@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.myori.model.Customer;
-import ru.myori.to.CustomerTo;
 
 import java.util.Set;
 

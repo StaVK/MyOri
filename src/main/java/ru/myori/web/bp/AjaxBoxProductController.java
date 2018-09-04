@@ -10,7 +10,7 @@ import ru.myori.model.BoxProduct;
 import java.util.List;
 
 @RestController
-@RequestMapping("/ajax/bp")
+@RequestMapping("/ajax/boxProduct")
 public class AjaxBoxProductController extends AbstractBoxProductController {
 
     @GetMapping(value = "/{box}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -21,6 +21,11 @@ public class AjaxBoxProductController extends AbstractBoxProductController {
     @GetMapping(value = "/printSpReport/{box}")
     public void printSpReport(@PathVariable("box") int boxId) {
         super.printReport(boxId);
+    }
+
+    @GetMapping(value = "/sendToCustomer/{box}")
+    public void sendToCustomer(@PathVariable("box") int boxId) {
+        super.sendToCustomer(boxId);
     }
 
 

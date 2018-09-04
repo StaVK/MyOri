@@ -40,6 +40,12 @@ public class AbstractBoxProductController {
         return boxProductService.getAllByBox(boxId);
     }
 
+    public void sendToCustomer(int boxId){
+        int userId = AuthorizedUser.id();
+        log.info("send box {} to customer", boxId);
+        boxService.sendToCustomer(boxId);
+    }
+
     public void printReport(int boxId) {
         try {
             JasperPrint jasperPrint;

@@ -37,7 +37,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional
     @Override
     public Customer create(People people, int userId) {
-        Assert.notNull(people, "user must not be null");
+        Assert.notNull(people, "people must not be null");
         //        Assert.isNull(getByEmail(customer.getEmail()),"Customer with this email already exists!");
 
         User user = userService.get(userId);
@@ -46,13 +46,7 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.save(customer);
     }
 
-    @Override
-    public int update(People people) {
-/*        Customer customer = updateFromTo(get(userTo.getId()), userTo);
-        Assert.isNull(getByEmail(user.getEmail()), "User with this email already exists!");
-        userRepository.save(prepareToSave(user));*/
-        return 0;
-    }
+
 
     @Override
     public Customer get(int customerId) {

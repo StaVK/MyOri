@@ -27,7 +27,7 @@
                     <tr>
                         <th><spring:message code="order.id"/></th>
                         <th><spring:message code="order.user"/></th>
-                        <th><spring:message code="order.forUser"/></th>
+                        <th><spring:message code="order.customer"/></th>
                         <th></th>
                         <th></th>
                     </tr>

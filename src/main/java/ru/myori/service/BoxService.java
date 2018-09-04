@@ -14,5 +14,7 @@ public interface BoxService {
 
 
     Box get(int boxId);
+
+    void sendToCustomer(int boxId);
 }
 

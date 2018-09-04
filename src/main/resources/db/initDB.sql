@@ -11,6 +11,7 @@ DROP TABLE IF EXISTS order_products CASCADE;
 DROP TABLE IF EXISTS boxes CASCADE;
 DROP TABLE IF EXISTS box_products CASCADE;
 DROP TABLE IF EXISTS reserved_products CASCADE;
+DROP TABLE IF EXISTS customer_products CASCADE;
 DROP SEQUENCE IF EXISTS global_seq;
 
 CREATE SEQUENCE global_seq
@@ -90,6 +91,7 @@ CREATE TABLE order_products (
   prodId         INTEGER NOT NULL,
   volume         INTEGER NOT NULL,
   executedVolume INTEGER NOT NULL,
+  money          BYTEA,
   status         INTEGER NOT NULL,
   FOREIGN KEY (orderId) REFERENCES orders (orderId) ON DELETE CASCADE,
   FOREIGN KEY (prodId) REFERENCES products (prodId) ON DELETE CASCADE
@@ -119,9 +121,6 @@ CREATE TABLE reserved_products (
   FOREIGN KEY (spId) REFERENCES storage_products (spid) ON DELETE CASCADE
 );
 
-
-
-
 -- CREATE UNIQUE INDEX meals_unique_user_datetime_idx ON meals (user_id, date_time)
 
 
@@ -144,4 +143,20 @@ CREATE TABLE box_products (
   FOREIGN KEY (prodId) REFERENCES products (prodId) ON DELETE CASCADE
 );
 
+CREATE TABLE customer_products
+(
+  cpid       INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  volume     integer,
+  customerid integer,
+  prodid     integer,
+  FOREIGN KEY (customerid) REFERENCES customers (customerId) ON DELETE CASCADE,
+  FOREIGN KEY (prodid) REFERENCES products (prodId) ON DELETE CASCADE
+);
+
+/*create table money
+(
+  moneyid  INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  amount   bigint,
+  currency varchar(255)
+);*/
 

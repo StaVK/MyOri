@@ -6,13 +6,14 @@ DELETE FROM products;
 DELETE FROM users;
 DELETE FROM orders;
 DELETE FROM reserved_products;
+DELETE FROM customer_products;
 ALTER SEQUENCE global_seq RESTART WITH 100000;
 
 
 INSERT INTO people (name, surname, patronymic, phoneNumber)
 VALUES ('peopleName1', 'peopleSurame1', 'peoplePatronymic1', 123456789012);
 INSERT INTO people (name, surname, patronymic, phoneNumber)
-VALUES ('peopleNameAdmin', 'peopleSurameAdmin', 'peoplePatronymicAdmin', 123456789013);
+VALUES ('Дуня', 'Малаева', 'Ипполитовна', 123456789013);
 
 -- 1
 INSERT INTO users (name, email, password, peopleid)
@@ -93,3 +94,11 @@ INSERT INTO order_products (opid, orderid, prodid, volume, executedVolume, statu
 INSERT INTO reserved_products (rpId, spId, opId, reserveVolume, userId) VALUES
   (nextval('global_seq'), 100021, 100014, 1, 100002);
 
+INSERT INTO products(article, description, price) VALUES
+  (34071, 'Детская зубная паста «Хранитель Лев»', '2.16'),
+  (518790, 'Отказ от пластикового пакета 32х45', 0),
+  (540122, 'Код отказа от каталога "Красота как образ жизни"', 0),
+  (28266, 'Мягкая детская зубная щетка «Оптифреш» (розовая)', '2.91'),
+  (28267, 'Мягкая детская зубная щетка «Оптифреш» (голубая)', '2.91'),
+  (33035, 'Cпрей для ног против натирания Feet Up Advanced', '8.4'),
+  (32645, 'Обновляющий скраб для лица NovAge', '12.2');

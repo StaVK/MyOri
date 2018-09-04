@@ -47,17 +47,46 @@ $(function () {
             {
                 "mData": "executedVolume"
             },
-            /*            {
-                            "render": renderEditBtn,
-                            "defaultContent": "",
-                            "orderable": false
-                        },*/
             {
                 "render": renderDeleteBtn,
                 "defaultContent": "Delete",
                 "orderable": false
             }
         ],
+        //TODO Подсчитывать итого:
+/*        "footerCallback": function (row, data, start, end, display) {
+            var api = this.api(), data;
+
+            // Remove the formatting to get integer data for summation
+            var intVal = function ( i ) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '')*1 :
+                    typeof i === 'number' ?
+                        i : 0;
+            };
+            // Total over all pages
+            total = api
+                .column( 4 )
+                .data()
+                .reduce( function (a, b) {
+                    // return intVal(a) + intVal(b);
+                    return "test";
+                }, 0 );
+
+            // Total over this page
+            pageTotal = api
+                .column( 4, { page: 'current'} )
+                .data()
+                .reduce( function (a, b) {
+                    //return intVal(a) + intVal(b);
+                    return "test";
+                }, 0 );
+
+            // Update footer
+            $( api.column( 4 ).footer() ).html(
+                '$'+pageTotal +' ( $'+ total +' total)'
+            );
+        },*/
         "order": [
             [
                 0,
@@ -74,9 +103,12 @@ function renderReserved(data, type, row) {
     if(row.reserve!=null){
         summ=row.reserve.reserveVolume;
     }
+    if (row.status !== 2) {
 
+        return "<input id=rp" + row.opId + " type='number' onchange='changeReserve(" + row.opId + ")' value='" + summ + "'>";
+    }
     // for (let item of reserveSet) summ=summ+item.reserveVolume;
-    return "<input id=rp" + row.opId + " type='number' onchange='changeReserve(" + row.opId + ")' value='" + summ + "'>";
+    else return summ;
 }
 
 function changeReserve(opId) {
@@ -107,9 +139,9 @@ function serialData() {
 
 function renderEditVolume(data, type, row) {
 
-    // if(row.status===0 && $("#status").val()!=1){
-    if (row.status === 0) {
-        var art = row.product.article;
+    if($("#status").val()==0){
+    // if (row.status === 0) {
+    //     var art = row.product.article;
         var vol = row.volume;
         var opId = 'op' + row.opId;
         return "<input id=" + opId + " type='number' onchange='saveData(" + row.opId + ")' value='" + vol + "'>";
@@ -140,7 +172,7 @@ function updateTable() {
 }
 
 function renderDeleteBtn(data, type, row) {
-    if (row.status === 1) {
+    if (row.status === 2) {
         return "<span class='glyphicon glyphicon-remove' aria-hidden='true'></span>";
     }
     else if (type === "display") {

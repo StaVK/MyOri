@@ -9,6 +9,10 @@
 
     <bean class="ru.myori.web.json.JacksonObjectMapper" id="objectMapper" factory-method="getMapper"/>
 
+    <bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
+        <property name="maxUploadSize" value="100000"/>
+    </bean>
+
     <mvc:annotation-driven conversion-service="conversionService">
         <mvc:message-converters>
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">

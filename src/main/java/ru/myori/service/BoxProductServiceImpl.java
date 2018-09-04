@@ -3,7 +3,7 @@ package ru.myori.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.myori.model.BoxProduct;
-import ru.myori.repository.bp.BoxProductRepository;
+import ru.myori.repository.boxProduct.BoxProductRepository;
 
 import java.util.List;
 

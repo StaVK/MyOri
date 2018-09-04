@@ -74,21 +74,6 @@ public class OrderProductServiceImpl implements OrderProductService {
                     }
                     available += storageProduct.getVolume() - totalReservedVolumeForThisArticle;
                 }
-/*
-                if (storageProduct != null) {
-                    reserveProduct = reserveProductRepository.getByOp(orderProduct.getOpId());
-                    // TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    // Вычисляем сколько продукта с данным артикулом зарезервировано на складе
-                    List<ReserveProduct> reserveProductList = reserveProductRepository.getAllByUserAndArticle(userId, storageProduct.getProduct().getArticle());
-                    int totalReservedVolumeForThisArticle = 0;
-                    for (ReserveProduct rp : reserveProductList) {
-                        totalReservedVolumeForThisArticle += rp.getReserveVolume();
-                    }
-
-                    // Сколько доступно для резервирования
-                    available = storageProduct.getVolume() - totalReservedVolumeForThisArticle;
-                }
-                */
 
             }
 
@@ -117,6 +102,7 @@ public class OrderProductServiceImpl implements OrderProductService {
     @Override
     public int update(int opId, int volume) {
         OrderProduct orderProduct = orderProductRepository.get(opId);
+
         orderProduct.setVolume(volume);
         return orderProductRepository.update(orderProduct);
 //        return orderProductRepository.update(orderId, article, volume);

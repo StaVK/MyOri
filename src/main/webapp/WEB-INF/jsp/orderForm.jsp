@@ -17,27 +17,29 @@
             <section>
 
                 <h3><spring:message code="order.order"/> ${order.orderId}</h3>
+                <h3><spring:message
+                        code="common.customer"/> ${order.customer.people.name} ${order.customer.people.surname}</h3>
 
                 <input type="hidden" id="orderId" name="orderId" value=${order.orderId}>
-                <%--<input type="hidden" id="status" name="status" value=${order.status}>--%>
+                <input type="hidden" id="status" name="status" value=${order.status}>
 
                 <hr>
 
                 <div class="view-box">
-                    <form class="form-horizontal">
+<%--                    <form class="form-horizontal">
                         <div class="form-group">
                             <label for="customer" class="control-label col-xs-3"><spring:message
                                     code="common.customer"/></label>
                             <div class="col-xs-9">
                                 <input type="text" id="customer" name="customer" placeholder="0" readonly
-                                       value=${order.customer.people.name}>
+                                       value="${order.customer.people.name} ${order.customer.people.surname}">
 
                                 <c:if test="${order.status!=1}">
                                     <a onclick='editCustomer();'><span class='glyphicon glyphicon-pencil'
                                                                        aria-hidden='true'></span></a>
                                 </c:if>
                             </div>
-                        </div>
+                        </div>--%>
                     </form>
                     <c:if test="${order.status!=1}">
                         <form class="form-horizontal" id="addProductInOrderForm">
@@ -55,7 +57,7 @@
                                     <input type="number" id="volume" name="volume" placeholder="0">
                                 </div>
                             </div>
-                            <c:if test="${order.status!=1}">
+                            <%--<c:if test="${order.status!=1}">--%>
                                 <div class="form-group">
                                     <div class="col-xs-offset-3 col-xs-9">
                                         <button class="btn btn-primary" type="button"
@@ -64,7 +66,7 @@
                                         </button>
                                     </div>
                                 </div>
-                            </c:if>
+                            <%--</c:if>--%>
                         </form>
                     </c:if>
                     <table class="table table-striped display" id="orderProductsDatatable">

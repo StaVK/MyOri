@@ -30,10 +30,12 @@
                 <table class="table table-striped display" id="customersDatatable">
                     <thead>
                     <tr>
+                        <th></th>
                         <th><spring:message code="people.name"/></th>
                         <th><spring:message code="people.surname"/></th>
                         <th><spring:message code="people.patronymic"/></th>
                         <th><spring:message code="people.phoneNumber"/></th>
+                        <th></th>
                         <th></th>
                     </tr>
                     </thead>
@@ -111,4 +113,8 @@
 <jsp:include page="fragments/footer.jsp"/>
 </body>
 <jsp:include page="fragments/i18n.jsp"/>
+<script type="text/javascript">
+    i18n["addTitle"] = '<spring:message code="customer.add"/>';
+    i18n["editTitle"] = '<spring:message code="customer.edit"/>';
+</script>
 </html>

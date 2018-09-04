@@ -11,14 +11,12 @@ import ru.myori.model.Customer;
 import ru.myori.model.User;
 import ru.myori.repository.customer.CustomerRepository;
 import ru.myori.repository.user.UserRepository;
-import ru.myori.to.CustomerTo;
 import ru.myori.to.UserTo;
 import ru.myori.util.exception.NotFoundException;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import static ru.myori.util.UserUtil.prepareToSave;
 import static ru.myori.util.UserUtil.updateFromTo;

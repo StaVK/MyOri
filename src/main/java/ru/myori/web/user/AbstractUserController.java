@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ru.myori.AuthorizedUser;
 import ru.myori.model.Customer;
 import ru.myori.model.User;
-import ru.myori.service.CustomerService;
 import ru.myori.service.UserService;
-import ru.myori.to.CustomerTo;
 import ru.myori.to.UserTo;
 
 import java.util.List;

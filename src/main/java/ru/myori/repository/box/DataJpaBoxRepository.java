@@ -28,4 +28,8 @@ public class DataJpaBoxRepository implements BoxRepository {
         return crudBoxRepository.findOne(boxId);
     }
 
+    @Override
+    public boolean delete(int boxId) {
+        return crudBoxRepository.delete(boxId)!=0;
+    }
 }

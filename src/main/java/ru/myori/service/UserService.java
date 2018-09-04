@@ -2,7 +2,6 @@ package ru.myori.service;
 
 import ru.myori.model.Customer;
 import ru.myori.model.User;
-import ru.myori.to.CustomerTo;
 import ru.myori.to.UserTo;
 import ru.myori.util.exception.NotFoundException;
 

@@ -17,6 +17,8 @@
                 <h3><spring:message code="common.customer"/>: ${customer}</h3>
 
                 <input type="hidden" id="boxId" name="boxId" value=${box}>
+                <%--<input type="hidden" id="customerId" name="customerId" value=${customer}>--%>
+
                 <hr>
                 <table class="table table-striped display" id="boxProductDatatable">
                     <thead>
@@ -31,6 +33,11 @@
                 <a class="btn btn-primary" onclick="printSpReport()">
                     <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
                     <spring:message code="common.print"/>
+                </a>
+
+                <a class="btn btn-primary" onclick="sendToCustomer()">
+                    <span class="glyphicon glyphicon-road" aria-hidden="true"></span>
+                    <spring:message code="customer.sendToCustomer"/>
                 </a>
             </section>
         </div>

@@ -13,4 +13,6 @@ public interface BoxRepository {
 
     Box get(int boxId);
 
+    boolean delete(int boxId);
+
 }

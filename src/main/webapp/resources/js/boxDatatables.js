@@ -14,7 +14,10 @@ $(function () {
                 "mData": "boxId"
             },
             {
-                "mData": "customer.people.name"
+                "mData": null,
+                "render": function (data, type, row) {
+                    return row.customer.people.name +" "+ row.customer.people.surname;
+                }
             },
 /*            {
                 "mData": "storageSet"

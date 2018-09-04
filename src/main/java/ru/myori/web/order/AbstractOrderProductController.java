@@ -33,7 +33,7 @@ public class AbstractOrderProductController extends AbstractController{
     public Product get(int id){
         int userId = AuthorizedUser.id();
         log.info("get product for User {}", userId);
-        return productService.get(id, userId);
+        return productService.get(id);
     }
 
     public Order getOrder(int id){

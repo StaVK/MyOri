@@ -42,7 +42,7 @@
                     <thead>
                     <tr>
                         <th><spring:message code="box.id"/></th>
-                        <th><spring:message code="order.forUser"/></th>
+                        <th><spring:message code="order.customer"/></th>
                         <%--<th><spring:message code="box.storages"/></th>--%>
                         <th></th>
                     </tr>

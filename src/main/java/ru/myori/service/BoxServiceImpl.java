@@ -5,8 +5,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.myori.model.*;
 import ru.myori.repository.box.BoxRepository;
-import ru.myori.repository.bp.BoxProductRepository;
+import ru.myori.repository.boxProduct.BoxProductRepository;
 import ru.myori.repository.customer.CustomerRepository;
+import ru.myori.repository.customerProduct.CustomerProductRepository;
 import ru.myori.repository.op.OrderProductRepository;
 import ru.myori.repository.order.OrderRepository;
 import ru.myori.repository.rp.ReserveProductRepository;
@@ -45,6 +46,34 @@ public class BoxServiceImpl implements BoxService {
     @Autowired
     CustomerRepository customerRepository;
 
+    @Autowired
+    CustomerProductRepository customerProductRepository;
+
+    @Override
+    public void sendToCustomer(int boxId) {
+        Customer customer=boxRepository.get(boxId).getCustomer();
+        List<BoxProduct> boxProducts = boxProductRepository.getAllByBox(boxId);
+        CustomerProduct customerProduct;
+
+        //TODO Не нравится мне этот блок...
+        for (BoxProduct bp : boxProducts) {
+            customerProduct=new CustomerProduct(bp,customer);
+            moveProduct(customerProduct,bp);
+        }
+
+        boxProducts=boxProductRepository.getAllByBox(boxId);
+        if(boxProducts.size()==0){
+            boxRepository.delete(boxId);
+        }
+
+    }
+
+    @Transactional
+    void moveProduct(CustomerProduct customerProduct, BoxProduct bp){
+        customerProductRepository.save(customerProduct);
+        boxProductRepository.delete(bp.getBpId());
+    }
+
     @Override
     public Box get(int boxId) {
         return boxRepository.get(boxId);
@@ -58,14 +87,14 @@ public class BoxServiceImpl implements BoxService {
     @Transactional
     @Override
     public Box create(int userId, int customerId) {
-        List<Order> orderList = orderRepository.getAllActive(userId, customerId, 0);
+        List<Order> orderList = orderRepository.getAllActive(userId, customerId, Order.ORDER_WORK);
         Order order = null;
         Set<OrderProduct> orderProductSet = null;
 
         User user = userRepository.get(userId);
         Customer customer = customerRepository.get(customerId);
 
-        Set<Storage> storageSet=user.getStorages();
+        Set<Storage> storageSet = user.getStorages();
 
         Box box = null;
 
@@ -94,8 +123,8 @@ public class BoxServiceImpl implements BoxService {
         при наличии на складе незарезервированных продуктов, остающийся объем добирается из незарезервированного объема
           */
                     int storageId;
-                    for(Storage storage:storageSet) {
-                        storageId=storage.getStorageId();
+                    for (Storage storage : storageSet) {
+                        storageId = storage.getStorageId();
                         storageProduct = storageProductRepository.getByArticleAndStorage(article, storageId);
 
                         if (storageProduct != null) {

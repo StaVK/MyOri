@@ -1,4 +1,4 @@
-var ajaxUrlBoxProduct = "ajax/bp/";
+var ajaxUrlBoxProduct = "ajax/boxProduct/";
 var datatableApiBoxProduct;
 
 $(function () {
@@ -36,4 +36,8 @@ $(function () {
 
 function printSpReport() {
     $.get(ajaxUrlBoxProduct+"printSpReport/"+$("#boxId").val());
+}
+
+function sendToCustomer() {
+    $.get(ajaxUrlBoxProduct+"sendToCustomer/"+$("#boxId").val());
 }

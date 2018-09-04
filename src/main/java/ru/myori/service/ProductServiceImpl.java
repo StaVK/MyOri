@@ -22,7 +22,7 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public Product get(int id, int userId) throws NotFoundException {
+    public Product get(int id) throws NotFoundException {
         return productRepository.get(id);
     }
 

@@ -21,7 +21,7 @@ public abstract class AbstractProductController {
     public Product get(int id) {
         int userId = AuthorizedUser.id();
         log.info("get product {} for User {}", id, userId);
-        return service.get(id, userId);
+        return service.get(id);
     }
 
     public void delete(int id) {

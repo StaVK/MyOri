@@ -3,10 +3,7 @@ package ru.myori.web.order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.myori.AuthorizedUser;
-import ru.myori.model.Customer;
-import ru.myori.model.Order;
-import ru.myori.model.OrderProduct;
-import ru.myori.model.User;
+import ru.myori.model.*;
 import ru.myori.to.OrderProductTo;
 
 import java.util.HashSet;

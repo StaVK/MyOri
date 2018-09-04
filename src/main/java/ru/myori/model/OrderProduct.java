@@ -3,6 +3,7 @@ package ru.myori.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.javamoney.moneta.Money;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -14,7 +15,7 @@ import static ru.myori.model.AbstractBaseEntity.START_SEQ;
 public class OrderProduct{
 
     public static final int ORDER_PRODUCT_START=0;
-    public static final int ORDER_PRODUCT_INBOX=1;
+    public static final int ORDER_PRODUCT_WORK=1;
     public static final int ORDER_PRODUCT_FINISH=2;
 
     @Id
@@ -40,6 +41,13 @@ public class OrderProduct{
     @JoinColumn(name = "prodId")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Product product;
+
+    /*@OneToOne
+    @JoinColumn(name = "moneyId")
+    private Money price; //TODO Заняться ценой*/
+
+    @Column(name="money")
+    private Money money;
 
     @NotNull
     private int status;
@@ -118,4 +126,20 @@ public class OrderProduct{
     public void setVolume(int volume) {
         this.volume = volume;
     }
+
+    public Money getMoney() {
+        return money;
+    }
+
+    public void setMoney(Money money) {
+        this.money = money;
+    }
+
+    /*    public Money getPrice() {
+        return price;
+    }
+
+    public void setPrice(Money price) {
+        this.price = price;
+    }*/
 }

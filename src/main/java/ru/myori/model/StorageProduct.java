@@ -41,7 +41,6 @@ public class StorageProduct {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Storage storage;
 
-
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "storageProduct")
     private Set<ReserveProduct> reserve;
 

@@ -7,4 +7,6 @@ public interface PeopleRepository {
     People get(int id);
 
     People save(People people);
+
+    boolean delete(int peopleId);
 }

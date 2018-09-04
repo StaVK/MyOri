@@ -21,7 +21,7 @@ public class ProductServiceTest extends AbstractServiceTest {
 
     @Test
     public void get() {
-        Product product = productService.get(PRODUCT1_ID,1);
+        Product product = productService.get(PRODUCT1_ID);
         MATCHER.assertEquals(PRODUCT1, product);
     }
 
@@ -44,7 +44,7 @@ public class ProductServiceTest extends AbstractServiceTest {
         updated.setDescription("UpdatedDescription");
         updated.setArticle(PRODUCT1.getArticle()+1);
         productService.update(updated);
-        MATCHER.assertEquals(updated, productService.get(PRODUCT1_ID,1));
+        MATCHER.assertEquals(updated, productService.get(PRODUCT1_ID));
     }
 
     @Test

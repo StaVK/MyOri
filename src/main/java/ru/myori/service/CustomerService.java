@@ -13,7 +13,5 @@ public interface CustomerService {
 
     Customer create(People people, int userId);
 
-    int update(People people);
-
     Customer get(int customerId);
 }

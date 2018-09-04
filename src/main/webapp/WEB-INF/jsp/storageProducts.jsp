@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
 <body>
@@ -27,11 +28,19 @@
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                     <spring:message code="common.add"/>
                 </a>
+                <hr>
+                <%--<form method="POST" enctype="multipart/form-data" id="importFromXLSForm" action="upload">--%>
+                <form method="POST" id="importFromXLSForm">
+                    <input type="file" name="file" id="file"><br/>
+                    <input type="hidden" id="storage" name="storage" value=${storageId}>
 
-<%--                <a class="btn btn-primary" onclick="add()">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                    <spring:message code="common.addFromOrder"/>
-                </a>--%>
+                    <button class="btn btn-primary" type="button" onclick="importNewProductInStorageFromXLS(event)" id="upload-button"><spring:message code="common.import"/></button>
+                </form>
+
+                <%--                <a class="btn btn-primary" onclick="add()">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                    <spring:message code="common.addFromOrder"/>
+                                </a>--%>
 
                 <hr>
                 <table class="table table-striped display" id="storageProductDatatable">

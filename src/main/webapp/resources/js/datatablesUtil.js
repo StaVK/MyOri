@@ -64,6 +64,7 @@ function save() {
 }
 
 function editCustomer() {
+    $("#modalTitle").html(i18n["customer.selectCustomer"]);
     $("#editRow").modal();
 }
 
