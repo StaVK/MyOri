@@ -6,6 +6,8 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
+import java.util.Map;
+
 import static ru.myori.model.AbstractBaseEntity.START_SEQ;
 
 @Entity
@@ -22,6 +24,13 @@ public class ReserveProduct {
     @JoinColumn(name = "spId")
     private StorageProduct storageProduct;
 
+//    @CollectionTable(name = "reserve")
+/*    @OneToMany
+    @MapKeyClass(StorageProduct.class)
+    private Map<StorageProduct, Integer> reserve;*/
+
+    //TODO Наверно, надо заменить storageProduct на Map(StorageProduct, int reserveVolume)
+
     @ManyToOne
     @JoinColumn(name = "opId")
     private OrderProduct orderProduct;
@@ -32,7 +41,7 @@ public class ReserveProduct {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userId", nullable = false)
 //    @OnDelete(action = OnDeleteAction.CASCADE)
-    private User user;
+    private User user; //TODO Нужен ли тут юзер?
 
     public ReserveProduct() {
     }
@@ -50,6 +59,14 @@ public class ReserveProduct {
         this.reserveVolume = (int)reserveVolume;
         this.user=user;
     }
+
+/*    public Map<StorageProduct, Integer> getReserve() {
+        return reserve;
+    }
+
+    public void setReserve(Map<StorageProduct, Integer> reserve) {
+        this.reserve = reserve;
+    }*/
 
     public User getUser() {
         return user;

@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.myori.model.OrderProduct;
 import ru.myori.model.StorageProduct;
 
+import javax.validation.constraints.Max;
 import java.util.List;
 import java.util.Set;
 
@@ -17,8 +18,13 @@ public interface CrudStorageProductRepository extends JpaRepository<StorageProdu
     @Query("SELECT sp FROM StorageProduct sp WHERE sp.storage.storageId=:storageId")
     List<StorageProduct> getAllByStorage(@Param("storageId") int storageId);
 
-    @Query("SELECT sp FROM StorageProduct sp WHERE sp.product.article=:article AND sp.storage.storageId=:storageId")
-    StorageProduct getByArticleAndStorage(@Param("article") int article, @Param("storageId") int storageId);
+//    List<StorageProduct> getAllByProductArticleAndStorageUserId(int article, int userId);
+
+    @Query("SELECT sp FROM StorageProduct sp WHERE sp.product.article=:article AND sp.storage.storageId=:storageId AND sp.price=:price ORDER BY article ASC")
+    StorageProduct getByArticleAndPrice(
+            @Param("article") int article,
+            @Param("storageId") int storageId,
+            @Param("price") float price);
 
     @Transactional
     @Modifying
@@ -29,4 +35,22 @@ public interface CrudStorageProductRepository extends JpaRepository<StorageProdu
     @Modifying
     @Query("DELETE FROM StorageProduct sp WHERE sp.spId=:spId")
     int delete(@Param("spId") int spId);
+
+
+    @Query(value = "SELECT sp FROM StorageProduct sp WHERE sp.spId = (SELECT MIN(sp.spId) FROM StorageProduct sp WHERE sp.product.article=:article AND sp.storage.storageId=:storageId)")
+    StorageProduct getByArticleAndStorageId(@Param("article") int article, @Param("storageId") int storageId);
+
+    List<StorageProduct> findAllByProduct_articleAndStorage_StorageId(int article, int storageId);
+
+    List<StorageProduct> findAllByProduct_articleAndStorage_UserId(int article, int userId);
+
+    @Query("SELECT SUM(sp.volume) FROM StorageProduct sp WHERE sp.product.article=:article AND sp.storage.user.id=:userId")
+    Long getFreeVolume(@Param("article") int article, @Param("userId") int userId);
+
+    @Query("SELECT sp FROM StorageProduct sp LEFT JOIN sp.reserve rp WHERE " +
+            "sp.product.article=:article AND sp.storage.user.id=:userId AND " +
+            "(sp.volume > (SELECT SUM(rp.reserveVolume) FROM ReserveProduct rp WHERE rp.storageProduct.spId=sp.spId) OR rp.rpId IS NULL)")
+    List<StorageProduct> getAllWithFreeVolume(@Param("article") int article, @Param("userId") int userId);
+
+
 }

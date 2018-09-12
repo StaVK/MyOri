@@ -102,3 +102,6 @@ INSERT INTO products(article, description, price) VALUES
   (28267, 'Мягкая детская зубная щетка «Оптифреш» (голубая)', '2.91'),
   (33035, 'Cпрей для ног против натирания Feet Up Advanced', '8.4'),
   (32645, 'Обновляющий скраб для лица NovAge', '12.2');
+
+INSERT INTO storage_products(spid, volume, price, prodid, storageid)
+    VALUES (nextval('global_seq'), 1, 3, 100005, 100020)

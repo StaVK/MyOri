@@ -14,9 +14,9 @@ import static ru.myori.model.AbstractBaseEntity.START_SEQ;
 @Table(name = "order_products")
 public class OrderProduct{
 
-    public static final int ORDER_PRODUCT_START=0;
+    public static final int ORDER_PRODUCT_INORDER=0;
     public static final int ORDER_PRODUCT_WORK=1;
-    public static final int ORDER_PRODUCT_FINISH=2;
+    public static final int ORDER_PRODUCT_CLIENT =2;
 
     @Id
     @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = START_SEQ)

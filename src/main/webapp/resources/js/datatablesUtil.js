@@ -86,6 +86,16 @@ function addProdInOrder(orderId) {
 
 function changeStatus() {
     var orderId=$("#orderId").val();
-    $.get("ajax/order/setStatusWork?orderId="+orderId);
+    // $.get("ajax/order/setStatusWork?orderId="+orderId);
+    $.ajax({
+        type: "GET",
+        url: "ajax/order/setStatusWork?orderId="+orderId,
+        success: function () {
+            updateTable();
+            $('#addProductInOrderForm').remove();
+            $('#statusButton').remove();
+
+        }
+    })
 }
 

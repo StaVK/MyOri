@@ -38,14 +38,14 @@ public class StorageProductServiceImpl implements StorageProductService {
     }
 
     @Override
-    public StorageProduct getByArticle(int article, int storageId) {
-        return storageProductRepository.getByArticleAndStorage(article, storageId);
+    public StorageProduct getByArticleAndPrice(int article, int storageId, float price) {
+        return storageProductRepository.getByArticleAndPrice(article, storageId, price);
     }
 
     @Override
     public void createOrUpdate(int article, int storageId, int volume, float price, int userId) {
-        StorageProduct storageProduct = getByArticle(article, storageId);
-        if (storageProduct != null && storageProduct.getPrice()==price) {
+        StorageProduct storageProduct = getByArticleAndPrice(article, storageId, price);
+        if (storageProduct != null) {
             storageProduct.setVolume(storageProduct.getVolume()+volume);
             storageProductRepository.update(storageProduct);
         } else {
@@ -54,5 +54,10 @@ public class StorageProductServiceImpl implements StorageProductService {
             storageProduct = new StorageProduct(product, volume, price,storage);
             storageProductRepository.save(storageProduct);
         }
+    }
+
+    @Override
+    public StorageProduct getFirstByArticle(int article, int storageId) {
+        return storageProductRepository.getFirstByArticle(article, storageId);
     }
 }

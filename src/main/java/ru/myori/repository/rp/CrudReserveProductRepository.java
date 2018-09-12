@@ -21,7 +21,10 @@ public interface CrudReserveProductRepository extends JpaRepository<ReserveProdu
     );
 
     @Query("SELECT rp FROM ReserveProduct rp WHERE rp.orderProduct.opId=:opId")
-    ReserveProduct getByOp(@Param("opId") int opId);
+    List<ReserveProduct> getByOp(@Param("opId") int opId);
+
+    @Query("SELECT rp FROM ReserveProduct rp WHERE rp.storageProduct.spId=:spId")
+    ReserveProduct getBySp(@Param("spId") int spId);
 
     @Query("SELECT rp FROM ReserveProduct rp WHERE rp.user.id=:userId AND rp.storageProduct.product.article=:article")
     List<ReserveProduct> getAllByUserAndArticle(@Param("userId") int userId, @Param("article") int article);
@@ -33,4 +36,18 @@ public interface CrudReserveProductRepository extends JpaRepository<ReserveProdu
     @Modifying
     @Query("DELETE FROM ReserveProduct rp WHERE rp.rpId=:rpId")
     int delete(@Param("rpId") int rpId);
+
+//    int amountReserveForThisSp();
+
+    @Query("SELECT SUM(rp.reserveVolume) FROM ReserveProduct rp WHERE rp.storageProduct.spId=:spId")
+    Long sumReserveVolumeByStorageProduct_SpId(@Param("spId") int spId);
+
+    @Query("SELECT SUM(rp.reserveVolume) FROM ReserveProduct rp WHERE rp.orderProduct.opId=:opId")
+    Long sumReserveVolumeByStorageProduct_OpId(@Param("opId") int opId);
+
+
+    @Query("SELECT SUM(rp.reserveVolume) FROM ReserveProduct rp WHERE rp.storageProduct.product.article=:article AND rp.storageProduct.storage.user.id=:userId")
+    Long sumInReserve(@Param("article") int article, @Param("userId") int userId);
+
+    ReserveProduct getLastByOrderProductOpId(int opId);
 }

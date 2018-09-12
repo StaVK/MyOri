@@ -39,5 +39,12 @@ function printSpReport() {
 }
 
 function sendToCustomer() {
-    $.get(ajaxUrlBoxProduct+"sendToCustomer/"+$("#boxId").val());
+    // $.get(ajaxUrlBoxProduct+"sendToCustomer/"+$("#boxId").val());
+    $.ajax({
+        type: "GET",
+        url: ajaxUrlBoxProduct+"sendToCustomer/"+$("#boxId").val(),
+        success: function () {
+            $('#sendToCustomerButton').remove();
+        }
+    })
 }

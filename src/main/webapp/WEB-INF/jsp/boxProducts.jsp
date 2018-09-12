@@ -35,7 +35,7 @@
                     <spring:message code="common.print"/>
                 </a>
 
-                <a class="btn btn-primary" onclick="sendToCustomer()">
+                <a class="btn btn-primary" onclick="sendToCustomer()" id="sendToCustomerButton" name="sendToCustomerButton">
                     <span class="glyphicon glyphicon-road" aria-hidden="true"></span>
                     <spring:message code="customer.sendToCustomer"/>
                 </a>

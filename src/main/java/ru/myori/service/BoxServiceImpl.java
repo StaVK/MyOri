@@ -51,25 +51,25 @@ public class BoxServiceImpl implements BoxService {
 
     @Override
     public void sendToCustomer(int boxId) {
-        Customer customer=boxRepository.get(boxId).getCustomer();
+        Customer customer = boxRepository.get(boxId).getCustomer();
         List<BoxProduct> boxProducts = boxProductRepository.getAllByBox(boxId);
         CustomerProduct customerProduct;
 
         //TODO Не нравится мне этот блок...
         for (BoxProduct bp : boxProducts) {
-            customerProduct=new CustomerProduct(bp,customer);
-            moveProduct(customerProduct,bp);
+            customerProduct = new CustomerProduct(bp, customer);
+            moveProduct(customerProduct, bp);
         }
 
-        boxProducts=boxProductRepository.getAllByBox(boxId);
-        if(boxProducts.size()==0){
+        boxProducts = boxProductRepository.getAllByBox(boxId);
+        if (boxProducts.size() == 0) {
             boxRepository.delete(boxId);
         }
 
     }
 
     @Transactional
-    void moveProduct(CustomerProduct customerProduct, BoxProduct bp){
+    void moveProduct(CustomerProduct customerProduct, BoxProduct bp) {
         customerProductRepository.save(customerProduct);
         boxProductRepository.delete(bp.getBpId());
     }
@@ -125,54 +125,72 @@ public class BoxServiceImpl implements BoxService {
                     int storageId;
                     for (Storage storage : storageSet) {
                         storageId = storage.getStorageId();
-                        storageProduct = storageProductRepository.getByArticleAndStorage(article, storageId);
+                        storageProduct = storageProductRepository.getFirstByArticle(article, storageId);
 
                         if (storageProduct != null) {
                             BoxProduct boxProduct = new BoxProduct();
                             boxProduct.setBox(box);
                             boxProduct.setProduct(storageProduct.getProduct());
-                            ReserveProduct reserveProduct = reserveProductRepository.getByOp(orderProduct.getOpId());
-                            if (reserveProduct != null) {
-                                // Объем, который был в резерве
-                                int reserveVolume = reserveProduct.getReserveVolume();
+                            List<ReserveProduct> reserveProductList = reserveProductRepository.getByOp(orderProduct.getOpId());
+                            if (reserveProductList != null) {
+                                for (ReserveProduct reserveProduct : reserveProductList) {
+                                    // Объем, который был в резерве
+                                    int reserveVolume = reserveProduct.getReserveVolume();
 
-                                // Удаляем резерв
-                                boolean del = reserveProductRepository.delete(reserveProduct.getRpId());
+                                    // Удаляем резерв
+                                    boolean del = reserveProductRepository.delete(reserveProduct.getRpId());
 
-                                for (ReserveProduct rp : storageProduct.getReserve()) {
-                                    if (rp.getOrderProduct().getProduct().getArticle().equals(reserveProduct.getOrderProduct().getProduct().getArticle())) {
-                                        storageProduct.getReserve().remove(rp);
-                                    }
+/*                                    for (ReserveProduct rp : storageProduct.getReserve()) {
+                                        if (rp.getOrderProduct().getProduct().getArticle().equals(reserveProduct.getOrderProduct().getProduct().getArticle())) {
+                                            storageProduct.getReserve().remove(rp);
+                                        }
+                                    }*/
+
+                                    // Уменьшаем объем на складе
+                                    storageProduct.setVolume(storageProduct.getVolume() - reserveVolume);
+
+                                    // Пишем в заказе что его часть исполнена
+                                    orderProduct.setExecutedVolume(orderProduct.getExecutedVolume() + reserveVolume);
+
+                                    // Кладем в коробку
+                                    boxProduct.setVolume(reserveVolume);
+
+                                    storageProductRepository.update(storageProduct); // Берем со склада
+                                    boxProductRepository.save(boxProduct); // Кладем в корзинку
+                                    orderProductRepository.update(orderProduct); // Пишем в заказе что его часть исполнена
                                 }
-
-                                // Уменьшаем объем на складе
-                                storageProduct.setVolume(storageProduct.getVolume() - reserveVolume);
-
-                                // Пишем в заказе что его часть исполнена
-                                orderProduct.setExecutedVolume(orderProduct.getExecutedVolume() + reserveVolume);
-
-                                // Кладем в коробку
-                                boxProduct.setVolume(reserveVolume);
-
-                                storageProductRepository.update(storageProduct); // Берем со склада
-                                boxProductRepository.save(boxProduct); // Кладем в корзинку
-                                orderProductRepository.update(orderProduct); // Пишем в заказе что его часть исполнена
                             }
                             // Считаем какой объем зарезервирован на складе
                             int reservedVolume = 0;
+                            /*
                             Set<ReserveProduct> reserveProductSet = storageProduct.getReserve();
                             for (ReserveProduct rp : reserveProductSet) {
                                 reservedVolume += rp.getReserveVolume();
                             }
-
+*/
                             // Ели остался свободный объем на складе, то докладываем нужное количество в заказ
-                            int freeVolume = storageProduct.getVolume() - reservedVolume;
+                            Long tmp = reserveProductRepository.sumInReserve(article, userId);
+                            if (tmp != null) {
+                                reservedVolume = tmp.intValue();
+                            }
+                            int spVolume = 0;
+                            Long tmp1 = storageProductRepository.getFreeVolume(article, userId);
+                            if (tmp1 != null) {
+                                spVolume = tmp1.intValue();
+                            }
+
+
+                            int freeVolume = spVolume - reservedVolume;
+
                             if (freeVolume > 0) {
+
                                 int unfulfilledVolume = orderVolume - orderProduct.getExecutedVolume();
                                 if (unfulfilledVolume > freeVolume) {
                                     unfulfilledVolume = freeVolume;
                                 }
-                                storageProduct.setVolume(storageProduct.getVolume() - unfulfilledVolume);
+                                List<StorageProduct> storageProductListWithWriteOfUnreservedVolumFromOrder = writeOffVolumesForArticle(article, unfulfilledVolume, userId);
+//                                storageProduct.setVolume(storageProduct.getVolume() - unfulfilledVolume);
+                                //TODO Сделать добавление бох продуктов отдельно для каждой цены
                                 boxProduct.setVolume(boxProduct.getVolume() + unfulfilledVolume);
                                 orderProduct.setExecutedVolume(orderProduct.getExecutedVolume() + unfulfilledVolume);
                                 storageProductRepository.update(storageProduct);
@@ -186,6 +204,19 @@ public class BoxServiceImpl implements BoxService {
             }
         }
         return box;
+    }
+
+    private List<StorageProduct> writeOffVolumesForArticle(int article, int volume, int userId) {
+        int totalToWriteOff = volume;
+
+        List<StorageProduct> storageProductList = storageProductRepository.getAllWithFreeVolume(article, userId);
+        for (StorageProduct storageProduct : storageProductList) {
+            int volumeToWriteOff = Math.min(storageProduct.getVolume(), totalToWriteOff);
+            storageProduct.setVolume(storageProduct.getVolume() - volumeToWriteOff);
+            totalToWriteOff -= volumeToWriteOff;
+        }
+
+        return storageProductList;
     }
 
 }

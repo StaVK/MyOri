@@ -7,12 +7,13 @@ import java.util.Set;
 
 public class OrderProductTo extends OrderProduct {
 
-    ReserveProduct reserve;
+//    ReserveProduct reserve;
+
+    int reserve;
 
     int available;
 
-//    public OrderProductTo(OrderProduct orderProduct, Set<ReserveProduct> reserve, int available) {
-    public OrderProductTo(OrderProduct orderProduct, ReserveProduct reserve, int available) {
+    public OrderProductTo(OrderProduct orderProduct, int reserve, int available) {
         super(orderProduct);
         this.reserve = reserve;
         this.available = available;

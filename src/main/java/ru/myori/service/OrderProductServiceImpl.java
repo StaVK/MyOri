@@ -48,7 +48,7 @@ public class OrderProductServiceImpl implements OrderProductService {
         List<OrderProductTo> orderProductToList = new ArrayList<>();
         OrderProductTo orderProductTo = null;
         OrderProduct orderProduct = null;
-        StorageProduct storageProduct;
+//        StorageProduct storageProduct;
 //        Set<ReserveProduct> reserve;
         ReserveProduct reserveProduct = null;
 
@@ -63,25 +63,66 @@ public class OrderProductServiceImpl implements OrderProductService {
             // Пробегаем по всем складам чтоб вычислить количество которое зарезервированно
             // и доступно для резервирования для данного артикула
             int totalReservedVolumeForThisArticle = 0;
-            for (Storage storage : storages) {
+/*            for (Storage storage : storages) {
 
-                storageProduct = storageProductRepository.getByArticleAndStorage(article, storage.getStorageId());
+//                storageProduct = storageProductRepository.getFirstByArticle(article, storage.getStorageId());
 
-                if (storageProduct != null) {
+                Set<StorageProduct> storageProductSet = storageProductRepository.getAllByArticle(article, storage.getStorageId());
+
+                for (StorageProduct storageProduct : storageProductSet) {
+                    Long tmp = reserveProductRepository.sumReserveVolumeByStorageProduct_SpId(storageProduct.getSpId());
+                    if (tmp != null) {
+                        totalReservedVolumeForThisArticle += tmp.intValue();
+                        available += storageProduct.getVolume() - totalReservedVolumeForThisArticle;
+                    }
+
+
+                }
+
+                //================
+                *//*for(StorageProduct storageProduct: storageProductSet) {
                     reserveProduct = reserveProductRepository.getByOp(orderProduct.getOpId());
                     if (reserveProduct != null) {
                         totalReservedVolumeForThisArticle += reserveProduct.getReserveVolume();
                     }
                     available += storageProduct.getVolume() - totalReservedVolumeForThisArticle;
-                }
+                }*//*
+                //====================
 
-            }
+            }*/
 
-            orderProductTo = new OrderProductTo(orderProduct, reserveProduct, available);
+            orderProductTo = new OrderProductTo(
+                    orderProduct,
+                    getSummReserveProductReservedVolume(orderProduct.getOpId()),
+                    getAvailableStorageProductVolume(article, userId));
             orderProductToList.add(orderProductTo);
 
         }
         return orderProductToList;
+    }
+    private int getSummReserveProductReservedVolume(int opId){
+        int result=0;
+        Long tmp=reserveProductRepository.sumReserveVolumeByStorageProduct_OpId(opId);
+        if(tmp!=null){
+            result=tmp.intValue();
+        }
+
+        return result;
+    }
+
+    private int getAvailableStorageProductVolume(int article, int userId) {
+        int result=0;
+        List<StorageProduct> storageProductList = storageProductRepository.getAllByArticleAndUser(article, userId);
+        for (StorageProduct storageProduct : storageProductList) {
+            int spVolume=storageProduct.getVolume();
+            int rpVolume=0;
+            Long tmp=reserveProductRepository.sumReserveVolumeByStorageProduct_SpId(storageProduct.getSpId());
+            if(tmp!=null){
+                rpVolume=tmp.intValue();
+            }
+            result+=spVolume-rpVolume;
+        }
+        return result;
     }
 
     @Override
@@ -109,14 +150,4 @@ public class OrderProductServiceImpl implements OrderProductService {
     }
 
 
-
-/*    @Override
-    public int update(OrderProduct orderProduct) {
-        return orderProductRepository.update(orderProduct);
-    }
-
-    @Override
-    public int updateExecutedVolume(OrderProduct orderProduct) {
-        return orderProductRepository.updateExecutedVolume(orderProduct);
-    }*/
 }

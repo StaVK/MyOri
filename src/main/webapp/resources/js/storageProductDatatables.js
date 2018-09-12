@@ -1,7 +1,6 @@
 var ajaxUrlStorageProduct = "ajax/sp/";
 var datatableApiStorageProduct;
 
-var formXLS = document.getElementById('importFromXLSForm');
 var fileSelect = document.getElementById('file');
 var uploadButton = document.getElementById('upload-button');
 
@@ -22,7 +21,7 @@ $(function () {
                 "mData": "product.description"
             },
             {
-                "mData": "product.price"
+                "mData": "price"
             },
             {
                 "mData": "volume"
@@ -55,8 +54,6 @@ function add() {
     form.find(":input").val("");
     $("#editRow").modal();
 }
-
-var formXLSFile = $("#importFromXLSForm");
 
 function selectFileXLS() {
     $('#fileXLS').trigger('click');
@@ -91,6 +88,7 @@ function importNewProductInStorageFromXLS(event) {
         processData: false,
         success: function () {
             // $('#upload-button').html(i18n["addTitle"])
+            fileSelect.value="",
             uploadButton.innerHTML=i18n["common.import"],
             updateTable();
         }

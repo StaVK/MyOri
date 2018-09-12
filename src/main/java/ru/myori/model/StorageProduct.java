@@ -7,10 +7,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static ru.myori.model.AbstractBaseEntity.START_SEQ;
 
@@ -58,7 +55,6 @@ public class StorageProduct {
         this.price = price;
         this.storage = storage;
     }
-
 
     public Set<ReserveProduct> getReserve() {
         return reserve;

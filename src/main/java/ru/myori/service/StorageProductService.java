@@ -9,9 +9,11 @@ public interface StorageProductService {
 
     StorageProduct save(StorageProduct storageProduct);
 
-    StorageProduct getByArticle(int article, int storageId);
+    StorageProduct getByArticleAndPrice(int article, int storageId, float price);
 
     void createOrUpdate(int article, int storageId, int volume, float price,int userId);
+
+    StorageProduct getFirstByArticle(int article, int storageId);
 
 
 }

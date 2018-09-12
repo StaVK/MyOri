@@ -36,7 +36,7 @@ $(function () {
                 }
             },
             {
-                "mData": "reserved",
+                "mData": "reserve",
                 "defaultContent": "zero",
                 "render": renderReserved
             },
@@ -99,16 +99,14 @@ $(function () {
 
 function renderReserved(data, type, row) {
     // var reserveSet=new Set(row.reserve);
-    var summ=0;
-    if(row.reserve!=null){
-        summ=row.reserve.reserveVolume;
-    }
-    if (row.status !== 2) {
+    var reserve=row.reserve;
 
-        return "<input id=rp" + row.opId + " type='number' onchange='changeReserve(" + row.opId + ")' value='" + summ + "'>";
+    if (row.volume !== row.executedVolume) {
+
+        return "<input id=rp" + row.opId + " type='number' onchange='changeReserve(" + row.opId + ")' value='" + reserve + "'>";
     }
     // for (let item of reserveSet) summ=summ+item.reserveVolume;
-    else return summ;
+    else return reserve;
 }
 
 function changeReserve(opId) {

@@ -52,7 +52,7 @@ public abstract class AbstractStorageProductController {
     public StorageProduct getByArticle(int article, int storageId){
         int userId = AuthorizedUser.id();
         log.info("getByArticle {} and by storage {} for User {}", article, storageId, userId);
-        return storageProductService.getByArticle(article, storageId);
+        return storageProductService.getFirstByArticle(article, storageId);
     }
 
     public void createOrUpdate(int article, int storageId, int volume, float price){
@@ -97,36 +97,15 @@ public abstract class AbstractStorageProductController {
         while (it.hasNext()) {
             Row row = it.next();
             if(row.getCell(0).getCellType()==Cell.CELL_TYPE_NUMERIC) {
-//                String cell=row.getCell(0).getStringCellValue();
                 int article = ((Number)(getCell(row.getCell(0)))).intValue();
-                String description =(String) getCell(row.getCell(1));
+//                String description =(String) getCell(row.getCell(1));
                 double price = (Double) getCell(row.getCell(2));
                 int volume = ((Number)(getCell(row.getCell(3)))).intValue();
 
                 storageProductService.createOrUpdate(article, storageId,volume, (float) price,userId);
 
             }
-/*            Iterator<Cell> cells = row.iterator();
-            while (cells.hasNext()) {
-                Cell cell = cells.next();
-                int cellType = cell.getCellType();
-                switch (cellType) {
-                    case Cell.CELL_TYPE_STRING:
-                        result.append(cell.getStringCellValue()).append("=");
-                        break;
-                    case Cell.CELL_TYPE_NUMERIC:
-                        result.append("[").append(cell.getNumericCellValue()).append("]");
-                        break;
 
-                    case Cell.CELL_TYPE_FORMULA:
-                        result.append("[").append(cell.getNumericCellValue()).append("]");
-                        break;
-                    default:
-                        result.append("|");
-                        break;
-                }
-            }*/
-//            result.append("\n");
         }
 
     }

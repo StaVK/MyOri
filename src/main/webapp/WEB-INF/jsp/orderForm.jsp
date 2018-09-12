@@ -26,21 +26,6 @@
                 <hr>
 
                 <div class="view-box">
-<%--                    <form class="form-horizontal">
-                        <div class="form-group">
-                            <label for="customer" class="control-label col-xs-3"><spring:message
-                                    code="common.customer"/></label>
-                            <div class="col-xs-9">
-                                <input type="text" id="customer" name="customer" placeholder="0" readonly
-                                       value="${order.customer.people.name} ${order.customer.people.surname}">
-
-                                <c:if test="${order.status!=1}">
-                                    <a onclick='editCustomer();'><span class='glyphicon glyphicon-pencil'
-                                                                       aria-hidden='true'></span></a>
-                                </c:if>
-                            </div>
-                        </div>--%>
-                    </form>
                     <c:if test="${order.status!=1}">
                         <form class="form-horizontal" id="addProductInOrderForm">
                             <div class="form-group">
@@ -85,10 +70,10 @@
                         </tr>
                         </thead>
                     </table>
-                    <c:if test="${order.status!=1}">
+                    <c:if test="${order.status==0}">
                         <div class="form-group">
                             <div class="col-xs-offset-10 col-xs-9">
-                                <button class="btn btn-primary" type="button" onclick="changeStatus()">
+                                <button class="btn btn-primary" type="button" onclick="changeStatus()" id="statusButton" name="statusButton">
                                     <spring:message code="order.inTreatment"/>
                                 </button>
                             </div>

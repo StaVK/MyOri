@@ -31,16 +31,14 @@
                 <hr>
                 <%--<form method="POST" enctype="multipart/form-data" id="importFromXLSForm" action="upload">--%>
                 <form method="POST" id="importFromXLSForm">
-                    <input type="file" name="file" id="file"><br/>
-                    <input type="hidden" id="storage" name="storage" value=${storageId}>
+                    <input type="file" name="file" id="file" accept="application/vnd.ms-excel"><br/>
+                    <input class="btn" type="hidden" id="storage" name="storage" value=${storageId} >
 
-                    <button class="btn btn-primary" type="button" onclick="importNewProductInStorageFromXLS(event)" id="upload-button"><spring:message code="common.import"/></button>
+                    <a class="btn btn-primary" onclick="importNewProductInStorageFromXLS(event)" id="upload-button">
+                        <spring:message code="common.import"/>
+                    </a>
+                    <%--<button class="btn btn-primary" type="button" onclick="importNewProductInStorageFromXLS(event)" id="upload-button"><spring:message code="common.import"/></button>--%>
                 </form>
-
-                <%--                <a class="btn btn-primary" onclick="add()">
-                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                    <spring:message code="common.addFromOrder"/>
-                                </a>--%>
 
                 <hr>
                 <table class="table table-striped display" id="storageProductDatatable">

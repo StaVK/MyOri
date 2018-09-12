@@ -15,12 +15,6 @@ public class DataJpaOrderProductRepositoryImpl implements OrderProductRepository
     @Autowired
     private CrudOrderProductRepository crudOrderProductRepository;
 
-    @Autowired
-    private CrudOrderRepository crudOrderRepository;
-
-    @Autowired
-    private CrudProductRepository crudProductRepository;
-
     @Override
     public boolean delete(int opId) {
         return crudOrderProductRepository.delete(opId)!=0;
@@ -57,9 +51,10 @@ public class DataJpaOrderProductRepositoryImpl implements OrderProductRepository
 
     @Override
     public int update(OrderProduct orderProduct){
-        if(orderProduct.getExecutedVolume()==get(orderProduct.getOpId()).getExecutedVolume()){
-            orderProduct.setStatus(OrderProduct.ORDER_PRODUCT_FINISH);
-        }
+
+/*        if(orderProduct.getExecutedVolume()==get(orderProduct.getOpId()).getExecutedVolume()){
+            orderProduct.setStatus(OrderProduct.ORDER_PRODUCT_CLIENT);
+        }*/
 
         return crudOrderProductRepository.update(
                 orderProduct.getOpId(),

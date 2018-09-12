@@ -28,8 +28,8 @@ public class AjaxStorageProductController extends AbstractStorageProductControll
             @RequestParam("article") int article,
             @RequestParam("storageId") int storageId,
             @RequestParam("volume") int volume,
-            @RequestParam("price") float price) {
-        super.createOrUpdate(article, storageId, volume, price);
+            @RequestParam("price") String price) {
+        super.createOrUpdate(article, storageId, volume, Float.parseFloat(price));
 
 
     }
