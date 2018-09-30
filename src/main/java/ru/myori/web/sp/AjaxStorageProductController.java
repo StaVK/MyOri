@@ -17,6 +17,11 @@ public class AjaxStorageProductController extends AbstractStorageProductControll
     @Autowired
     private HttpServletRequest request;
 
+    @GetMapping(value = "/printSpReport/{storage}")
+    public void printSpReport(@PathVariable("storage") int storageId) {
+        super.printReport(storageId);
+    }
+
     @GetMapping(value = "/{storageId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<StorageProduct> getProducts(@PathVariable("storageId") int storageId) {
         List<StorageProduct> tmp=super.getProducts(storageId);

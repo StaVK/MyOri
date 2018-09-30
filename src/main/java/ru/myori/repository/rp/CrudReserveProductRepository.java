@@ -50,4 +50,6 @@ public interface CrudReserveProductRepository extends JpaRepository<ReserveProdu
     Long sumInReserve(@Param("article") int article, @Param("userId") int userId);
 
     ReserveProduct getLastByOrderProductOpId(int opId);
+
+    ReserveProduct getByStorageProduct_SpIdAndOrderProduct_OpId(int spId, int opId);
 }

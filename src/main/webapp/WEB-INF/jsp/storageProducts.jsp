@@ -28,6 +28,10 @@
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                     <spring:message code="common.add"/>
                 </a>
+                <a class="btn btn-primary" onclick="printSpReport()">
+                    <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
+                    <spring:message code="storage.statementOfGoodsInWarehouses"/>
+                </a>
                 <hr>
                 <%--<form method="POST" enctype="multipart/form-data" id="importFromXLSForm" action="upload">--%>
                 <form method="POST" id="importFromXLSForm">

@@ -52,9 +52,9 @@ public class DataJpaOrderProductRepositoryImpl implements OrderProductRepository
     @Override
     public int update(OrderProduct orderProduct){
 
-/*        if(orderProduct.getExecutedVolume()==get(orderProduct.getOpId()).getExecutedVolume()){
+        if(orderProduct.getExecutedVolume()==get(orderProduct.getOpId()).getExecutedVolume()){
             orderProduct.setStatus(OrderProduct.ORDER_PRODUCT_CLIENT);
-        }*/
+        }
 
         return crudOrderProductRepository.update(
                 orderProduct.getOpId(),

@@ -99,3 +99,21 @@ function changeStatus() {
     })
 }
 
+var failedNote;
+function closeNoty() {
+    if (failedNote) {
+        failedNote.close();
+        failedNote = undefined;
+    }
+}
+
+function successNoty(key) {
+    closeNoty();
+    new Noty({
+        text: "<span class='glyphicon glyphicon-ok'></span> &nbsp;" + i18n[key],
+        type: "success",
+        layout: "bottomRight",
+        timeout: 1000
+    }).show();
+}
+

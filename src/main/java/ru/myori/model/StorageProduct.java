@@ -30,7 +30,7 @@ public class StorageProduct {
     private int volume;
 
     @Column(name = "price")
-    private float price;
+    private double price;
 
     @JsonIgnore
     @ManyToOne
@@ -56,6 +56,14 @@ public class StorageProduct {
         this.storage = storage;
     }
 
+    public StorageProduct(StorageProduct storageProduct){
+        this.spId=storageProduct.spId;
+        this.product = storageProduct.product;
+        this.volume = storageProduct.volume;
+        this.price = storageProduct.price;
+        this.storage = storageProduct.storage;
+    }
+
     public Set<ReserveProduct> getReserve() {
         return reserve;
     }
@@ -64,7 +72,7 @@ public class StorageProduct {
         this.reserve = reserve;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 

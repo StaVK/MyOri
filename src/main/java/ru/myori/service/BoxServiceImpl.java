@@ -202,6 +202,16 @@ public class BoxServiceImpl implements BoxService {
 
                 }
             }
+            // Проверяет все OrderProduct на статус и если у всех статус ORDER_PRODUCT_CLIENT Делает статус заказа ORDER_FINISH
+            boolean orderStatusFinish=true;
+            for(OrderProduct orderProduct:orderProductSet){
+                if(OrderProduct.ORDER_PRODUCT_CLIENT!=orderProduct.getStatus()){
+                    orderStatusFinish=false;
+                }
+            }
+            if(orderStatusFinish){
+                orderRepository.changeStatus(order.getOrderId(),Order.ORDER_FINISH);
+            }
         }
         return box;
     }

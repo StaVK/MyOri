@@ -26,7 +26,7 @@
                 <hr>
 
                 <div class="view-box">
-                    <c:if test="${order.status!=1}">
+                    <c:if test="${order.status==0}">
                         <form class="form-horizontal" id="addProductInOrderForm">
                             <div class="form-group">
                                 <label for="article" class="control-label col-xs-3"><spring:message

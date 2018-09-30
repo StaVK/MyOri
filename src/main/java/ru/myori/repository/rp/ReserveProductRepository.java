@@ -10,6 +10,8 @@ public interface ReserveProductRepository {
 
     ReserveProduct getBySp(int spId);
 
+    ReserveProduct getBySpAndOp(int spId, int opId);
+
     ReserveProduct save(ReserveProduct reserveProduct);
 
     List<ReserveProduct> getAllByUserAndArticle(int userId, int article);
@@ -21,6 +23,7 @@ public interface ReserveProductRepository {
     Long sumReserveVolumeByStorageProduct_SpId(int spId);
     Long sumReserveVolumeByStorageProduct_OpId(int opId);
 
+    // Вычисление количества, зарезервированного для даннного артикула
     Long sumInReserve(int article, int userId);
 
     ReserveProduct getLastByOrderProductOpId(int opId);

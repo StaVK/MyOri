@@ -39,12 +39,31 @@ function printSpReport() {
 }
 
 function sendToCustomer() {
-    // $.get(ajaxUrlBoxProduct+"sendToCustomer/"+$("#boxId").val());
     $.ajax({
         type: "GET",
         url: ajaxUrlBoxProduct+"sendToCustomer/"+$("#boxId").val(),
         success: function () {
             $('#sendToCustomerButton').remove();
+            successNoty("box.send");
         }
     })
+}
+
+//======================================
+var failedNote;
+function closeNoty() {
+    if (failedNote) {
+        failedNote.close();
+        failedNote = undefined;
+    }
+}
+
+function successNoty(key) {
+    closeNoty();
+    new Noty({
+        text: "<span class='glyphicon glyphicon-ok'></span> &nbsp;" + i18n[key],
+        type: "success",
+        layout: "bottomRight",
+        timeout: 1000
+    }).show();
 }

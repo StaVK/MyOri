@@ -13,7 +13,7 @@ ALTER SEQUENCE global_seq RESTART WITH 100000;
 INSERT INTO people (name, surname, patronymic, phoneNumber)
 VALUES ('peopleName1', 'peopleSurame1', 'peoplePatronymic1', 123456789012);
 INSERT INTO people (name, surname, patronymic, phoneNumber)
-VALUES ('Дуня', 'Малаева', 'Ипполитовна', 123456789013);
+VALUES ('Дуня', 'Малаева', 'Ипполитовна',123456789013);
 
 -- 1
 INSERT INTO users (name, email, password, peopleid)
@@ -33,8 +33,8 @@ INSERT INTO products (article, description, price) VALUES
   ('888', 'Дезодорант', 1500);
 -- 11
 
-INSERT INTO customers (customerId, userId, peopleid)
-VALUES (nextval('global_seq'), 100002, 100001);
+INSERT INTO customers (customerId, userId, peopleid,distributor)
+VALUES (nextval('global_seq'), 100002, 100001, true );
 
 INSERT INTO orders (orderId, user_id, customerid, status) VALUES
   (nextval('global_seq'), '100002', '100012', '0');
@@ -78,7 +78,7 @@ INSERT INTO storage_products (spid, volume, price, prodid, storageid)
 VALUES (nextval('global_seq'), 5, 1.1, 100004, 100020);
 
 INSERT INTO storage_products (spid, volume, price, prodid, storageid)
-VALUES (nextval('global_seq'), 1, 1.1, 100005, 100020);
+VALUES (nextval('global_seq'), 3, 1.1, 100005, 100020);
 
 INSERT INTO order_products (opid, orderid, prodid, volume, executedVolume, status) VALUES
   (nextval('global_seq'), 100013, 100005, '2', '0', '0');
@@ -104,4 +104,4 @@ INSERT INTO products(article, description, price) VALUES
   (32645, 'Обновляющий скраб для лица NovAge', '12.2');
 
 INSERT INTO storage_products(spid, volume, price, prodid, storageid)
-    VALUES (nextval('global_seq'), 1, 3, 100005, 100020)
+    VALUES (nextval('global_seq'), 2, 3, 100005, 100020)

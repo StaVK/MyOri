@@ -103,7 +103,7 @@ function renderReserved(data, type, row) {
 
     if (row.volume !== row.executedVolume) {
 
-        return "<input id=rp" + row.opId + " type='number' onchange='changeReserve(" + row.opId + ")' value='" + reserve + "'>";
+        return "<input id=rp" + row.opId + " type='number' onchange='changeReserve(" + row.opId + ")' value='" + reserve + "' min='0'>";
     }
     // for (let item of reserveSet) summ=summ+item.reserveVolume;
     else return reserve;

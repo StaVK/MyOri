@@ -2,6 +2,7 @@ package ru.myori.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 import ru.myori.model.*;
 import ru.myori.repository.op.OrderProductRepository;
 import ru.myori.repository.rp.ReserveProductRepository;
@@ -27,30 +28,34 @@ public class ReserveProductServiceImpl implements ReserveProductService {
     @Autowired
     OrderProductRepository orderProductRepository;
 
+    private int getSummReserveProductReservedVolume(int opId){
+        int result=0;
+        Long tmp=reserveProductRepository.sumReserveVolumeByStorageProduct_OpId(opId);
+        if(tmp!=null){
+            result=tmp.intValue();
+        }
+
+        return result;
+    }
+
     @Override
     public int update(int userId, int opId, int reserveVolume) {
+        Assert.isTrue(reserveVolume>=0, "Reserved volume must not be < 0");
+
         User user = userRepository.get(userId);
-        Set<Storage> storages = user.getStorages();
         OrderProduct orderProduct = orderProductRepository.get(opId);
         int article = orderProduct.getProduct().getArticle();
-
-
         ReserveProduct reserveProduct = null;
 
         List<StorageProduct> storageProductList = storageProductRepository.getAllByArticleAndUser(article, userId);
 
-        Long tmp = reserveProductRepository.sumInReserve(article, userId);
+
         int sumInReserve=0;
-
-//        Integer sumInReserve = tmp != null ? tmp.intValue() : null;
-
-        if(tmp!=null){
-            sumInReserve= tmp.intValue();
-        }
+        sumInReserve=getSummReserveProductReservedVolume(opId);
 
         if (reserveVolume > sumInReserve) {
+            // Какое количество надо добавить в резерв
             int totalForReserve = reserveVolume-sumInReserve;
-//            while (totalForReserve > 0) {
                 for (StorageProduct storageProduct : storageProductList) {
                     int quantityReservedForThisSp=0;
                     Long tmp1=reserveProductRepository.sumReserveVolumeByStorageProduct_SpId(storageProduct.getSpId());
@@ -60,25 +65,21 @@ public class ReserveProductServiceImpl implements ReserveProductService {
 
                     int storageProductVolume = storageProduct.getVolume();
 
-                    reserveProduct=reserveProductRepository.getBySp(storageProduct.getSpId());
+                    reserveProduct=reserveProductRepository.getBySpAndOp(storageProduct.getSpId(), opId);
 
                     if (reserveProduct == null) {
                         reserveProduct=new ReserveProduct(storageProduct,orderProduct,0,user);
-
                     }
-                    if (quantityReservedForThisSp <= storageProductVolume) {
-                        int maxForReserve = Math.max(totalForReserve, storageProductVolume);
+                    // Если в резевре меньше чем на складе
+                    if (quantityReservedForThisSp < storageProductVolume) {
+                        int maxForReserve = Math.min(totalForReserve, storageProductVolume-quantityReservedForThisSp);
                         reserveProduct.setReserveVolume(reserveProduct.getReserveVolume()+maxForReserve);
                         totalForReserve -= maxForReserve;
+
                         reserveProductRepository.save(reserveProduct);
                     }
-
-
                     if(totalForReserve==0) break;
                 }
-
-
-//            }
         } else {
 
             int totalForUnReserve=sumInReserve-reserveVolume;
@@ -90,7 +91,13 @@ public class ReserveProductServiceImpl implements ReserveProductService {
                 int minForUnReserve = Math.min(reserveVolumeInThisRp, totalForUnReserve);
 
                 reserveProduct.setReserveVolume(reserveProduct.getReserveVolume()-minForUnReserve);
-                reserveProductRepository.save(reserveProduct);
+                if(reserveProduct.getReserveVolume()==0){
+                    reserveProductRepository.delete(reserveProduct.getRpId());
+                }
+                else{
+                    reserveProductRepository.save(reserveProduct);
+                }
+
                 totalForUnReserve -= minForUnReserve;
             }
         }

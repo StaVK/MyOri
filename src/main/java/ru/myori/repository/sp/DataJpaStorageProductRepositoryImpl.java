@@ -55,11 +55,6 @@ public class DataJpaStorageProductRepositoryImpl implements StorageProductReposi
         return crudStorageProductRepository.findAllByProduct_articleAndStorage_UserId(article, userId);
     }
 
-    @Override
-    public int sumInReserve(int article, int userId) {
-        return 0;
-//        return crudStorageProductRepository.sumInReserve(article, userId);
-    }
 
     @Override
     public Long getFreeVolume(int article, int userId) {

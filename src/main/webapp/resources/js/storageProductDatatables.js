@@ -115,3 +115,7 @@ function updateTable() {
         datatableApiStorageProduct.clear().rows.add(data).draw();
     });
 }
+
+function printSpReport() {
+    $.get(ajaxUrlStorageProduct+"printSpReport/"+$("#storageId").val());
+}

@@ -52,5 +52,6 @@ public interface CrudStorageProductRepository extends JpaRepository<StorageProdu
             "(sp.volume > (SELECT SUM(rp.reserveVolume) FROM ReserveProduct rp WHERE rp.storageProduct.spId=sp.spId) OR rp.rpId IS NULL)")
     List<StorageProduct> getAllWithFreeVolume(@Param("article") int article, @Param("userId") int userId);
 
-
+/*    @Query("SELECT SUM(sp.reserve.reserveVolume) FROM StorageProduct sp WHERE sp.spId=:spId")
+    int countReserveBySpId(@Param("spId") int spId);*/
 }

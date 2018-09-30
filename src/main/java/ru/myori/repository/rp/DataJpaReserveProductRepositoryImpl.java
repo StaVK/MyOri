@@ -68,4 +68,9 @@ public class DataJpaReserveProductRepositoryImpl implements ReserveProductReposi
     public Long sumReserveVolumeByStorageProduct_OpId(int opId) {
         return crudReserveProductRepository.sumReserveVolumeByStorageProduct_OpId(opId);
     }
+
+    @Override
+    public ReserveProduct getBySpAndOp(int spId, int opId) {
+        return crudReserveProductRepository.getByStorageProduct_SpIdAndOrderProduct_OpId(spId, opId);
+    }
 }

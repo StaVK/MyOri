@@ -7,8 +7,6 @@ import java.util.Set;
 
 public class OrderProductTo extends OrderProduct {
 
-//    ReserveProduct reserve;
-
     int reserve;
 
     int available;

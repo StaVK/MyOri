@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface StorageProductService {
     List<StorageProduct> getAll(int storageId);
+//    List<StorageProduct> getAllByArticleAndUser(int article, int userId);
 
     StorageProduct save(StorageProduct storageProduct);
 

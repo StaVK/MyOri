@@ -17,17 +17,20 @@ public interface StorageProductRepository {
 
     StorageProduct getFirstByArticle(int article, int storageId);
 
-    //TODO Исправить название метода или переделать метод, сейчас просто считает объем (без вычета резерва)
-    Long getFreeVolume(int article, int userId);
-
     int update(StorageProduct storageProduct);
 
     boolean delete(int spId);
 
     List<StorageProduct> getAllByArticleAndUser(int article, int userId);
 
-    int sumInReserve(int article, int userId);
-
     List<StorageProduct> getAllWithFreeVolume(int article, int userId);
+
+//    int sumInReserve(int spId);
+
+//=======================================================================================
+    //TODO Исправить название метода или переделать метод, сейчас просто считает объем (без вычета резерва)
+    Long getFreeVolume(int article, int userId);
+
+
 
 }
